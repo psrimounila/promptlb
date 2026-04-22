@@ -3,14 +3,17 @@ import { Logo } from "@/components/Logo";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border py-12">
-      <div className="mx-auto max-w-7xl px-6">
+    <footer className="border-t border-border py-10 sm:py-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           <Logo />
 
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm text-muted-foreground">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground sm:gap-x-8">
             <Link to="/library" className="transition-colors hover:text-foreground">
               Library
+            </Link>
+            <Link to="/playground" className="transition-colors hover:text-foreground">
+              Playground
             </Link>
             <Link to="/pricing" className="transition-colors hover:text-foreground">
               Pricing
@@ -18,9 +21,6 @@ export function Footer() {
             <Link to="/dashboard" className="transition-colors hover:text-foreground">
               Dashboard
             </Link>
-            <a href="#features" className="transition-colors hover:text-foreground">
-              Features
-            </a>
           </div>
 
           <p className="text-xs text-muted-foreground">

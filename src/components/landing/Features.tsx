@@ -15,8 +15,8 @@ const features = [
   },
   {
     icon: Brain,
-    title: "AI Recommendations",
-    desc: "Smart suggestions based on your project goals, domain, and preferred AI model.",
+    title: "Smart Recommendations",
+    desc: "Filter by category, model, and tags to find the right prompt for your goal in seconds.",
   },
   {
     icon: Layers,
@@ -26,12 +26,12 @@ const features = [
   {
     icon: PlayCircle,
     title: "Prompt Playground",
-    desc: "Try and preview prompts directly inside the site to see real output examples.",
+    desc: "Run any prompt directly inside the site, see real output, and save it to your history.",
   },
   {
     icon: FolderHeart,
-    title: "Collections & Teams",
-    desc: "Save favorites into personal or team collections and collaborate seamlessly.",
+    title: "Personal History",
+    desc: "Sign in once and every prompt you run is saved automatically. Reuse your best work anytime.",
   },
   {
     icon: Globe2,
@@ -42,25 +42,26 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="features" className="relative py-20 sm:py-32">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs font-semibold uppercase tracking-widest text-accent">
             Why PromptLB
           </span>
-          <h2 className="mt-3 text-balance text-4xl font-bold tracking-tight sm:text-5xl">
-            Everything you need to <span className="text-gradient-primary">prompt better</span>
+          <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight sm:text-5xl">
+            Everything you need to{" "}
+            <span className="text-gradient-primary">prompt better</span>
           </h2>
-          <p className="mt-5 text-lg text-muted-foreground">
+          <p className="mt-4 text-base text-muted-foreground sm:mt-5 sm:text-lg">
             One library. Every model. Crafted by creators, validated by the community.
           </p>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid grid-cols-1 gap-4 sm:mt-16 md:grid-cols-2 lg:grid-cols-3">
           {features.map((f) => (
             <div
               key={f.title}
-              className="glass group relative overflow-hidden rounded-2xl p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30"
+              className="glass group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 sm:p-7"
             >
               <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-gradient-primary opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-30" />
 

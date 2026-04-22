@@ -73,21 +73,21 @@ function AuthPage() {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center px-4 py-12">
+    <div className="relative flex min-h-screen items-center justify-center px-4 py-10 sm:py-12">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-hero opacity-50" />
       <div className="w-full max-w-md">
-        <Link to="/" className="mb-8 flex justify-center">
+        <Link to="/" className="mb-6 flex justify-center sm:mb-8">
           <Logo size="lg" />
         </Link>
 
-        <div className="glass-strong rounded-2xl p-8">
+        <div className="glass-strong rounded-2xl p-6 sm:p-8">
           <h1 className="text-2xl font-bold tracking-tight">
             {isSignUp ? "Create your account" : "Welcome back"}
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
             {isSignUp
-              ? "Start building your prompt library — free forever."
-              : "Sign in to access your prompts and collections."}
+              ? "Start building your prompt library. Free forever."
+              : "Sign in to access your prompts and history."}
           </p>
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
