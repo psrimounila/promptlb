@@ -110,6 +110,39 @@ export type Database = {
         }
         Relationships: []
       }
+      prompt_history: {
+        Row: {
+          created_at: string
+          id: string
+          model: string
+          output: string | null
+          prompt: string
+          prompt_id: string | null
+          title: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          model?: string
+          output?: string | null
+          prompt: string
+          prompt_id?: string | null
+          title?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          model?: string
+          output?: string | null
+          prompt?: string
+          prompt_id?: string | null
+          title?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       prompts: {
         Row: {
           category: string
