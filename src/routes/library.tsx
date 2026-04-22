@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { Navbar } from "@/components/landing/Navbar";
@@ -33,22 +34,24 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { toast } from "sonner";
-import {
-  Search,
-  Plus,
-  Copy,
-  Loader2,
-  Sparkles,
-  Crown,
-  Bookmark,
-  Eye,
-} from "lucide-react";
+import { Search, Plus, Copy, Loader2, Sparkles, Play } from "lucide-react";
+
+const searchSchema = z.object({
+  q: z.string().optional().catch(undefined),
+  category: z.string().optional().catch(undefined),
+  model: z.string().optional().catch(undefined),
+});
 
 export const Route = createFileRoute("/library")({
+  validateSearch: searchSchema,
   head: () => ({
     meta: [
       { title: "Prompt Library · PromptLB" },
-      { name: "description", content: "Browse thousands of verified AI prompts." },
+      {
+        name: "description",
+        content:
+          "Browse thousands of verified, free AI prompts. Filter by category and model, then run any prompt instantly.",
+      },
     ],
   }),
   component: LibraryPage,
@@ -83,13 +86,14 @@ type Prompt = {
 };
 
 function LibraryPage() {
-  const { user, isPro } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
+  const initial = Route.useSearch();
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("All");
-  const [model, setModel] = useState("All");
+  const [search, setSearch] = useState(initial.q ?? "");
+  const [category, setCategory] = useState(initial.category ?? "All");
+  const [model, setModel] = useState(initial.model ?? "All");
   const [createOpen, setCreateOpen] = useState(false);
   const [viewing, setViewing] = useState<Prompt | null>(null);
 
@@ -100,7 +104,7 @@ function LibraryPage() {
       .select("*")
       .order("upvotes", { ascending: false })
       .order("created_at", { ascending: false })
-      .limit(200);
+      .limit(500);
     if (error) toast.error(error.message);
     setPrompts((data as Prompt[]) || []);
     setLoading(false);
@@ -118,6 +122,7 @@ function LibraryPage() {
       return (
         p.title.toLowerCase().includes(q) ||
         p.content.toLowerCase().includes(q) ||
+        (p.description ?? "").toLowerCase().includes(q) ||
         p.tags.some((t) => t.toLowerCase().includes(q))
       );
     }
@@ -129,21 +134,27 @@ function LibraryPage() {
     toast.success("Copied to clipboard");
   };
 
+  const runInPlayground = (p: Prompt) => {
+    navigate({
+      to: "/playground",
+      search: { prompt: p.content, model: p.model, title: p.title },
+    });
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
-      <main className="pt-28 pb-20">
+      <main className="pt-24 pb-20 sm:pt-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          {/* Header */}
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <span className="text-xs font-semibold uppercase tracking-widest text-accent">
                 Library
               </span>
-              <h1 className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">
+              <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-5xl">
                 Browse <span className="text-gradient-primary">verified prompts</span>
               </h1>
-              <p className="mt-2 text-muted-foreground">
+              <p className="mt-2 text-sm text-muted-foreground sm:text-base">
                 {filtered.length} prompts · curated by the community
               </p>
             </div>
@@ -155,15 +166,9 @@ function LibraryPage() {
                   </Button>
                 </DialogTrigger>
                 <CreatePromptDialog
-                  isPro={isPro}
-                  myCount={prompts.filter((p) => p.user_id === user.id).length}
                   onCreated={() => {
                     setCreateOpen(false);
                     loadPrompts();
-                  }}
-                  onUpgrade={() => {
-                    setCreateOpen(false);
-                    navigate({ to: "/pricing" });
                   }}
                 />
               </Dialog>
@@ -171,11 +176,11 @@ function LibraryPage() {
           </div>
 
           {/* Filters */}
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
-                placeholder="Search by keyword, tag…"
+                placeholder="Search by keyword, tag, or description..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="pl-9"
@@ -207,7 +212,6 @@ function LibraryPage() {
             </Select>
           </div>
 
-          {/* Grid */}
           {loading ? (
             <div className="flex items-center justify-center py-32">
               <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
@@ -215,13 +219,25 @@ function LibraryPage() {
           ) : filtered.length === 0 ? (
             <div className="mt-16 rounded-2xl border border-dashed border-border p-12 text-center">
               <Sparkles className="mx-auto h-8 w-8 text-muted-foreground" />
-              <p className="mt-3 font-medium">No prompts yet</p>
+              <p className="mt-3 font-medium">No prompts match your filters</p>
               <p className="mt-1 text-sm text-muted-foreground">
-                Be the first to submit a prompt to the library.
+                Try a different keyword or clear your filters.
               </p>
+              <Button
+                variant="glass"
+                size="sm"
+                className="mt-4"
+                onClick={() => {
+                  setSearch("");
+                  setCategory("All");
+                  setModel("All");
+                }}
+              >
+                Clear filters
+              </Button>
             </div>
           ) : (
-            <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.map((p) => (
                 <Card
                   key={p.id}
@@ -256,6 +272,23 @@ function LibraryPage() {
                         </span>
                       ))}
                     </div>
+                    <div className="mt-3 flex gap-2" onClick={(e) => e.stopPropagation()}>
+                      <Button
+                        size="sm"
+                        variant="hero"
+                        className="flex-1"
+                        onClick={() => runInPlayground(p)}
+                      >
+                        <Play className="h-3 w-3" /> Run
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="glass"
+                        onClick={() => copy(p.content)}
+                      >
+                        <Copy className="h-3 w-3" />
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -264,7 +297,6 @@ function LibraryPage() {
         </div>
       </main>
 
-      {/* View dialog */}
       <Dialog open={!!viewing} onOpenChange={(o) => !o && setViewing(null)}>
         {viewing && (
           <DialogContent className="max-w-2xl">
@@ -293,26 +325,19 @@ function LibraryPage() {
                 </span>
               ))}
             </div>
-            <DialogFooter className="gap-2 sm:gap-2">
+            <DialogFooter className="flex-col gap-2 sm:flex-row sm:gap-2">
               <Button variant="glass" onClick={() => copy(viewing.content)}>
-                <Copy className="h-4 w-4" /> Copy
+                <Copy className="h-4 w-4" /> Copy prompt
               </Button>
-              {user && (
-                <Button
-                  variant="hero"
-                  onClick={() => {
-                    if (!isPro) {
-                      toast.info("Optimizer is a Pro feature");
-                      navigate({ to: "/pricing" });
-                      return;
-                    }
-                    navigate({ to: "/dashboard" });
-                  }}
-                >
-                  {isPro ? <Sparkles className="h-4 w-4" /> : <Crown className="h-4 w-4" />}
-                  {isPro ? "Optimize with AI" : "Optimize (Pro)"}
-                </Button>
-              )}
+              <Button
+                variant="hero"
+                onClick={() => {
+                  runInPlayground(viewing);
+                  setViewing(null);
+                }}
+              >
+                <Play className="h-4 w-4" /> Run in Playground
+              </Button>
             </DialogFooter>
           </DialogContent>
         )}
@@ -322,19 +347,8 @@ function LibraryPage() {
   );
 }
 
-function CreatePromptDialog({
-  isPro,
-  myCount,
-  onCreated,
-  onUpgrade,
-}: {
-  isPro: boolean;
-  myCount: number;
-  onCreated: () => void;
-  onUpgrade: () => void;
-}) {
+function CreatePromptDialog({ onCreated }: { onCreated: () => void }) {
   const { user } = useAuth();
-  const FREE_LIMIT = 5;
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [description, setDescription] = useState("");
@@ -343,12 +357,13 @@ function CreatePromptDialog({
   const [tags, setTags] = useState("");
   const [saving, setSaving] = useState(false);
 
-  const overLimit = !isPro && myCount >= FREE_LIMIT;
-
   const submit = async () => {
     if (!user) return;
     setSaving(true);
-    const tagArr = tags.split(",").map((t) => t.trim()).filter(Boolean);
+    const tagArr = tags
+      .split(",")
+      .map((t) => t.trim())
+      .filter(Boolean);
     const { error } = await supabase.from("prompts").insert({
       user_id: user.id,
       title,
@@ -372,38 +387,12 @@ function CreatePromptDialog({
     onCreated();
   };
 
-  if (overLimit) {
-    return (
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Crown className="h-5 w-5" /> Free limit reached
-          </DialogTitle>
-          <DialogDescription>
-            You've published {FREE_LIMIT} prompts on the Free plan. Upgrade to Pro for
-            unlimited prompts, AI optimizer, team collections, and more.
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <Button variant="hero" onClick={onUpgrade}>
-            <Crown className="h-4 w-4" /> Upgrade to Pro
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    );
-  }
-
   return (
     <DialogContent className="max-w-xl">
       <DialogHeader>
         <DialogTitle>Submit a prompt</DialogTitle>
         <DialogDescription>
-          Share your best prompt with the community.{" "}
-          {!isPro && (
-            <span className="text-accent">
-              ({myCount}/{FREE_LIMIT} on Free plan)
-            </span>
-          )}
+          Share your best prompt with the community. Free for everyone.
         </DialogDescription>
       </DialogHeader>
       <div className="space-y-4">
@@ -463,7 +452,7 @@ function CreatePromptDialog({
             id="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="Write your prompt here…"
+            placeholder="Write your prompt here..."
             rows={6}
             className="font-mono text-sm"
           />

@@ -5,27 +5,25 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import {
-  Crown,
   Loader2,
   Plus,
   Sparkles,
   Trash2,
   TrendingUp,
-  Wand2,
-  Bookmark,
+  History,
+  Play,
+  Copy,
+  BookOpen,
 } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
@@ -47,17 +45,21 @@ type Prompt = {
   created_at: string;
 };
 
+type HistoryItem = {
+  id: string;
+  title: string | null;
+  prompt: string;
+  model: string;
+  output: string | null;
+  created_at: string;
+};
+
 function DashboardPage() {
-  const { user, profile, isPro, loading: authLoading } = useAuth();
+  const { user, profile, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const [prompts, setPrompts] = useState<Prompt[]>([]);
+  const [history, setHistory] = useState<HistoryItem[]>([]);
   const [loading, setLoading] = useState(true);
-
-  // Optimizer state
-  const [optimizerInput, setOptimizerInput] = useState("");
-  const [optimizerModel, setOptimizerModel] = useState("ChatGPT");
-  const [optimizerOutput, setOptimizerOutput] = useState("");
-  const [optimizing, setOptimizing] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !user) navigate({ to: "/auth", search: { mode: "signin" } });
@@ -66,48 +68,56 @@ function DashboardPage() {
   const load = async () => {
     if (!user) return;
     setLoading(true);
-    const { data } = await supabase
-      .from("prompts")
-      .select("*")
-      .eq("user_id", user.id)
-      .order("created_at", { ascending: false });
-    setPrompts((data as Prompt[]) || []);
+    const [promptsRes, historyRes] = await Promise.all([
+      supabase
+        .from("prompts")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false }),
+      supabase
+        .from("prompt_history")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false })
+        .limit(30),
+    ]);
+    setPrompts((promptsRes.data as Prompt[]) || []);
+    setHistory((historyRes.data as HistoryItem[]) || []);
     setLoading(false);
   };
 
   useEffect(() => {
     if (user) load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  const remove = async (id: string) => {
+  const removePrompt = async (id: string) => {
     const { error } = await supabase.from("prompts").delete().eq("id", id);
     if (error) return toast.error(error.message);
     toast.success("Prompt deleted");
     setPrompts((p) => p.filter((x) => x.id !== id));
   };
 
-  const optimize = async () => {
-    if (!isPro) {
-      toast.info("Upgrade to Pro to use the AI optimizer");
-      navigate({ to: "/pricing" });
-      return;
-    }
-    if (!optimizerInput.trim()) return;
-    setOptimizing(true);
-    setOptimizerOutput("");
-    try {
-      const { data, error } = await supabase.functions.invoke("optimize-prompt", {
-        body: { prompt: optimizerInput, model: optimizerModel },
-      });
-      if (error) throw error;
-      if (data?.error) throw new Error(data.error);
-      setOptimizerOutput(data.optimized || "");
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : "Failed to optimize";
-      toast.error(msg);
-    } finally {
-      setOptimizing(false);
-    }
+  const removeHistory = async (id: string) => {
+    const { error } = await supabase.from("prompt_history").delete().eq("id", id);
+    if (error) return toast.error(error.message);
+    setHistory((h) => h.filter((x) => x.id !== id));
+  };
+
+  const copy = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast.success("Copied");
+  };
+
+  const reuse = (h: HistoryItem) => {
+    navigate({
+      to: "/playground",
+      search: {
+        prompt: h.prompt,
+        model: h.model,
+        title: h.title ?? undefined,
+      },
+    });
   };
 
   if (authLoading || !user) {
@@ -123,156 +133,136 @@ function DashboardPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
-      <main className="pt-28 pb-20">
+      <main className="pt-24 pb-20 sm:pt-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          {/* Header */}
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              <h1 className="text-2xl font-bold tracking-tight sm:text-4xl">
                 Welcome back,{" "}
                 <span className="text-gradient-primary">
                   {profile?.display_name || "creator"}
                 </span>
               </h1>
-              <p className="mt-1 text-muted-foreground">
-                {isPro ? (
-                  <span className="inline-flex items-center gap-1.5">
-                    <Crown className="h-3.5 w-3.5 text-amber-400" />
-                    Pro plan · Unlimited everything
-                  </span>
-                ) : (
-                  "Free plan · 5 prompts · Upgrade for more"
-                )}
+              <p className="mt-1 text-sm text-muted-foreground">
+                Your prompts, history and saves all in one place.
               </p>
             </div>
-            {!isPro && (
-              <Button
-                className="bg-gradient-pro text-amber-950 hover:opacity-90"
-                onClick={() => navigate({ to: "/pricing" })}
-              >
-                <Crown className="h-4 w-4" /> Upgrade to Pro
-              </Button>
-            )}
+            <Button variant="hero" onClick={() => navigate({ to: "/playground" })}>
+              <Play className="h-4 w-4" /> Open Playground
+            </Button>
           </div>
 
           {/* Stats */}
-          <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
             <StatCard label="My prompts" value={prompts.length} icon={Sparkles} />
             <StatCard label="Total upvotes" value={totalUpvotes} icon={TrendingUp} />
-            <StatCard label="Plan" value={isPro ? "PRO" : "FREE"} icon={Crown} highlight={isPro} />
-            <StatCard
-              label="Limit"
-              value={isPro ? "∞" : `${prompts.length}/5`}
-              icon={Bookmark}
-            />
+            <StatCard label="Runs saved" value={history.length} icon={History} />
+            <StatCard label="Library" value="Browse" icon={BookOpen} />
           </div>
 
-          {/* AI Optimizer */}
+          {/* History */}
           <section className="mt-10">
-            <div className="glass-strong relative overflow-hidden rounded-2xl p-6 sm:p-8">
-              {!isPro && (
-                <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gradient-pro opacity-20 blur-3xl" />
-              )}
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <Wand2 className="h-5 w-5 text-accent" />
-                    <h2 className="text-xl font-bold">AI Prompt Optimizer</h2>
-                    {!isPro && (
-                      <Badge className="bg-gradient-pro text-amber-950">PRO</Badge>
-                    )}
-                  </div>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    Paste any prompt and get a sharper, model-tuned version.
-                  </p>
-                </div>
-                <Select value={optimizerModel} onValueChange={setOptimizerModel}>
-                  <SelectTrigger className="w-44">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {["ChatGPT", "Claude", "Gemini", "Midjourney", "DALL·E"].map((m) => (
-                      <SelectItem key={m} value={m}>
-                        {m}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-2">
-                <div>
-                  <label className="text-xs font-medium text-muted-foreground">
-                    Your prompt
-                  </label>
-                  <Textarea
-                    rows={8}
-                    value={optimizerInput}
-                    onChange={(e) => setOptimizerInput(e.target.value)}
-                    placeholder="Write a blog post about AI…"
-                    className="mt-1.5 font-mono text-sm"
-                  />
-                  <Button
-                    variant="hero"
-                    className="mt-3 w-full"
-                    onClick={optimize}
-                    disabled={optimizing || !optimizerInput.trim()}
-                  >
-                    {optimizing ? (
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                    ) : (
-                      <Wand2 className="h-4 w-4" />
-                    )}
-                    {isPro ? "Optimize prompt" : "Try optimizer (Pro)"}
-                  </Button>
-                </div>
-                <div>
-                  <label className="text-xs font-medium text-muted-foreground">
-                    Optimized output
-                  </label>
-                  <div className="mt-1.5 min-h-[200px] rounded-md border border-input bg-surface/40 p-3 font-mono text-sm">
-                    {optimizing ? (
-                      <span className="text-muted-foreground">Optimizing…</span>
-                    ) : optimizerOutput ? (
-                      <p className="whitespace-pre-wrap">{optimizerOutput}</p>
-                    ) : (
-                      <span className="text-muted-foreground">
-                        Optimized prompt will appear here.
-                      </span>
-                    )}
-                  </div>
-                  {optimizerOutput && (
-                    <Button
-                      variant="glass"
-                      className="mt-3 w-full"
-                      onClick={() => {
-                        navigator.clipboard.writeText(optimizerOutput);
-                        toast.success("Copied!");
-                      }}
-                    >
-                      Copy result
-                    </Button>
-                  )}
-                </div>
-              </div>
+            <div className="flex items-center justify-between">
+              <h2 className="flex items-center gap-2 text-xl font-bold sm:text-2xl">
+                <History className="h-5 w-5 text-accent" /> Recent runs
+              </h2>
+              <Button
+                variant="glass"
+                size="sm"
+                onClick={() => navigate({ to: "/playground" })}
+              >
+                <Play className="h-4 w-4" /> New run
+              </Button>
             </div>
+
+            {loading ? (
+              <div className="flex justify-center py-12">
+                <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+              </div>
+            ) : history.length === 0 ? (
+              <div className="mt-6 rounded-2xl border border-dashed border-border p-10 text-center">
+                <History className="mx-auto h-8 w-8 text-muted-foreground" />
+                <p className="mt-3 font-medium">No runs yet</p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Run your first prompt in the Playground.
+                </p>
+                <Button
+                  className="mt-4"
+                  variant="hero"
+                  onClick={() => navigate({ to: "/playground" })}
+                >
+                  Open Playground
+                </Button>
+              </div>
+            ) : (
+              <div className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-2">
+                {history.map((h) => (
+                  <Card key={h.id} className="glass">
+                    <CardHeader className="pb-3">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <Badge variant="secondary" className="text-[10px]">
+                            {h.model}
+                          </Badge>
+                          <span className="text-xs text-muted-foreground">
+                            {new Date(h.created_at).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => removeHistory(h.id)}
+                          aria-label="Delete run"
+                          className="text-muted-foreground transition-colors hover:text-destructive"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                      <CardTitle className="mt-2 text-base">
+                        {h.title ?? h.prompt.slice(0, 70)}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="line-clamp-3 font-mono text-xs text-muted-foreground">
+                        {h.output ?? h.prompt}
+                      </p>
+                      <div className="mt-3 flex gap-2">
+                        <Button
+                          size="sm"
+                          variant="hero"
+                          className="flex-1"
+                          onClick={() => reuse(h)}
+                        >
+                          <Play className="h-3 w-3" /> Reuse
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="glass"
+                          onClick={() => copy(h.output ?? h.prompt)}
+                        >
+                          <Copy className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
           </section>
 
           {/* My prompts */}
           <section className="mt-10">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold">My prompts</h2>
+              <h2 className="text-xl font-bold sm:text-2xl">My prompts</h2>
               <Button variant="hero" size="sm" onClick={() => navigate({ to: "/library" })}>
                 <Plus className="h-4 w-4" /> New prompt
               </Button>
             </div>
 
             {loading ? (
-              <div className="flex justify-center py-16">
+              <div className="flex justify-center py-12">
                 <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
               </div>
             ) : prompts.length === 0 ? (
-              <div className="mt-6 rounded-2xl border border-dashed border-border p-12 text-center">
+              <div className="mt-6 rounded-2xl border border-dashed border-border p-10 text-center">
                 <Sparkles className="mx-auto h-8 w-8 text-muted-foreground" />
                 <p className="mt-3 font-medium">No prompts yet</p>
                 <p className="mt-1 text-sm text-muted-foreground">
@@ -287,7 +277,7 @@ function DashboardPage() {
                 </Button>
               </div>
             ) : (
-              <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {prompts.map((p) => (
                   <Card key={p.id} className="glass">
                     <CardHeader>
@@ -296,7 +286,7 @@ function DashboardPage() {
                           {p.model}
                         </Badge>
                         <button
-                          onClick={() => remove(p.id)}
+                          onClick={() => removePrompt(p.id)}
                           className="text-muted-foreground transition-colors hover:text-destructive"
                           aria-label="Delete prompt"
                         >
@@ -318,6 +308,32 @@ function DashboardPage() {
                         <span>{p.category}</span>
                         <span>▲ {p.upvotes}</span>
                       </div>
+                      <div className="mt-3 flex gap-2">
+                        <Button
+                          size="sm"
+                          variant="hero"
+                          className="flex-1"
+                          onClick={() =>
+                            navigate({
+                              to: "/playground",
+                              search: {
+                                prompt: p.content,
+                                model: p.model,
+                                title: p.title,
+                              },
+                            })
+                          }
+                        >
+                          <Play className="h-3 w-3" /> Run
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="glass"
+                          onClick={() => copy(p.content)}
+                        >
+                          <Copy className="h-3 w-3" />
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
                 ))}
@@ -335,24 +351,18 @@ function StatCard({
   label,
   value,
   icon: Icon,
-  highlight,
 }: {
   label: string;
   value: string | number;
   icon: typeof Sparkles;
-  highlight?: boolean;
 }) {
   return (
-    <div
-      className={`glass rounded-xl p-4 ${
-        highlight ? "border-accent/40" : ""
-      }`}
-    >
+    <div className="glass rounded-xl p-4">
       <div className="flex items-center justify-between">
         <span className="text-xs uppercase tracking-wider text-muted-foreground">
           {label}
         </span>
-        <Icon className={`h-4 w-4 ${highlight ? "text-accent" : "text-muted-foreground"}`} />
+        <Icon className="h-4 w-4 text-muted-foreground" />
       </div>
       <div className="mt-2 text-2xl font-bold">{value}</div>
     </div>
