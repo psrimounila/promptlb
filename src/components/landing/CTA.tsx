@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
 
 export function CTA() {
+  const navigate = useNavigate();
   return (
     <section className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-5xl px-6">
@@ -19,11 +21,16 @@ export function CTA() {
             verified, high-quality AI prompts.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button variant="hero" size="xl" className="group">
+            <Button
+              variant="hero"
+              size="xl"
+              className="group"
+              onClick={() => navigate({ to: "/auth", search: { mode: "signup" } })}
+            >
               Get Started Free
               <ArrowRight className="transition-transform group-hover:translate-x-0.5" />
             </Button>
-            <Button variant="glass" size="xl">
+            <Button variant="glass" size="xl" onClick={() => navigate({ to: "/library" })}>
               Browse Library
             </Button>
           </div>
