@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Search } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
 import heroOrb from "@/assets/hero-orb.jpg";
 
 export function Hero() {
+  const navigate = useNavigate();
   return (
     <section className="relative overflow-hidden pt-36 pb-24 sm:pt-44 sm:pb-32">
-      {/* Background orb */}
       <div className="pointer-events-none absolute left-1/2 top-1/4 -z-10 -translate-x-1/2 opacity-60">
         <img
           src={heroOrb}
@@ -20,7 +21,7 @@ export function Hero() {
         <div className="animate-fade-up mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 backdrop-blur-md">
           <Sparkles className="h-3.5 w-3.5 text-accent" />
           <span className="text-xs font-medium text-muted-foreground">
-            10,000+ verified prompts · Across every AI model
+            Verified prompts · Across every AI model
           </span>
         </div>
 
@@ -45,21 +46,32 @@ export function Hero() {
           className="animate-fade-up mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row"
           style={{ animationDelay: "0.3s" }}
         >
-          <Button variant="hero" size="xl" className="group">
+          <Button
+            variant="hero"
+            size="xl"
+            className="group"
+            onClick={() => navigate({ to: "/library" })}
+          >
             Explore the Library
             <ArrowRight className="transition-transform group-hover:translate-x-0.5" />
           </Button>
-          <Button variant="glass" size="xl">
-            Try the Playground
+          <Button
+            variant="glass"
+            size="xl"
+            onClick={() => navigate({ to: "/auth", search: { mode: "signup" } })}
+          >
+            Create free account
           </Button>
         </div>
 
-        {/* Search preview */}
         <div
           className="animate-fade-up mx-auto mt-16 max-w-2xl"
           style={{ animationDelay: "0.4s" }}
         >
-          <div className="glass-strong group flex items-center gap-3 rounded-2xl px-5 py-4 transition-all hover:border-primary/40">
+          <div
+            onClick={() => navigate({ to: "/library" })}
+            className="glass-strong group flex cursor-pointer items-center gap-3 rounded-2xl px-5 py-4 transition-all hover:border-primary/40"
+          >
             <Search className="h-5 w-5 text-muted-foreground" />
             <span className="text-left text-muted-foreground">
               Try: <span className="text-foreground/80">"viral LinkedIn post"</span>
@@ -74,7 +86,6 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Logos / trust */}
         <div
           className="animate-fade-up mt-16 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-muted-foreground"
           style={{ animationDelay: "0.5s" }}
