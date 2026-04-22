@@ -31,7 +31,7 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PromptLB — Your AI Prompt Library" },
+      { title: "PromptLB: Your AI Prompt Library" },
       {
         name: "description",
         content:
@@ -40,6 +40,13 @@ export const Route = createRootRoute({
       { name: "author", content: "PromptLB" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { property: "og:title", content: "PromptLB: Your AI Prompt Library" },
+      { name: "twitter:title", content: "PromptLB: Your AI Prompt Library" },
+      { name: "description", content: "PromptLB is an AI prompt library for discovering, organizing, and sharing verified prompts across models and use cases." },
+      { property: "og:description", content: "PromptLB is an AI prompt library for discovering, organizing, and sharing verified prompts across models and use cases." },
+      { name: "twitter:description", content: "PromptLB is an AI prompt library for discovering, organizing, and sharing verified prompts across models and use cases." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ea92135a-1a16-4c5f-8a48-5dba60779a2b/id-preview-098393e3--dc7b36a3-4b58-4157-8243-3a432988e595.lovable.app-1776836259587.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ea92135a-1a16-4c5f-8a48-5dba60779a2b/id-preview-098393e3--dc7b36a3-4b58-4157-8243-3a432988e595.lovable.app-1776836259587.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
