@@ -133,16 +133,17 @@ function LibraryPage() {
 
   const upvote = async (p: Prompt, e: React.MouseEvent) => {
     e.stopPropagation();
-    const { error } = await supabase
-      .from("prompts")
-      .update({ upvotes: p.upvotes + 1 })
-      .eq("id", p.id);
+    const { data, error } = await (supabase.rpc as never)(
+      "increment_prompt_upvotes",
+      { _prompt_id: p.id },
+    );
     if (error) {
-      toast.error("Sign in to upvote");
+      toast.error(error.message);
       return;
     }
+    const next = typeof data === "number" ? data : p.upvotes + 1;
     setPrompts((arr) =>
-      arr.map((x) => (x.id === p.id ? { ...x, upvotes: x.upvotes + 1 } : x)),
+      arr.map((x) => (x.id === p.id ? { ...x, upvotes: next } : x)),
     );
     toast.success("Upvoted!");
   };
