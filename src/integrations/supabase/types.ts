@@ -221,6 +221,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      increment_prompt_upvotes: {
+        Args: { _prompt_id: string }
+        Returns: number
+      }
       is_pro: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
