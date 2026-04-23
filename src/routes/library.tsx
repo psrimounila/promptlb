@@ -131,6 +131,22 @@ function LibraryPage() {
     toast.success("Copied to clipboard");
   };
 
+  const upvote = async (p: Prompt, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const { error } = await supabase
+      .from("prompts")
+      .update({ upvotes: p.upvotes + 1 })
+      .eq("id", p.id);
+    if (error) {
+      toast.error("Sign in to upvote");
+      return;
+    }
+    setPrompts((arr) =>
+      arr.map((x) => (x.id === p.id ? { ...x, upvotes: x.upvotes + 1 } : x)),
+    );
+    toast.success("Upvoted!");
+  };
+
   const runInPlayground = (p: Prompt) => {
     navigate({
       to: "/playground",
