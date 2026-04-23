@@ -39,18 +39,18 @@ export function Hero() {
           className="animate-fade-up text-balance text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
           style={{ animationDelay: "0.1s" }}
         >
-          Your AI Prompt
+          Find the Best AI Prompts
           <br />
-          <span className="text-gradient-primary">Library, unified.</span>
+          <span className="text-gradient-primary">in Seconds.</span>
         </h1>
 
         <p
           className="animate-fade-up mx-auto mt-6 max-w-2xl text-balance text-base text-muted-foreground sm:mt-7 sm:text-xl"
           style={{ animationDelay: "0.2s" }}
         >
-          Discover, organize, and share verified prompts that actually work for
-          ChatGPT, Claude, Gemini, Midjourney and more. Stop testing. Start
-          shipping.
+          100+ community-ranked prompts for Marketing, UI/UX, Coding, Business
+          and Content Creation. Run them, copy them, or enhance your own with
+          AI.
         </p>
 
         <div
@@ -70,9 +70,9 @@ export function Hero() {
             variant="glass"
             size="xl"
             className="w-full sm:w-auto"
-            onClick={() => navigate({ to: "/playground" })}
+            onClick={() => navigate({ to: "/leaderboard" })}
           >
-            Open Playground
+            View Leaderboard
           </Button>
         </div>
 

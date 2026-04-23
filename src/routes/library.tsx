@@ -59,14 +59,11 @@ export const Route = createFileRoute("/library")({
 
 const CATEGORIES = [
   "All",
-  "Writing & Content",
-  "Design & Creativity",
-  "Business & Marketing",
-  "Development & Tech",
-  "Social & Community",
-  "Audio & Video",
-  "Education",
-  "Other",
+  "Marketing",
+  "UI/UX",
+  "Coding",
+  "Business",
+  "Content Creation",
 ];
 
 const MODELS = ["All", "ChatGPT", "Claude", "Gemini", "Midjourney", "DALL·E", "Stable Diffusion"];

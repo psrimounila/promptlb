@@ -3,6 +3,7 @@ import { Navbar } from "@/components/landing/Navbar";
 import { Hero } from "@/components/landing/Hero";
 import { Features } from "@/components/landing/Features";
 import { Categories } from "@/components/landing/Categories";
+import { Enhancer } from "@/components/landing/Enhancer";
 import { Playground } from "@/components/landing/Playground";
 import { CTA } from "@/components/landing/CTA";
 import { Footer } from "@/components/landing/Footer";
@@ -34,8 +35,9 @@ function Index() {
       <Navbar />
       <main>
         <Hero />
-        <Features />
         <Categories />
+        <Enhancer />
+        <Features />
         <Playground />
         <CTA />
       </main>
