@@ -1,18 +1,85 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, Search } from "lucide-react";
+import { ArrowRight, Sparkles, Search, Loader2 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import heroOrb from "@/assets/hero-orb.jpg";
+
+const KNOWN_CATEGORIES = [
+  "Marketing",
+  "UI/UX",
+  "Coding",
+  "Business",
+  "Content Creation",
+];
 
 export function Hero() {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
+  const [searching, setSearching] = useState(false);
 
-  const search = () => {
-    navigate({
-      to: "/library",
-      search: query ? { q: query } : {},
-    } as never);
+  const scrollToEnhancer = (prefill: string) => {
+    const el = document.getElementById("enhancer");
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    // Dispatch a custom event so the Enhancer can prefill its input
+    window.dispatchEvent(
+      new CustomEvent("promptlb:enhancer-prefill", { detail: prefill }),
+    );
+  };
+
+  const search = async () => {
+    const q = query.trim();
+    if (!q) {
+      navigate({ to: "/library" } as never);
+      return;
+    }
+
+    setSearching(true);
+    try {
+      // 1. Direct category match
+      const matchedCategory = KNOWN_CATEGORIES.find(
+        (c) => c.toLowerCase() === q.toLowerCase(),
+      );
+      if (matchedCategory) {
+        navigate({
+          to: "/library",
+          search: { category: matchedCategory },
+        } as never);
+        return;
+      }
+
+      // 2. Search verified prompts in DB (title, description, tags, category)
+      const { data, error } = await supabase
+        .from("prompts")
+        .select("id, category")
+        .eq("is_public", true)
+        .or(
+          `title.ilike.%${q}%,description.ilike.%${q}%,category.ilike.%${q}%`,
+        )
+        .limit(5);
+
+      if (error) throw error;
+
+      if (data && data.length > 0) {
+        // Found matching prompts → go to library with query
+        navigate({
+          to: "/library",
+          search: { q },
+        } as never);
+        toast.success(`Found ${data.length} matching prompt${data.length > 1 ? "s" : ""}`);
+        return;
+      }
+
+      // 3. No match → send to Enhancer with prefill
+      toast.info("No verified prompt found. Let's craft one for you!");
+      scrollToEnhancer(q);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Search failed";
+      toast.error(msg);
+    } finally {
+      setSearching(false);
+    }
   };
 
   return (
@@ -85,18 +152,24 @@ export function Hero() {
           style={{ animationDelay: "0.4s" }}
         >
           <div className="glass-strong group flex items-center gap-3 rounded-2xl px-4 py-3 transition-all focus-within:border-primary/40 sm:px-5 sm:py-4">
-            <Search className="h-5 w-5 shrink-0 text-muted-foreground" />
+            {searching ? (
+              <Loader2 className="h-5 w-5 shrink-0 animate-spin text-muted-foreground" />
+            ) : (
+              <Search className="h-5 w-5 shrink-0 text-muted-foreground" />
+            )}
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder='Try "viral LinkedIn post" or "cinematic portrait"'
               className="min-w-0 flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground sm:text-base"
+              disabled={searching}
             />
             <button
               type="submit"
-              className="hidden rounded-md border border-border bg-surface px-2 py-1 text-xs text-muted-foreground hover:bg-surface-elevated sm:inline-block"
+              disabled={searching}
+              className="hidden rounded-md border border-border bg-surface px-2 py-1 text-xs text-muted-foreground hover:bg-surface-elevated disabled:opacity-50 sm:inline-block"
             >
-              Search
+              {searching ? "Searching..." : "Search"}
             </button>
           </div>
         </form>
