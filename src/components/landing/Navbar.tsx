@@ -40,18 +40,18 @@ export function Navbar() {
         Library
       </Link>
       <Link
+        to="/leaderboard"
+        onClick={() => setMobileOpen(false)}
+        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+      >
+        Leaderboard
+      </Link>
+      <Link
         to="/playground"
         onClick={() => setMobileOpen(false)}
         className="text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
         Playground
-      </Link>
-      <Link
-        to="/pricing"
-        onClick={() => setMobileOpen(false)}
-        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-      >
-        Pricing
       </Link>
       {user && (
         <Link

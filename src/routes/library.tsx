@@ -34,7 +34,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Search, Plus, Copy, Loader2, Sparkles, Play } from "lucide-react";
+import { Search, Plus, Copy, Loader2, Sparkles, Play, ArrowUp } from "lucide-react";
 
 const searchSchema = z.object({
   q: z.string().optional().catch(undefined),
@@ -59,14 +59,11 @@ export const Route = createFileRoute("/library")({
 
 const CATEGORIES = [
   "All",
-  "Writing & Content",
-  "Design & Creativity",
-  "Business & Marketing",
-  "Development & Tech",
-  "Social & Community",
-  "Audio & Video",
-  "Education",
-  "Other",
+  "Marketing",
+  "UI/UX",
+  "Coding",
+  "Business",
+  "Content Creation",
 ];
 
 const MODELS = ["All", "ChatGPT", "Claude", "Gemini", "Midjourney", "DALL·E", "Stable Diffusion"];
@@ -132,6 +129,25 @@ function LibraryPage() {
   const copy = (text: string) => {
     navigator.clipboard.writeText(text);
     toast.success("Copied to clipboard");
+  };
+
+  const upvote = async (p: Prompt, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const { data, error } = await (
+      supabase.rpc as unknown as (
+        fn: string,
+        args: Record<string, unknown>,
+      ) => Promise<{ data: number | null; error: { message: string } | null }>
+    )("increment_prompt_upvotes", { _prompt_id: p.id });
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    const next = typeof data === "number" ? data : p.upvotes + 1;
+    setPrompts((arr) =>
+      arr.map((x) => (x.id === p.id ? { ...x, upvotes: next } : x)),
+    );
+    toast.success("Upvoted!");
   };
 
   const runInPlayground = (p: Prompt) => {
@@ -249,7 +265,13 @@ function LibraryPage() {
                       <Badge variant="secondary" className="text-[10px]">
                         {p.model}
                       </Badge>
-                      <span className="text-xs text-muted-foreground">▲ {p.upvotes}</span>
+                      <button
+                        onClick={(e) => upvote(p, e)}
+                        className="flex items-center gap-1 rounded-full border border-border bg-surface px-2 py-0.5 text-[11px] font-semibold text-muted-foreground transition-colors hover:border-accent/50 hover:text-accent"
+                      >
+                        <ArrowUp className="h-3 w-3" />
+                        {p.upvotes}
+                      </button>
                     </div>
                     <CardTitle className="mt-2 text-base">{p.title}</CardTitle>
                     {p.description && (
@@ -352,7 +374,7 @@ function CreatePromptDialog({ onCreated }: { onCreated: () => void }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("Writing & Content");
+  const [category, setCategory] = useState("Marketing");
   const [model, setModel] = useState("ChatGPT");
   const [tags, setTags] = useState("");
   const [saving, setSaving] = useState(false);
