@@ -19,6 +19,19 @@ export function Enhancer() {
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Listen for prefill events dispatched by the Hero search bar
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<string>).detail;
+      if (typeof detail === "string" && detail.trim()) {
+        setInput(detail);
+        setOutput("");
+      }
+    };
+    window.addEventListener("promptlb:enhancer-prefill", handler);
+    return () => window.removeEventListener("promptlb:enhancer-prefill", handler);
+  }, []);
+
   const enhance = async () => {
     if (!input.trim()) {
       toast.error("Type a rough idea first");
