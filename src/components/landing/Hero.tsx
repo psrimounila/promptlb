@@ -152,18 +152,24 @@ export function Hero() {
           style={{ animationDelay: "0.4s" }}
         >
           <div className="glass-strong group flex items-center gap-3 rounded-2xl px-4 py-3 transition-all focus-within:border-primary/40 sm:px-5 sm:py-4">
-            <Search className="h-5 w-5 shrink-0 text-muted-foreground" />
+            {searching ? (
+              <Loader2 className="h-5 w-5 shrink-0 animate-spin text-muted-foreground" />
+            ) : (
+              <Search className="h-5 w-5 shrink-0 text-muted-foreground" />
+            )}
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder='Try "viral LinkedIn post" or "cinematic portrait"'
               className="min-w-0 flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground sm:text-base"
+              disabled={searching}
             />
             <button
               type="submit"
-              className="hidden rounded-md border border-border bg-surface px-2 py-1 text-xs text-muted-foreground hover:bg-surface-elevated sm:inline-block"
+              disabled={searching}
+              className="hidden rounded-md border border-border bg-surface px-2 py-1 text-xs text-muted-foreground hover:bg-surface-elevated disabled:opacity-50 sm:inline-block"
             >
-              Search
+              {searching ? "Searching..." : "Search"}
             </button>
           </div>
         </form>
