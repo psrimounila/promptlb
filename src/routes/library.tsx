@@ -64,6 +64,7 @@ const CATEGORIES = [
   "Coding",
   "Business",
   "Content Creation",
+  "Image & Design",
 ];
 
 const MODELS = ["All", "ChatGPT", "Claude", "Gemini", "Midjourney", "DALL·E", "Stable Diffusion"];
