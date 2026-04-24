@@ -1,5 +1,12 @@
 import { useNavigate } from "@tanstack/react-router";
-import { Megaphone, Layout, Code2, Briefcase, Sparkles } from "lucide-react";
+import {
+  Megaphone,
+  Layout,
+  Code2,
+  Briefcase,
+  Sparkles,
+  Image as ImageIcon,
+} from "lucide-react";
 
 const categories: Array<{
   icon: typeof Megaphone;
@@ -55,12 +62,21 @@ const categories: Array<{
     items: ["YouTube", "Newsletter", "Blog", "Threads", "Visuals"],
     accent: "from-cyan-500/20 to-sky-500/20",
   },
+  {
+    icon: ImageIcon,
+    title: "Image & Design",
+    filter: "Image & Design",
+    count: "22+ prompts",
+    blurb: "Portraits, logos, posters, packaging, illustrations, and visual AI.",
+    items: ["Portrait", "Logo", "Poster", "3D", "Illustration"],
+    accent: "from-fuchsia-500/20 to-rose-500/20",
+  },
 ];
 
 export function Categories() {
   const navigate = useNavigate();
   return (
-    <section id="categories" className="relative py-20 sm:py-32">
+    <section id="categories" className="relative py-12 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs font-semibold uppercase tracking-widest text-accent">
@@ -70,13 +86,13 @@ export function Categories() {
             A prompt for{" "}
             <span className="text-gradient-primary">every craft</span>
           </h2>
-          <p className="mt-4 text-base text-muted-foreground sm:mt-5 sm:text-lg">
-            Five focused categories. 100+ verified prompts. All free, all
+          <p className="mt-3 text-base text-muted-foreground sm:text-lg">
+            Six focused categories. 130+ verified prompts. All free, all
             community-ranked.
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-4 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">
           {categories.map((cat) => (
             <button
               key={cat.title}
