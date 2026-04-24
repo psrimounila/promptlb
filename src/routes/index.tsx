@@ -5,6 +5,7 @@ import { Features } from "@/components/landing/Features";
 import { Categories } from "@/components/landing/Categories";
 import { Enhancer } from "@/components/landing/Enhancer";
 import { Playground } from "@/components/landing/Playground";
+import { FAQ } from "@/components/landing/FAQ";
 import { CTA } from "@/components/landing/CTA";
 import { Footer } from "@/components/landing/Footer";
 
@@ -15,7 +16,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Discover, organize and share verified AI prompts for ChatGPT, Claude, Gemini, Midjourney and more. Stop testing — start shipping.",
+          "Discover, organize and share verified AI prompts for ChatGPT, Claude, Gemini, Midjourney and more. Stop testing, start shipping.",
       },
       { property: "og:title", content: "PromptLB — Your AI Prompt Library" },
       {
@@ -39,9 +40,11 @@ function Index() {
         <Enhancer />
         <Features />
         <Playground />
+        <FAQ />
         <CTA />
       </main>
       <Footer />
     </div>
   );
 }
+
