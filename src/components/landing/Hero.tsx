@@ -101,7 +101,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden pt-24 pb-12 sm:pt-36 sm:pb-20">
+    <section className="relative overflow-hidden pt-20 pb-10 sm:pt-28 sm:pb-16">
       <div className="pointer-events-none absolute left-1/2 top-1/4 -z-10 -translate-x-1/2 opacity-60">
         <img
           src={heroOrb}
