@@ -18,6 +18,12 @@ export function Footer() {
             <Link to="/playground" className="transition-colors hover:text-foreground">
               Playground
             </Link>
+            <Link to="/tutorial" className="transition-colors hover:text-foreground">
+              Tutorial
+            </Link>
+            <Link to="/faq" className="transition-colors hover:text-foreground">
+              FAQ
+            </Link>
             <Link to="/dashboard" className="transition-colors hover:text-foreground">
               Dashboard
             </Link>

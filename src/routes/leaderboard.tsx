@@ -45,6 +45,7 @@ const CATEGORIES = [
   "Coding",
   "Business",
   "Content Creation",
+  "Image & Design",
 ];
 
 type Prompt = {
