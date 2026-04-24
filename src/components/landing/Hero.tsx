@@ -12,6 +12,7 @@ const KNOWN_CATEGORIES = [
   "Coding",
   "Business",
   "Content Creation",
+  "Image & Design",
 ];
 
 export function Hero() {
@@ -83,7 +84,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden pt-28 pb-20 sm:pt-44 sm:pb-32">
+    <section className="relative overflow-hidden pt-24 pb-12 sm:pt-36 sm:pb-20">
       <div className="pointer-events-none absolute left-1/2 top-1/4 -z-10 -translate-x-1/2 opacity-60">
         <img
           src={heroOrb}
@@ -115,9 +116,9 @@ export function Hero() {
           className="animate-fade-up mx-auto mt-6 max-w-2xl text-balance text-base text-muted-foreground sm:mt-7 sm:text-xl"
           style={{ animationDelay: "0.2s" }}
         >
-          100+ community-ranked prompts for Marketing, UI/UX, Coding, Business
-          and Content Creation. Run them, copy them, or enhance your own with
-          AI.
+          130+ community-ranked prompts for Marketing, UI/UX, Coding, Business,
+          Content Creation and Image & Design. Run them, copy them, or enhance
+          your own with AI.
         </p>
 
         <div
@@ -148,7 +149,7 @@ export function Hero() {
             e.preventDefault();
             search();
           }}
-          className="animate-fade-up mx-auto mt-12 max-w-2xl sm:mt-16"
+          className="animate-fade-up mx-auto mt-8 max-w-2xl sm:mt-12"
           style={{ animationDelay: "0.4s" }}
         >
           <div className="glass-strong group flex items-center gap-3 rounded-2xl px-4 py-3 transition-all focus-within:border-primary/40 sm:px-5 sm:py-4">
@@ -175,7 +176,7 @@ export function Hero() {
         </form>
 
         <div
-          className="animate-fade-up mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground sm:mt-16 sm:gap-x-8 sm:gap-y-3"
+          className="animate-fade-up mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground sm:mt-12 sm:gap-x-8 sm:gap-y-3"
           style={{ animationDelay: "0.5s" }}
         >
           <span className="text-xs uppercase tracking-widest">Optimized for</span>

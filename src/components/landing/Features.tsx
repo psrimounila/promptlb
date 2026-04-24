@@ -42,7 +42,7 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="relative py-20 sm:py-32">
+    <section id="features" className="relative py-12 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs font-semibold uppercase tracking-widest text-accent">
@@ -52,12 +52,12 @@ export function Features() {
             Everything you need to{" "}
             <span className="text-gradient-primary">prompt better</span>
           </h2>
-          <p className="mt-4 text-base text-muted-foreground sm:mt-5 sm:text-lg">
+          <p className="mt-3 text-base text-muted-foreground sm:text-lg">
             One library. Every model. Crafted by creators, validated by the community.
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-4 sm:mt-16 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 md:grid-cols-2 lg:grid-cols-3">
           {features.map((f) => (
             <div
               key={f.title}

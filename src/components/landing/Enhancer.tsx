@@ -61,7 +61,7 @@ export function Enhancer() {
   };
 
   return (
-    <section id="enhancer" className="relative py-20 sm:py-32">
+    <section id="enhancer" className="relative py-12 sm:py-20">
       <div className="pointer-events-none absolute inset-x-0 top-1/2 -z-10 h-[400px] -translate-y-1/2 bg-gradient-primary opacity-10 blur-3xl" />
 
       <div className="mx-auto max-w-5xl px-4 sm:px-6">

@@ -5,7 +5,7 @@ import { useNavigate } from "@tanstack/react-router";
 export function CTA() {
   const navigate = useNavigate();
   return (
-    <section className="relative py-20 sm:py-32">
+    <section className="relative py-12 sm:py-20">
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <div className="glass-strong relative overflow-hidden rounded-3xl px-6 py-12 text-center sm:px-16 sm:py-20">
           <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-primary opacity-10" />
