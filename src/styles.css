@@ -228,6 +228,59 @@
   .animate-fade-up {
     animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      110deg,
+      transparent 30%,
+      oklch(1 0 0 / 0.08) 50%,
+      transparent 70%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+  }
+
+  .animate-orbit {
+    animation: orbit 20s linear infinite;
+  }
+
+  .animate-orbit-reverse {
+    animation: orbit 25s linear infinite reverse;
+  }
+
+  .animate-spin-slow {
+    animation: spin 18s linear infinite;
+  }
+
+  .animate-tilt {
+    animation: tilt 8s ease-in-out infinite;
+  }
+
+  .logo-hover {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease, filter 0.3s ease;
+  }
+
+  .logo-hover:hover {
+    transform: translateY(-4px) scale(1.1);
+    color: var(--color-primary-glow);
+    filter: drop-shadow(0 6px 16px oklch(0.78 0.13 260 / 0.5));
+  }
+
+  .marquee {
+    display: flex;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+
+  .marquee-track {
+    display: flex;
+    flex-shrink: 0;
+    animation: marquee 30s linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
 }
 
 @keyframes float {
@@ -243,4 +296,24 @@
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes tilt {
+  0%, 100% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(1.5deg); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
