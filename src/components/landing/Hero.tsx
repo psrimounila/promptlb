@@ -146,21 +146,20 @@ export function Hero() {
         </div>
 
         <h1
-          className="animate-fade-up text-balance text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
+          className="animate-fade-up text-balance text-3xl font-bold leading-[1.1] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
           style={{ animationDelay: "0.1s" }}
         >
-          Find the Best AI Prompts
-          <br />
+          Find the Best AI Prompts{" "}
           <span className="text-gradient-primary">in Seconds.</span>
         </h1>
 
         <p
-          className="animate-fade-up mx-auto mt-6 max-w-2xl text-balance text-base text-muted-foreground sm:mt-7 sm:text-xl"
+          className="animate-fade-up mx-auto mt-4 max-w-3xl text-balance text-sm text-muted-foreground sm:mt-5 sm:text-lg"
           style={{ animationDelay: "0.2s" }}
         >
-          130+ community-ranked prompts for Marketing, UI/UX, Coding, Business,
-          Content Creation and Image & Design. Run them, copy them, or enhance
-          your own with AI.
+          130+ community-ranked prompts for Marketing, UI/UX, Coding, Business, Content Creation and Image & Design.
+          <br className="hidden sm:inline" />
+          Run them, copy them, or enhance your own with AI.
         </p>
 
         <div
