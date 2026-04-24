@@ -1,10 +1,27 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, Search, Loader2 } from "lucide-react";
+import { ArrowRight, Sparkles, Search, Loader2, Wand2, Bot, Image as ImageIcon, Code2, Zap } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import heroOrb from "@/assets/hero-orb.jpg";
+import {
+  ChatGPTLogo,
+  ClaudeLogo,
+  GeminiLogo,
+  MidjourneyLogo,
+  DalleLogo,
+  StableDiffusionLogo,
+} from "@/components/AIModelLogos";
+
+const AI_MODELS = [
+  { name: "ChatGPT", Logo: ChatGPTLogo },
+  { name: "Claude", Logo: ClaudeLogo },
+  { name: "Gemini", Logo: GeminiLogo },
+  { name: "Midjourney", Logo: MidjourneyLogo },
+  { name: "DALL·E", Logo: DalleLogo },
+  { name: "Stable Diffusion", Logo: StableDiffusionLogo },
+];
 
 const KNOWN_CATEGORIES = [
   "Marketing",
