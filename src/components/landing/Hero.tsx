@@ -112,6 +112,31 @@ export function Hero() {
         />
       </div>
 
+      {/* Floating decorative illustrations */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 hidden sm:block"
+      >
+        <div className="animate-float absolute left-[8%] top-[18%] flex h-12 w-12 items-center justify-center rounded-2xl border border-border bg-surface/40 backdrop-blur-md" style={{ animationDelay: "0s" }}>
+          <Bot className="h-5 w-5 text-primary-glow" />
+        </div>
+        <div className="animate-float absolute right-[10%] top-[22%] flex h-12 w-12 items-center justify-center rounded-2xl border border-border bg-surface/40 backdrop-blur-md" style={{ animationDelay: "1.2s" }}>
+          <Wand2 className="h-5 w-5 text-accent" />
+        </div>
+        <div className="animate-float absolute left-[14%] top-[58%] flex h-12 w-12 items-center justify-center rounded-2xl border border-border bg-surface/40 backdrop-blur-md" style={{ animationDelay: "2.4s" }}>
+          <Code2 className="h-5 w-5 text-primary" />
+        </div>
+        <div className="animate-float absolute right-[14%] top-[55%] flex h-12 w-12 items-center justify-center rounded-2xl border border-border bg-surface/40 backdrop-blur-md" style={{ animationDelay: "0.6s" }}>
+          <ImageIcon className="h-5 w-5 text-primary-glow" />
+        </div>
+        <div className="animate-float absolute left-[5%] top-[40%] flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface/30 backdrop-blur-md" style={{ animationDelay: "1.8s" }}>
+          <Sparkles className="h-4 w-4 text-accent" />
+        </div>
+        <div className="animate-float absolute right-[6%] top-[40%] flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface/30 backdrop-blur-md" style={{ animationDelay: "3s" }}>
+          <Zap className="h-4 w-4 text-primary-glow" />
+        </div>
+      </div>
+
       <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
         <div className="animate-fade-up mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-1.5 backdrop-blur-md">
           <Sparkles className="h-3.5 w-3.5 text-accent" />
@@ -193,17 +218,25 @@ export function Hero() {
         </form>
 
         <div
-          className="animate-fade-up mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground sm:mt-12 sm:gap-x-8 sm:gap-y-3"
+          className="animate-fade-up mt-10 sm:mt-14"
           style={{ animationDelay: "0.5s" }}
         >
-          <span className="text-xs uppercase tracking-widest">Optimized for</span>
-          {["ChatGPT", "Claude", "Gemini", "Midjourney", "DALL·E", "Stable Diffusion"].map(
-            (m) => (
-              <span key={m} className="text-xs font-medium text-foreground/70 sm:text-sm">
-                {m}
-              </span>
-            ),
-          )}
+          <div className="mb-5 text-center text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            Optimized for
+          </div>
+          <div className="mx-auto grid max-w-3xl grid-cols-3 gap-x-4 gap-y-6 sm:grid-cols-6 sm:gap-x-6">
+            {AI_MODELS.map(({ name, Logo }) => (
+              <div
+                key={name}
+                className="logo-hover group flex flex-col items-center justify-center gap-2 text-foreground/70"
+              >
+                <Logo className="h-7 w-7 sm:h-9 sm:w-9" />
+                <span className="text-[11px] font-medium text-muted-foreground sm:text-xs">
+                  {name}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
