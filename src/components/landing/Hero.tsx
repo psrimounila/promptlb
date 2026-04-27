@@ -149,8 +149,8 @@ export function Hero() {
           className="animate-fade-up text-balance text-3xl font-bold leading-[1.1] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
           style={{ animationDelay: "0.1s" }}
         >
-          Find the Best AI Prompts{" "}
-          <span className="text-gradient-primary">in Seconds.</span>
+          Find the Best AI Prompts or Enhance{" "}
+          <span className="text-gradient-primary">Your Own in Seconds.</span>
         </h1>
 
         <p
