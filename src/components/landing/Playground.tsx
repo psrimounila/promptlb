@@ -1,17 +1,36 @@
 import { Button } from "@/components/ui/button";
-import { Play, Copy, Sparkles, Image as ImageIcon, FileText, Code2 } from "lucide-react";
+import {
+  Play,
+  Copy,
+  Sparkles,
+  Image as ImageIcon,
+  FileText,
+  Code2,
+  XCircle,
+  CheckCircle2,
+  ArrowRight,
+} from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
+import portraitEnhanced from "@/assets/playground-portrait.jpg";
+import portraitBasic from "@/assets/playground-portrait-basic.jpg";
+import productEnhanced from "@/assets/playground-product.jpg";
+import productBasic from "@/assets/playground-product-basic.jpg";
+
+type Side = {
+  prompt: string;
+  /** For image type: image src. For text/code: rendered output. */
+  output: string;
+  note: string;
+};
 
 type SampleCard = {
   type: "image" | "text" | "code";
   model: string;
   category: string;
   title: string;
-  prompt: string;
-  output: string;
-  /** Tailwind gradient classes used for image preview */
-  gradient: string;
+  basic: Side;
+  enhanced: Side;
 };
 
 const SAMPLES: SampleCard[] = [
@@ -20,46 +39,72 @@ const SAMPLES: SampleCard[] = [
     model: "Midjourney",
     category: "Image & Design",
     title: "Cinematic neon portrait",
-    prompt:
-      "cinematic portrait of a young inventor in a neon-lit workshop, volumetric light, shot on Arri Alexa, 35mm --ar 16:9 --style raw",
-    output: "Generated 4 high-fidelity 16:9 stills",
-    gradient:
-      "from-fuchsia-500/60 via-violet-500/40 to-cyan-400/30",
+    basic: {
+      prompt: "portrait of a guy in a workshop",
+      output: portraitBasic,
+      note: "Flat, dim, generic",
+    },
+    enhanced: {
+      prompt:
+        "cinematic portrait of a young inventor in a neon-lit workshop, volumetric light, shot on Arri Alexa, 35mm --ar 16:9 --style raw",
+      output: portraitEnhanced,
+      note: "Editorial, dramatic, on-brand",
+    },
   },
   {
     type: "image",
     model: "DALL·E",
     category: "Image & Design",
     title: "Minimal product hero",
-    prompt:
-      "minimal product hero shot of a matte-black smartwatch on a pastel gradient, soft studio light, top-down, 4k",
-    output: "Clean editorial product render, ready for landing page",
-    gradient:
-      "from-rose-300/60 via-amber-200/50 to-sky-300/40",
+    basic: {
+      prompt: "photo of a black smartwatch",
+      output: productBasic,
+      note: "Snapshot quality, no styling",
+    },
+    enhanced: {
+      prompt:
+        "minimal product hero shot of a matte-black smartwatch on a pastel gradient, soft studio light, top-down, 4k",
+      output: productEnhanced,
+      note: "Landing-page ready hero shot",
+    },
   },
   {
     type: "text",
     model: "ChatGPT",
     category: "Marketing",
     title: "Viral LinkedIn hook",
-    prompt:
-      "Write a 3-line LinkedIn hook for B2B founders about why most AI features fail in production.",
-    output:
-      "Most AI features die in week 3.\nNot because the model is bad — because the workflow is.\nHere's the 1 thing teams shipping AI in production do differently…",
-    gradient:
-      "from-primary/40 via-accent/30 to-primary/20",
+    basic: {
+      prompt: "Write a LinkedIn post about AI features.",
+      output:
+        "AI is changing the world. Many companies are now adding AI features to their products. It is exciting to see what will come next. #AI #innovation",
+      note: "Generic, no hook, low engagement",
+    },
+    enhanced: {
+      prompt:
+        "Write a 3-line LinkedIn hook for B2B founders about why most AI features fail in production.",
+      output:
+        "Most AI features die in week 3.\nNot because the model is bad — because the workflow is.\nHere's the 1 thing teams shipping AI in production do differently…",
+      note: "Scroll-stopping hook, specific, sharable",
+    },
   },
   {
     type: "code",
     model: "Claude",
     category: "Coding",
     title: "React pricing component",
-    prompt:
-      "Generate a Tailwind + React pricing card with 3 tiers, monthly/yearly toggle, and a featured tier.",
-    output:
-      "// PricingCard.tsx\nexport function PricingCard({ tier, featured }) {\n  return (\n    <div className={`rounded-2xl ...`}>\n      ...\n    </div>\n  );\n}",
-    gradient:
-      "from-emerald-400/40 via-teal-300/30 to-cyan-400/20",
+    basic: {
+      prompt: "make me a pricing component in react",
+      output:
+        "function Pricing() {\n  return (\n    <div>\n      <h2>Pricing</h2>\n      <p>Basic - $10</p>\n      <p>Pro - $20</p>\n    </div>\n  );\n}",
+      note: "No styling, no structure",
+    },
+    enhanced: {
+      prompt:
+        "Generate a Tailwind + React pricing card with 3 tiers, monthly/yearly toggle, and a featured tier.",
+      output:
+        "// PricingCard.tsx\nexport function PricingCard({ tier, featured }) {\n  return (\n    <div className={`rounded-2xl p-6 ${featured\n      ? 'bg-gradient-to-br from-primary to-accent ring-2 ring-primary'\n      : 'border border-border bg-surface'}`}>\n      <Toggle billing={billing} onChange={setBilling} />\n      <Tiers data={tier} />\n    </div>\n  );\n}",
+      note: "Production-ready, themed, complete",
+    },
   },
 ];
 
@@ -68,6 +113,49 @@ const TYPE_META = {
   text: { icon: FileText, label: "Text" },
   code: { icon: Code2, label: "Code" },
 } as const;
+
+function OutputPreview({
+  type,
+  output,
+  variant,
+}: {
+  type: SampleCard["type"];
+  output: string;
+  variant: "basic" | "enhanced";
+}) {
+  if (type === "image") {
+    return (
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border border-border bg-surface/40">
+        <img
+          src={output}
+          alt={variant === "basic" ? "Basic prompt result" : "Enhanced prompt result"}
+          loading="lazy"
+          className={`h-full w-full object-cover ${
+            variant === "basic" ? "opacity-90" : ""
+          }`}
+        />
+      </div>
+    );
+  }
+
+  if (type === "code") {
+    return (
+      <div className="aspect-[4/3] w-full overflow-hidden rounded-lg border border-border bg-background/60 p-3">
+        <pre className="h-full overflow-hidden whitespace-pre-wrap font-mono text-[10px] leading-relaxed text-foreground/90">
+          {output}
+        </pre>
+      </div>
+    );
+  }
+
+  return (
+    <div className="aspect-[4/3] w-full overflow-hidden rounded-lg border border-border bg-background/60 p-3">
+      <p className="h-full overflow-hidden whitespace-pre-line text-[11px] leading-relaxed text-foreground/90">
+        {output}
+      </p>
+    </div>
+  );
+}
 
 export function Playground() {
   const navigate = useNavigate();
@@ -80,7 +168,7 @@ export function Playground() {
   const run = (s: SampleCard) => {
     navigate({
       to: "/playground",
-      search: { prompt: s.prompt, model: s.model, title: s.title },
+      search: { prompt: s.enhanced.prompt, model: s.model, title: s.title },
     });
   };
 
@@ -94,106 +182,111 @@ export function Playground() {
             <Play className="h-3.5 w-3.5" /> Prompt Playground
           </span>
           <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight sm:text-5xl">
-            Test before you{" "}
-            <span className="text-gradient-primary">trust</span>
+            Compare basic vs{" "}
+            <span className="text-gradient-primary">enhanced</span>
           </h2>
           <p className="mt-4 text-base text-muted-foreground sm:mt-5 sm:text-lg">
-            Run any prompt against your favorite model and see real outputs —
-            text, code, or image — in seconds.
+            See exactly how a stronger prompt changes the output — text, code,
+            or image — side by side.
           </p>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:mt-14 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:mt-14 lg:grid-cols-2">
           {SAMPLES.map((s) => {
             const Icon = TYPE_META[s.type].icon;
             const typeLabel = TYPE_META[s.type].label;
             return (
               <article
                 key={s.title}
-                className="glass group flex flex-col overflow-hidden rounded-2xl transition-all hover:border-primary/40 hover:shadow-elegant"
+                className="glass overflow-hidden rounded-2xl transition-all hover:border-primary/40 hover:shadow-elegant"
               >
-                {/* Output preview */}
-                <div className="relative aspect-[4/3] overflow-hidden border-b border-border">
-                  {s.type === "image" ? (
-                    <>
-                      <div
-                        className={`absolute inset-0 bg-gradient-to-br ${s.gradient}`}
-                      />
-                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.5))]" />
-                      <div className="absolute bottom-2 left-2 right-2 grid grid-cols-3 gap-1.5">
-                        {[0, 1, 2].map((i) => (
-                          <div
-                            key={i}
-                            className={`aspect-square rounded-md bg-gradient-to-br ${s.gradient} ring-1 ring-white/20`}
-                            style={{
-                              backgroundPosition: `${i * 30}% ${i * 20}%`,
-                              backgroundSize: "200% 200%",
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </>
-                  ) : s.type === "code" ? (
-                    <div
-                      className={`relative h-full w-full bg-gradient-to-br ${s.gradient}`}
-                    >
-                      <div className="absolute inset-3 overflow-hidden rounded-lg border border-white/10 bg-background/80 p-3 backdrop-blur-sm">
-                        <pre className="overflow-hidden font-mono text-[10px] leading-relaxed text-foreground/85">
-                          {s.output}
-                        </pre>
-                      </div>
-                    </div>
-                  ) : (
-                    <div
-                      className={`relative h-full w-full bg-gradient-to-br ${s.gradient}`}
-                    >
-                      <div className="absolute inset-3 overflow-hidden rounded-lg border border-white/10 bg-background/80 p-3 backdrop-blur-sm">
-                        <p className="line-clamp-5 whitespace-pre-line text-[11px] leading-relaxed text-foreground/90">
-                          {s.output}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full border border-white/20 bg-background/70 px-2 py-0.5 text-[10px] font-semibold backdrop-blur">
-                    <Icon className="h-3 w-3" />
-                    {typeLabel}
+                {/* Header */}
+                <div className="flex items-center justify-between gap-2 border-b border-border px-4 py-3">
+                  <div className="flex min-w-0 items-center gap-2">
+                    <span className="inline-flex items-center gap-1 rounded-full border border-border bg-background/70 px-2 py-0.5 text-[10px] font-semibold">
+                      <Icon className="h-3 w-3" />
+                      {typeLabel}
+                    </span>
+                    <span className="truncate text-sm font-semibold">
+                      {s.title}
+                    </span>
                   </div>
-                  <div className="absolute right-3 top-3 rounded-full border border-white/20 bg-background/70 px-2 py-0.5 text-[10px] font-semibold text-accent backdrop-blur">
-                    {s.model}
+                  <div className="flex items-center gap-1.5">
+                    <span className="rounded-full border border-border bg-background/70 px-2 py-0.5 text-[10px] font-semibold text-muted-foreground">
+                      {s.category}
+                    </span>
+                    <span className="rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 text-[10px] font-semibold text-accent">
+                      {s.model}
+                    </span>
                   </div>
                 </div>
 
-                {/* Body */}
-                <div className="flex flex-1 flex-col p-4">
-                  <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
-                    {s.category}
+                {/* Comparison: left = Basic, right = Enhanced */}
+                <div className="grid grid-cols-1 gap-px bg-border md:grid-cols-2">
+                  {/* BASIC */}
+                  <div className="bg-background/40 p-4">
+                    <div className="mb-2 flex items-center justify-between">
+                      <span className="inline-flex items-center gap-1 rounded-full border border-destructive/30 bg-destructive/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-destructive">
+                        <XCircle className="h-3 w-3" /> Basic
+                      </span>
+                    </div>
+                    <p className="line-clamp-2 font-mono text-[11px] leading-relaxed text-muted-foreground">
+                      {s.basic.prompt}
+                    </p>
+                    <div className="mt-3">
+                      <OutputPreview
+                        type={s.type}
+                        output={s.basic.output}
+                        variant="basic"
+                      />
+                    </div>
+                    <p className="mt-2 text-[10px] text-destructive/90">
+                      ● {s.basic.note}
+                    </p>
                   </div>
-                  <h3 className="mt-1 line-clamp-1 text-sm font-semibold">
-                    {s.title}
-                  </h3>
-                  <p className="mt-2 line-clamp-3 font-mono text-[11px] leading-relaxed text-muted-foreground">
-                    {s.prompt}
-                  </p>
 
-                  <div className="mt-4 flex items-center gap-1.5">
-                    <Button
-                      variant="hero"
-                      size="sm"
-                      className="h-8 flex-1"
-                      onClick={() => run(s)}
-                    >
-                      <Play className="h-3 w-3" /> Run
-                    </Button>
-                    <Button
-                      variant="glass"
-                      size="sm"
-                      className="h-8"
-                      onClick={() => copy(s.prompt)}
-                    >
-                      <Copy className="h-3 w-3" />
-                    </Button>
+                  {/* ENHANCED */}
+                  <div className="bg-surface/60 p-4">
+                    <div className="mb-2 flex items-center justify-between">
+                      <span className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary-glow">
+                        <CheckCircle2 className="h-3 w-3" /> Enhanced
+                      </span>
+                    </div>
+                    <p className="line-clamp-2 font-mono text-[11px] leading-relaxed text-foreground/90">
+                      {s.enhanced.prompt}
+                    </p>
+                    <div className="mt-3">
+                      <OutputPreview
+                        type={s.type}
+                        output={s.enhanced.output}
+                        variant="enhanced"
+                      />
+                    </div>
+                    <p className="mt-2 text-[10px] text-primary-glow">
+                      ● {s.enhanced.note}
+                    </p>
                   </div>
+                </div>
+
+                {/* Actions */}
+                <div className="flex items-center gap-2 border-t border-border px-4 py-3">
+                  <Button
+                    variant="hero"
+                    size="sm"
+                    className="h-8 flex-1"
+                    onClick={() => run(s)}
+                  >
+                    <Play className="h-3 w-3" /> Run enhanced
+                    <ArrowRight className="h-3 w-3" />
+                  </Button>
+                  <Button
+                    variant="glass"
+                    size="sm"
+                    className="h-8"
+                    onClick={() => copy(s.enhanced.prompt)}
+                  >
+                    <Copy className="h-3 w-3" />
+                  </Button>
                 </div>
               </article>
             );
