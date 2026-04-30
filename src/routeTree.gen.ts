@@ -13,7 +13,6 @@ import { Route as TutorialRouteImport } from './routes/tutorial'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as LibraryRouteImport } from './routes/library'
-import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -37,11 +36,6 @@ const PlaygroundRoute = PlaygroundRouteImport.update({
 const LibraryRoute = LibraryRouteImport.update({
   id: '/library',
   path: '/library',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LeaderboardRoute = LeaderboardRouteImport.update({
-  id: '/leaderboard',
-  path: '/leaderboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -70,7 +64,6 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
   '/faq': typeof FaqRoute
-  '/leaderboard': typeof LeaderboardRoute
   '/library': typeof LibraryRoute
   '/playground': typeof PlaygroundRoute
   '/pricing': typeof PricingRoute
@@ -81,7 +74,6 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
   '/faq': typeof FaqRoute
-  '/leaderboard': typeof LeaderboardRoute
   '/library': typeof LibraryRoute
   '/playground': typeof PlaygroundRoute
   '/pricing': typeof PricingRoute
@@ -93,7 +85,6 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
   '/faq': typeof FaqRoute
-  '/leaderboard': typeof LeaderboardRoute
   '/library': typeof LibraryRoute
   '/playground': typeof PlaygroundRoute
   '/pricing': typeof PricingRoute
@@ -106,7 +97,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/faq'
-    | '/leaderboard'
     | '/library'
     | '/playground'
     | '/pricing'
@@ -117,7 +107,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/faq'
-    | '/leaderboard'
     | '/library'
     | '/playground'
     | '/pricing'
@@ -128,7 +117,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/faq'
-    | '/leaderboard'
     | '/library'
     | '/playground'
     | '/pricing'
@@ -140,7 +128,6 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   DashboardRoute: typeof DashboardRoute
   FaqRoute: typeof FaqRoute
-  LeaderboardRoute: typeof LeaderboardRoute
   LibraryRoute: typeof LibraryRoute
   PlaygroundRoute: typeof PlaygroundRoute
   PricingRoute: typeof PricingRoute
@@ -175,13 +162,6 @@ declare module '@tanstack/react-router' {
       path: '/library'
       fullPath: '/library'
       preLoaderRoute: typeof LibraryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/leaderboard': {
-      id: '/leaderboard'
-      path: '/leaderboard'
-      fullPath: '/leaderboard'
-      preLoaderRoute: typeof LeaderboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -220,7 +200,6 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   DashboardRoute: DashboardRoute,
   FaqRoute: FaqRoute,
-  LeaderboardRoute: LeaderboardRoute,
   LibraryRoute: LibraryRoute,
   PlaygroundRoute: PlaygroundRoute,
   PricingRoute: PricingRoute,

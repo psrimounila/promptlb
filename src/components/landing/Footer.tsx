@@ -12,9 +12,6 @@ export function Footer() {
             <Link to="/library" className="transition-colors hover:text-foreground">
               Library
             </Link>
-            <Link to="/leaderboard" className="transition-colors hover:text-foreground">
-              Leaderboard
-            </Link>
             <Link to="/playground" className="transition-colors hover:text-foreground">
               Playground
             </Link>
