@@ -11,6 +11,7 @@ import {
   CheckCircle2,
   ArrowDown,
 } from "lucide-react";
+import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import heroOrb from "@/assets/hero-orb.jpg";
 import {
@@ -31,8 +32,17 @@ const AI_MODELS = [
   { name: "Stable Diffusion", Logo: StableDiffusionLogo },
 ];
 
+const ENHANCED_SECTIONS: { label: string; emoji: string; text: string }[] = [
+  { emoji: "🎯", label: "Goal", text: "Write a viral tweet that sparks debate about AI hype vs real impact." },
+  { emoji: "👥", label: "Audience", text: "Startup founders and product builders shipping AI features." },
+  { emoji: "🎨", label: "Tone & Style", text: "Bold, contrarian, conversational. No buzzwords." },
+  { emoji: "📋", label: "Format", text: "1-line hook + 3 short bullets + 1 question CTA. Under 280 chars." },
+  { emoji: "📝", label: "Prompt", text: "You are a sharp tech founder on X. Write a single tweet under 280 characters that opens with a contrarian hook about AI advice being noise, then lists 3 punchy do/don'ts (ship features not demos, replace workflows not jobs, charge for outcomes not tokens), and ends with a question that invites replies. No hashtags. No emojis." },
+];
+
 export function Hero() {
   const navigate = useNavigate();
+  const [expanded, setExpanded] = useState(false);
 
   const scrollToEnhancer = () => {
     const el = document.getElementById("enhancer");
@@ -176,12 +186,23 @@ export function Hero() {
                 </span>
               </div>
               <div className="rounded-lg border border-primary/30 bg-surface/80 p-3">
-                <p className="font-mono text-xs leading-relaxed text-foreground/95 sm:text-sm">
-                  <span className="text-accent">Goal:</span> Viral tweet on AI ·{" "}
-                  <span className="text-accent">Audience:</span> founders ·{" "}
-                  <span className="text-accent">Tone:</span> bold, contrarian ·{" "}
-                  <span className="text-accent">Format:</span> hook + 3 bullets + CTA
-                </p>
+                <div className="space-y-1.5 font-mono text-[11px] leading-relaxed text-foreground/95 sm:text-xs">
+                  {(expanded ? ENHANCED_SECTIONS : ENHANCED_SECTIONS.slice(0, 2)).map((s) => (
+                    <div key={s.label}>
+                      <span className="text-accent font-semibold">
+                        {s.emoji} {s.label}
+                      </span>{" "}
+                      <span className={expanded ? "" : "line-clamp-1"}>{s.text}</span>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() => setExpanded((v) => !v)}
+                    className="text-accent underline-offset-2 hover:underline text-[11px] font-semibold"
+                  >
+                    {expanded ? "show less" : "more"}
+                  </button>
+                </div>
               </div>
               <div className="mt-3 text-[10px] uppercase tracking-wider text-muted-foreground">
                 Output
