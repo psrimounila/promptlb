@@ -221,6 +221,9 @@ export function Playground() {
     src: string;
     title: string;
   } | null>(null);
+  const [expandedPrompts, setExpandedPrompts] = useState<Record<string, boolean>>({});
+  const togglePrompt = (key: string) =>
+    setExpandedPrompts((m) => ({ ...m, [key]: !m[key] }));
 
   const copy = (text: string) => {
     navigator.clipboard.writeText(text);
