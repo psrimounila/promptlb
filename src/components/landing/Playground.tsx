@@ -83,7 +83,7 @@ const SAMPLES: SampleCard[] = [
       prompt:
         "Write a 3-line LinkedIn hook for B2B founders about why most AI features fail in production.",
       output:
-        "Most AI features die in week 3.\nNot because the model is bad — because the workflow is.\nHere's the 1 thing teams shipping AI in production do differently…",
+        "Most AI features die in week 3.\nNot because the model is bad - because the workflow is.\nHere's the 1 thing teams shipping AI in production do differently…",
       note: "Scroll-stopping hook, specific, sharable",
     },
   },
@@ -186,8 +186,8 @@ export function Playground() {
             <span className="text-gradient-primary">enhanced</span>
           </h2>
           <p className="mt-4 text-base text-muted-foreground sm:mt-5 sm:text-lg">
-            See exactly how a stronger prompt changes the output — text, code,
-            or image — side by side.
+            See exactly how a stronger prompt changes the output - text, code,
+            or image - side by side.
           </p>
         </div>
 

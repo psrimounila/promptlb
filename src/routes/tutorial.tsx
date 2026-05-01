@@ -15,7 +15,7 @@ import {
 export const Route = createFileRoute("/tutorial")({
   head: () => ({
     meta: [
-      { title: "Tutorial — How to use PromptLB" },
+      { title: "Tutorial - How to use PromptLB" },
       {
         name: "description",
         content:

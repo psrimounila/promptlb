@@ -46,7 +46,7 @@
 :root {
   --radius: 0.875rem;
 
-  /* Dark-first PromptLB palette — cornflower blue from logo */
+  /* Dark-first PromptLB palette - cornflower blue from logo */
   --background: oklch(0.16 0.025 260);
   --foreground: oklch(0.98 0.005 260);
 

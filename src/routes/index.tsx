@@ -12,13 +12,13 @@ import { Footer } from "@/components/landing/Footer";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PromptLB — Your AI Prompt Library" },
+      { title: "PromptLB - Your AI Prompt Library" },
       {
         name: "description",
         content:
           "Discover, organize and share verified AI prompts for ChatGPT, Claude, Gemini, Midjourney and more. Stop testing, start shipping.",
       },
-      { property: "og:title", content: "PromptLB — Your AI Prompt Library" },
+      { property: "og:title", content: "PromptLB - Your AI Prompt Library" },
       {
         property: "og:description",
         content:

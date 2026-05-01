@@ -150,11 +150,11 @@ export function Enhancer() {
                 <div className="text-muted-foreground">
                   <p className="mb-3">Your structured prompt will appear here with:</p>
                   <ul className="space-y-1.5 text-xs">
-                    <li>🎯 <span className="text-foreground/80">Goal</span> — what you want</li>
-                    <li>👥 <span className="text-foreground/80">Audience</span> — who it is for</li>
-                    <li>🎨 <span className="text-foreground/80">Tone &amp; Style</span> — voice and feel</li>
-                    <li>📋 <span className="text-foreground/80">Format</span> — structure and length</li>
-                    <li>📝 <span className="text-foreground/80">Prompt</span> — ready to paste</li>
+                    <li>🎯 <span className="text-foreground/80">Goal</span> - what you want</li>
+                    <li>👥 <span className="text-foreground/80">Audience</span> - who it is for</li>
+                    <li>🎨 <span className="text-foreground/80">Tone &amp; Style</span> - voice and feel</li>
+                    <li>📋 <span className="text-foreground/80">Format</span> - structure and length</li>
+                    <li>📝 <span className="text-foreground/80">Prompt</span> - ready to paste</li>
                   </ul>
                 </div>
               )}
