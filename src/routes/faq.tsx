@@ -6,7 +6,7 @@ import { FAQ } from "@/components/landing/FAQ";
 export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
-      { title: "FAQ — PromptLB" },
+      { title: "FAQ - PromptLB" },
       {
         name: "description",
         content:
