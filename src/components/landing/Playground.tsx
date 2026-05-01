@@ -317,9 +317,29 @@ export function Playground() {
                         <CheckCircle2 className="h-3 w-3" /> Enhanced
                       </span>
                     </div>
-                    <p className="line-clamp-2 font-mono text-[11px] leading-relaxed text-foreground/90">
-                      {s.enhanced.prompt}
-                    </p>
+                    {(() => {
+                      const open = !!expandedPrompts[s.title];
+                      const visible = open ? s.enhanced.sections : s.enhanced.sections.slice(0, 2);
+                      return (
+                        <div className="space-y-1 font-mono text-[11px] leading-relaxed text-foreground/90">
+                          {visible.map((sec) => (
+                            <div key={sec.label}>
+                              <span className="font-semibold text-accent">
+                                {sec.emoji} {sec.label}
+                              </span>{" "}
+                              <span className={open ? "" : "line-clamp-1"}>{sec.text}</span>
+                            </div>
+                          ))}
+                          <button
+                            type="button"
+                            onClick={() => togglePrompt(s.title)}
+                            className="text-[11px] font-semibold text-accent hover:underline underline-offset-2"
+                          >
+                            {open ? "show less" : "more"}
+                          </button>
+                        </div>
+                      );
+                    })()}
                     <div className="mt-3">
                       <OutputPreview
                         type={s.type}
