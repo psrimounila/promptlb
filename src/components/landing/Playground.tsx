@@ -63,6 +63,13 @@ const SAMPLES: SampleCard[] = [
         "instagram social post for a luxury skincare brand, glass serum bottle on pastel peach background, botanical leaves, golden accents, headline 'GLOW DAILY' in elegant serif, soft studio light, 1:1",
       output: socialEnhanced,
       note: "Scroll-stopping, on-brand ad creative",
+      sections: [
+        { emoji: "🎯", label: "Goal", text: "Design a scroll-stopping Instagram post for a luxury skincare launch." },
+        { emoji: "👥", label: "Audience", text: "Women 25-40 who follow premium beauty and clean-skincare brands." },
+        { emoji: "🎨", label: "Tone & Style", text: "Editorial, soft, luxurious. Pastel peach palette with golden accents." },
+        { emoji: "📋", label: "Format", text: "Square 1:1, single hero product, headline in elegant serif, minimal copy." },
+        { emoji: "📝", label: "Prompt", text: "Instagram social post for a luxury skincare brand. Glass serum bottle as hero on a soft pastel peach gradient backdrop, scattered botanical leaves and gold leaf accents, dewy water droplets. Headline 'GLOW DAILY' in elegant serif, small tagline 'Order now' below in light sans. Soft studio light, magazine quality, 1:1 square." },
+      ],
     },
   },
   {
@@ -80,6 +87,13 @@ const SAMPLES: SampleCard[] = [
         "editorial product shot of a sage green leather handbag held by elegant hands with manicured nails, soft cream gradient backdrop, golden hour studio light, gold hardware, magazine quality, 4k",
       output: productEnhanced,
       note: "Campaign-ready hero shot",
+      sections: [
+        { emoji: "🎯", label: "Goal", text: "Create a campaign-ready hero shot for a luxury leather handbag." },
+        { emoji: "👥", label: "Audience", text: "Premium fashion shoppers browsing editorial campaigns and lookbooks." },
+        { emoji: "🎨", label: "Tone & Style", text: "Editorial, refined, magazine-grade. Warm neutrals and gold accents." },
+        { emoji: "📋", label: "Format", text: "High-resolution 4k product hero, soft gradient backdrop, single subject." },
+        { emoji: "📝", label: "Prompt", text: "Editorial product shot of a sage green leather handbag held by elegant hands with manicured nails. Soft cream-to-blush gradient backdrop, golden hour studio light, gold hardware catching highlights, subtle shadow, sharp focus on stitching, magazine quality, 4k, photorealistic." },
+      ],
     },
   },
   {
@@ -99,6 +113,13 @@ const SAMPLES: SampleCard[] = [
       output:
         "Most AI features die in week 3.\nNot because the model is bad - because the workflow is.\nHere's the 1 thing teams shipping AI in production do differently…",
       note: "Scroll-stopping hook, specific, sharable",
+      sections: [
+        { emoji: "🎯", label: "Goal", text: "Write a scroll-stopping LinkedIn hook about why AI features fail in production." },
+        { emoji: "👥", label: "Audience", text: "B2B SaaS founders and product leaders shipping AI to real customers." },
+        { emoji: "🎨", label: "Tone & Style", text: "Punchy, contrarian, conversational. No buzzwords, no hashtags." },
+        { emoji: "📋", label: "Format", text: "3 short lines: bold opener, contrarian reframe, curiosity cliffhanger." },
+        { emoji: "📝", label: "Prompt", text: "You are a senior B2B founder posting on LinkedIn. Write a 3-line hook for a longer post about why most AI features fail in production. Line 1 must be a bold claim under 8 words. Line 2 reframes the real cause (workflow, not model). Line 3 teases the one thing winning teams do differently and ends with an ellipsis. No hashtags, no emojis, no jargon." },
+      ],
     },
   },
   {
@@ -118,6 +139,13 @@ const SAMPLES: SampleCard[] = [
       output:
         "// PricingCard.tsx\nexport function PricingCard({ tier, featured }) {\n  return (\n    <div className={`rounded-2xl p-6 ${featured\n      ? 'bg-gradient-to-br from-primary to-accent ring-2 ring-primary'\n      : 'border border-border bg-surface'}`}>\n      <Toggle billing={billing} onChange={setBilling} />\n      <Tiers data={tier} />\n    </div>\n  );\n}",
       note: "Production-ready, themed, complete",
+      sections: [
+        { emoji: "🎯", label: "Goal", text: "Build a production-ready pricing section in React + Tailwind." },
+        { emoji: "👥", label: "Audience", text: "Frontend engineers integrating into a SaaS marketing site." },
+        { emoji: "🎨", label: "Tone & Style", text: "Clean, modern, accessible. Use design tokens and rounded-2xl cards." },
+        { emoji: "📋", label: "Format", text: "Single TSX file, typed props, 3 tiers, monthly/yearly toggle, featured tier highlighted." },
+        { emoji: "📝", label: "Prompt", text: "Generate a Tailwind + React (TypeScript) pricing component with 3 tiers (Starter, Pro, Enterprise), a monthly/yearly billing toggle that updates prices, and a featured Pro tier with a gradient ring. Use semantic tokens (bg-surface, text-foreground, border-border), accessible buttons, keyboard focus states, and a typed Tier interface. Include the toggle as a controlled component with useState." },
+      ],
     },
   },
 ];
