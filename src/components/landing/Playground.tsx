@@ -25,11 +25,17 @@ import socialBasic from "@/assets/playground-social-basic.jpg";
 import productEnhanced from "@/assets/playground-product.jpg";
 import productBasic from "@/assets/playground-product-basic.jpg";
 
+type PromptSection = { emoji: string; label: string; text: string };
+
 type Side = {
   prompt: string;
   /** For image type: image src. For text/code: rendered output. */
   output: string;
   note: string;
+};
+
+type EnhancedSide = Side & {
+  sections: PromptSection[];
 };
 
 type SampleCard = {
@@ -38,7 +44,7 @@ type SampleCard = {
   category: string;
   title: string;
   basic: Side;
-  enhanced: Side;
+  enhanced: EnhancedSide;
 };
 
 const SAMPLES: SampleCard[] = [
