@@ -11,6 +11,7 @@ import {
   CheckCircle2,
   ArrowDown,
 } from "lucide-react";
+import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import heroOrb from "@/assets/hero-orb.jpg";
 import {
