@@ -48,9 +48,9 @@ const SAMPLES: SampleCard[] = [
     category: "Image & Design",
     title: "Skincare social post",
     basic: {
-      prompt: "photo of a skincare bottle",
+      prompt: "create social media post of skincare brand",
       output: socialBasic,
-      note: "Cluttered, harsh light, off-brand",
+      note: "Random snapshot, no design, off-brand",
     },
     enhanced: {
       prompt:
