@@ -12,8 +12,8 @@ import {
 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
-import portraitEnhanced from "@/assets/playground-portrait.jpg";
-import portraitBasic from "@/assets/playground-portrait-basic.jpg";
+import socialEnhanced from "@/assets/playground-social-enhanced.jpg";
+import socialBasic from "@/assets/playground-social-basic.jpg";
 import productEnhanced from "@/assets/playground-product.jpg";
 import productBasic from "@/assets/playground-product-basic.jpg";
 
@@ -38,34 +38,34 @@ const SAMPLES: SampleCard[] = [
     type: "image",
     model: "Midjourney",
     category: "Image & Design",
-    title: "Cinematic neon portrait",
+    title: "Skincare social post",
     basic: {
-      prompt: "portrait of a guy in a workshop",
-      output: portraitBasic,
-      note: "Flat, dim, generic",
+      prompt: "photo of a skincare bottle",
+      output: socialBasic,
+      note: "Cluttered, harsh light, off-brand",
     },
     enhanced: {
       prompt:
-        "cinematic portrait of a young inventor in a neon-lit workshop, volumetric light, shot on Arri Alexa, 35mm --ar 16:9 --style raw",
-      output: portraitEnhanced,
-      note: "Editorial, dramatic, on-brand",
+        "instagram social post for a luxury skincare brand, glass serum bottle on pastel peach background, botanical leaves, golden accents, headline 'GLOW DAILY' in elegant serif, soft studio light, 1:1",
+      output: socialEnhanced,
+      note: "Scroll-stopping, on-brand ad creative",
     },
   },
   {
     type: "image",
     model: "DALL·E",
     category: "Image & Design",
-    title: "Minimal product hero",
+    title: "Luxury product hero",
     basic: {
-      prompt: "photo of a black smartwatch",
+      prompt: "photo of a green handbag on a table",
       output: productBasic,
-      note: "Snapshot quality, no styling",
+      note: "Flat lighting, no styling",
     },
     enhanced: {
       prompt:
-        "minimal product hero shot of a matte-black smartwatch on a pastel gradient, soft studio light, top-down, 4k",
+        "editorial product shot of a sage green leather handbag held by elegant hands with manicured nails, soft cream gradient backdrop, golden hour studio light, gold hardware, magazine quality, 4k",
       output: productEnhanced,
-      note: "Landing-page ready hero shot",
+      note: "Campaign-ready hero shot",
     },
   },
   {
