@@ -32,8 +32,17 @@ const AI_MODELS = [
   { name: "Stable Diffusion", Logo: StableDiffusionLogo },
 ];
 
+const ENHANCED_SECTIONS: { label: string; emoji: string; text: string }[] = [
+  { emoji: "🎯", label: "Goal", text: "Write a viral tweet that sparks debate about AI hype vs real impact." },
+  { emoji: "👥", label: "Audience", text: "Startup founders and product builders shipping AI features." },
+  { emoji: "🎨", label: "Tone & Style", text: "Bold, contrarian, conversational. No buzzwords." },
+  { emoji: "📋", label: "Format", text: "1-line hook + 3 short bullets + 1 question CTA. Under 280 chars." },
+  { emoji: "📝", label: "Prompt", text: "You are a sharp tech founder on X. Write a single tweet under 280 characters that opens with a contrarian hook about AI advice being noise, then lists 3 punchy do/don'ts (ship features not demos, replace workflows not jobs, charge for outcomes not tokens), and ends with a question that invites replies. No hashtags. No emojis." },
+];
+
 export function Hero() {
   const navigate = useNavigate();
+  const [expanded, setExpanded] = useState(false);
 
   const scrollToEnhancer = () => {
     const el = document.getElementById("enhancer");
