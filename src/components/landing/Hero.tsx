@@ -186,12 +186,23 @@ export function Hero() {
                 </span>
               </div>
               <div className="rounded-lg border border-primary/30 bg-surface/80 p-3">
-                <p className="font-mono text-xs leading-relaxed text-foreground/95 sm:text-sm">
-                  <span className="text-accent">Goal:</span> Viral tweet on AI ·{" "}
-                  <span className="text-accent">Audience:</span> founders ·{" "}
-                  <span className="text-accent">Tone:</span> bold, contrarian ·{" "}
-                  <span className="text-accent">Format:</span> hook + 3 bullets + CTA
-                </p>
+                <div className="space-y-1.5 font-mono text-[11px] leading-relaxed text-foreground/95 sm:text-xs">
+                  {(expanded ? ENHANCED_SECTIONS : ENHANCED_SECTIONS.slice(0, 2)).map((s) => (
+                    <div key={s.label}>
+                      <span className="text-accent font-semibold">
+                        {s.emoji} {s.label}
+                      </span>{" "}
+                      <span className={expanded ? "" : "line-clamp-1"}>{s.text}</span>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() => setExpanded((v) => !v)}
+                    className="text-accent underline-offset-2 hover:underline text-[11px] font-semibold"
+                  >
+                    {expanded ? "show less" : "more"}
+                  </button>
+                </div>
               </div>
               <div className="mt-3 text-[10px] uppercase tracking-wider text-muted-foreground">
                 Output
