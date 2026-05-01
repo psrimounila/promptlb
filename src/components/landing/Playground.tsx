@@ -1,5 +1,11 @@
 import { Button } from "@/components/ui/button";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   Play,
   Copy,
   Sparkles,
@@ -9,9 +15,11 @@ import {
   XCircle,
   CheckCircle2,
   ArrowRight,
+  Maximize2,
 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
+import { useState } from "react";
 import socialEnhanced from "@/assets/playground-social-enhanced.jpg";
 import socialBasic from "@/assets/playground-social-basic.jpg";
 import productEnhanced from "@/assets/playground-product.jpg";
@@ -118,23 +126,39 @@ function OutputPreview({
   type,
   output,
   variant,
+  onExpand,
 }: {
   type: SampleCard["type"];
   output: string;
   variant: "basic" | "enhanced";
+  onExpand?: () => void;
 }) {
   if (type === "image") {
+    const isExpandable = variant === "enhanced" && onExpand;
+
     return (
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border border-border bg-surface/40">
+      <button
+        type="button"
+        className="group relative aspect-square w-full overflow-hidden rounded-lg border border-border bg-surface/40 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
+        onClick={isExpandable ? onExpand : undefined}
+        aria-label={
+          isExpandable ? "View full enhanced image" : "Image output preview"
+        }
+      >
         <img
           src={output}
           alt={variant === "basic" ? "Basic prompt result" : "Enhanced prompt result"}
           loading="lazy"
-          className={`h-full w-full object-cover ${
+          className={`h-full w-full object-contain ${
             variant === "basic" ? "opacity-90" : ""
           }`}
         />
-      </div>
+        {isExpandable ? (
+          <span className="absolute right-2 top-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background/80 text-foreground opacity-0 shadow-soft transition-opacity group-hover:opacity-100 group-focus:opacity-100">
+            <Maximize2 className="h-3.5 w-3.5" />
+          </span>
+        ) : null}
+      </button>
     );
   }
 
@@ -159,6 +183,10 @@ function OutputPreview({
 
 export function Playground() {
   const navigate = useNavigate();
+  const [expandedImage, setExpandedImage] = useState<{
+    src: string;
+    title: string;
+  } | null>(null);
 
   const copy = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -260,6 +288,9 @@ export function Playground() {
                         type={s.type}
                         output={s.enhanced.output}
                         variant="enhanced"
+                        onExpand={() =>
+                          setExpandedImage({ src: s.enhanced.output, title: s.title })
+                        }
                       />
                     </div>
                     <p className="mt-2 text-[10px] text-primary-glow">
@@ -304,6 +335,29 @@ export function Playground() {
           </Button>
         </div>
       </div>
+
+      <Dialog
+        open={Boolean(expandedImage)}
+        onOpenChange={(open) => {
+          if (!open) setExpandedImage(null);
+        }}
+      >
+        <DialogContent className="max-h-[92vh] max-w-[min(92vw,960px)] overflow-hidden p-4">
+          <DialogTitle className="sr-only">
+            {expandedImage?.title ?? "Enhanced image preview"}
+          </DialogTitle>
+          <DialogDescription className="sr-only">
+            Full size enhanced image preview
+          </DialogDescription>
+          {expandedImage ? (
+            <img
+              src={expandedImage.src}
+              alt={`${expandedImage.title} enhanced full preview`}
+              className="max-h-[84vh] w-full rounded-lg object-contain"
+            />
+          ) : null}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
