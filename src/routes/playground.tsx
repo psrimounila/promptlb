@@ -154,7 +154,9 @@ function PlaygroundPage() {
   const useHistoryItem = (h: HistoryItem) => {
     setPrompt(h.prompt);
     setModel(h.model);
-    setOutput(h.output ?? "");
+    const out = h.output ?? "";
+    setOutput(out);
+    setOutputType(out.startsWith("data:image") || out.startsWith("http") ? "image" : "text");
     setTitle(h.title ?? "");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
