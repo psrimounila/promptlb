@@ -273,13 +273,24 @@ function PlaygroundPage() {
                       {model}
                     </Badge>
                   </div>
-                  {output && (
+                  {output && outputType === "text" && (
                     <Button
                       size="sm"
                       variant="glass"
                       onClick={() => copy(output)}
                     >
                       <Copy className="h-3.5 w-3.5" /> Copy
+                    </Button>
+                  )}
+                  {output && outputType === "image" && (
+                    <Button
+                      size="sm"
+                      variant="glass"
+                      asChild
+                    >
+                      <a href={output} download={`${title || "image"}.png`}>
+                        <Copy className="h-3.5 w-3.5" /> Download
+                      </a>
                     </Button>
                   )}
                 </div>
@@ -290,7 +301,15 @@ function PlaygroundPage() {
                       Generating with {model}...
                     </span>
                   ) : output ? (
-                    output
+                    outputType === "image" ? (
+                      <img
+                        src={output}
+                        alt={title || prompt.slice(0, 80)}
+                        className="mx-auto max-h-[520px] w-auto rounded-lg"
+                      />
+                    ) : (
+                      output
+                    )
                   ) : (
                     <span className="text-muted-foreground">
                       Output will appear here. Hit Run to see your AI response.
