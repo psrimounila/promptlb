@@ -172,6 +172,7 @@ function PlaygroundPage() {
     setModel(s.model);
     setTitle(s.title);
     setOutput("");
+    setOutputType("text");
   };
 
   return (
