@@ -371,7 +371,13 @@ export function Playground() {
                     variant="glass"
                     size="sm"
                     className="h-8"
-                    onClick={() => copy(s.enhanced.prompt)}
+                    onClick={() =>
+                      copy(
+                        s.enhanced.sections
+                          .map((sec) => `${sec.emoji} ${sec.label} - ${sec.text}`)
+                          .join("\n\n"),
+                      )
+                    }
                   >
                     <Copy className="h-3 w-3" />
                   </Button>
