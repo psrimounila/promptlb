@@ -231,9 +231,12 @@ export function Playground() {
   };
 
   const run = (s: SampleCard) => {
+    const fullPrompt = s.enhanced.sections
+      .map((sec) => `${sec.emoji} ${sec.label} - ${sec.text}`)
+      .join("\n\n");
     navigate({
       to: "/playground",
-      search: { prompt: s.enhanced.prompt, model: s.model, title: s.title },
+      search: { prompt: fullPrompt, model: s.model, title: s.title },
     });
   };
 
