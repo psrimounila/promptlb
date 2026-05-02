@@ -91,6 +91,7 @@ function PlaygroundPage() {
   const [model, setModel] = useState(initial.model ?? "ChatGPT");
   const [title, setTitle] = useState(initial.title ?? "");
   const [output, setOutput] = useState("");
+  const [outputType, setOutputType] = useState<"text" | "image">("text");
   const [running, setRunning] = useState(false);
   const [history, setHistory] = useState<HistoryItem[]>([]);
 
@@ -117,6 +118,7 @@ function PlaygroundPage() {
     }
     setRunning(true);
     setOutput("");
+    setOutputType("text");
     try {
       const res = await runPromptFn({ data: { prompt, model } });
       if (res.error) {
@@ -124,6 +126,7 @@ function PlaygroundPage() {
         return;
       }
       setOutput(res.output);
+      setOutputType(res.outputType ?? "text");
 
       if (user && res.output) {
         await supabase.from("prompt_history").insert({
@@ -151,7 +154,9 @@ function PlaygroundPage() {
   const useHistoryItem = (h: HistoryItem) => {
     setPrompt(h.prompt);
     setModel(h.model);
-    setOutput(h.output ?? "");
+    const out = h.output ?? "";
+    setOutput(out);
+    setOutputType(out.startsWith("data:image") || out.startsWith("http") ? "image" : "text");
     setTitle(h.title ?? "");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -167,6 +172,7 @@ function PlaygroundPage() {
     setModel(s.model);
     setTitle(s.title);
     setOutput("");
+    setOutputType("text");
   };
 
   return (
@@ -267,13 +273,24 @@ function PlaygroundPage() {
                       {model}
                     </Badge>
                   </div>
-                  {output && (
+                  {output && outputType === "text" && (
                     <Button
                       size="sm"
                       variant="glass"
                       onClick={() => copy(output)}
                     >
                       <Copy className="h-3.5 w-3.5" /> Copy
+                    </Button>
+                  )}
+                  {output && outputType === "image" && (
+                    <Button
+                      size="sm"
+                      variant="glass"
+                      asChild
+                    >
+                      <a href={output} download={`${title || "image"}.png`}>
+                        <Copy className="h-3.5 w-3.5" /> Download
+                      </a>
                     </Button>
                   )}
                 </div>
@@ -284,7 +301,15 @@ function PlaygroundPage() {
                       Generating with {model}...
                     </span>
                   ) : output ? (
-                    output
+                    outputType === "image" ? (
+                      <img
+                        src={output}
+                        alt={title || prompt.slice(0, 80)}
+                        className="mx-auto max-h-[520px] w-auto rounded-lg"
+                      />
+                    ) : (
+                      output
+                    )
                   ) : (
                     <span className="text-muted-foreground">
                       Output will appear here. Hit Run to see your AI response.
