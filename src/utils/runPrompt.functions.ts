@@ -14,9 +14,9 @@ const MODEL_MAP: Record<string, string> = {
   Gemini: "google/gemini-2.5-flash",
   "Gemini Pro": "google/gemini-2.5-pro",
   // Image models route to Gemini's image generation model
-  Midjourney: "google/gemini-2.5-flash-image",
-  "DALL·E": "google/gemini-2.5-flash-image",
-  "Stable Diffusion": "google/gemini-2.5-flash-image",
+  Midjourney: "google/gemini-2.5-flash-image-preview",
+  "DALL·E": "google/gemini-2.5-flash-image-preview",
+  "Stable Diffusion": "google/gemini-2.5-flash-image-preview",
 };
 
 const IMAGE_MODELS = new Set(["Midjourney", "DALL·E", "Stable Diffusion"]);
