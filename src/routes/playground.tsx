@@ -118,6 +118,7 @@ function PlaygroundPage() {
     }
     setRunning(true);
     setOutput("");
+    setOutputType("text");
     try {
       const res = await runPromptFn({ data: { prompt, model } });
       if (res.error) {
@@ -125,6 +126,7 @@ function PlaygroundPage() {
         return;
       }
       setOutput(res.output);
+      setOutputType(res.outputType ?? "text");
 
       if (user && res.output) {
         await supabase.from("prompt_history").insert({
