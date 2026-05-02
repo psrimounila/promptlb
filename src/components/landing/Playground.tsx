@@ -231,9 +231,12 @@ export function Playground() {
   };
 
   const run = (s: SampleCard) => {
+    const fullPrompt = s.enhanced.sections
+      .map((sec) => `${sec.emoji} ${sec.label} - ${sec.text}`)
+      .join("\n\n");
     navigate({
       to: "/playground",
-      search: { prompt: s.enhanced.prompt, model: s.model, title: s.title },
+      search: { prompt: fullPrompt, model: s.model, title: s.title },
     });
   };
 
@@ -371,7 +374,13 @@ export function Playground() {
                     variant="glass"
                     size="sm"
                     className="h-8"
-                    onClick={() => copy(s.enhanced.prompt)}
+                    onClick={() =>
+                      copy(
+                        s.enhanced.sections
+                          .map((sec) => `${sec.emoji} ${sec.label} - ${sec.text}`)
+                          .join("\n\n"),
+                      )
+                    }
                   >
                     <Copy className="h-3 w-3" />
                   </Button>
