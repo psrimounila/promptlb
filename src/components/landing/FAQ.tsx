@@ -8,32 +8,44 @@ import { HelpCircle } from "lucide-react";
 
 const FAQS = [
   {
-    q: "Is PromptLB really free?",
-    a: "Yes. Every prompt, the playground, the leaderboard and the AI Prompt Enhancer are 100% free. No credit card, no trial, no hidden tier.",
+    q: "What is PromptLB?",
+    a: "PromptLB helps you turn simple ideas into powerful AI prompts so you can get better results instantly.",
   },
   {
-    q: "Which AI models are supported?",
-    a: "Our prompts are optimized for ChatGPT, Claude, Gemini, Midjourney, DALL·E and Stable Diffusion. You can run text prompts directly in the Playground.",
+    q: "Why should I use PromptLB instead of AI tools directly?",
+    a: "AI tools give answers — PromptLB helps you ask better questions. Better prompts = better results with less trial and error.",
   },
   {
     q: "How does the Prompt Enhancer work?",
-    a: "Type a rough idea and our AI structures it into a pro-grade prompt with Goal, Audience, Tone & Style, Format and a final ready-to-paste prompt.",
+    a: "You enter a basic idea, and PromptLB converts it into a structured prompt with a clear goal, target audience, tone/style, and output format.",
   },
   {
-    q: "Do I need an account to browse prompts?",
-    a: "No. You can browse the library, leaderboard and run the Enhancer without signing in. An account is only needed to save your prompt history and submit your own prompts.",
+    q: "Do I need prompt writing skills?",
+    a: "No. PromptLB is built for beginners. Just type your idea — it does the rest.",
   },
   {
-    q: "Can I submit my own prompts?",
-    a: "Yes. Once signed in, head to your Dashboard and submit prompts to the public library. The community upvotes the best ones onto the leaderboard.",
+    q: "Which AI tools can I use these prompts with?",
+    a: "You can use them with tools like ChatGPT, Claude, Gemini, and Midjourney.",
   },
   {
-    q: "How are leaderboard rankings calculated?",
-    a: "Prompts are ranked by community upvotes. Anyone can upvote a prompt, including anonymous visitors, to help surface the best work.",
+    q: "Can I edit the generated prompts?",
+    a: "Yes, you can copy and customize them anytime.",
   },
   {
-    q: "Where is my data stored?",
-    a: "Your account, prompts and run history are stored securely in our managed backend. You can delete your data at any time from your dashboard.",
+    q: "Is PromptLB free to use?",
+    a: "Yes, core features are free.",
+  },
+  {
+    q: "Will this guarantee better results?",
+    a: "PromptLB improves your input quality, which usually leads to better outputs — but results also depend on the AI tool used.",
+  },
+  {
+    q: "Who is PromptLB for?",
+    a: "Anyone using AI — creators, students, marketers, designers, and developers.",
+  },
+  {
+    q: "When should I use PromptLB?",
+    a: "Before using any AI tool. Just enter your idea here first, then use the enhanced prompt for better results.",
   },
 ];
 
