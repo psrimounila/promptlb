@@ -91,6 +91,7 @@ function PlaygroundPage() {
   const [model, setModel] = useState(initial.model ?? "ChatGPT");
   const [title, setTitle] = useState(initial.title ?? "");
   const [output, setOutput] = useState("");
+  const [outputType, setOutputType] = useState<"text" | "image">("text");
   const [running, setRunning] = useState(false);
   const [history, setHistory] = useState<HistoryItem[]>([]);
 
