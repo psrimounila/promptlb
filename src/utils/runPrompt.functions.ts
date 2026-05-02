@@ -91,11 +91,42 @@ export const runPrompt = createServerFn({ method: "POST" })
       const json = await res.json();
 
       if (isImageModel) {
-        // Gemini image responses include images on the assistant message
+        // Gemini image responses can include images in several shapes.
         const message = json.choices?.[0]?.message;
-        const imageUrl: string | undefined =
+
+        // 1) message.images[0].image_url.url | message.images[0].url
+        let imageUrl: string | undefined =
           message?.images?.[0]?.image_url?.url ??
           message?.images?.[0]?.url;
+
+        // 2) message.content as array of parts with image_url or b64_json
+        if (!imageUrl && Array.isArray(message?.content)) {
+          for (const part of message.content) {
+            const url =
+              part?.image_url?.url ??
+              part?.image_url ??
+              (part?.type === "image_url" ? part?.url : undefined);
+            if (typeof url === "string" && url.length > 0) {
+              imageUrl = url;
+              break;
+            }
+            const b64 = part?.b64_json ?? part?.image?.b64_json;
+            if (typeof b64 === "string" && b64.length > 0) {
+              imageUrl = `data:image/png;base64,${b64}`;
+              break;
+            }
+          }
+        }
+
+        // 3) top-level data array (some providers)
+        if (!imageUrl && Array.isArray(json?.data)) {
+          const d = json.data[0];
+          const url = d?.url;
+          const b64 = d?.b64_json;
+          if (typeof url === "string") imageUrl = url;
+          else if (typeof b64 === "string") imageUrl = `data:image/png;base64,${b64}`;
+        }
+
         if (imageUrl) {
           return {
             output: imageUrl,
@@ -103,12 +134,12 @@ export const runPrompt = createServerFn({ method: "POST" })
             error: null as string | null,
           };
         }
-        // Fallback if no image returned
-        const fallback: string = message?.content?.trim() ?? "";
+
+        console.error("No image in gateway response", JSON.stringify(json).slice(0, 500));
         return {
-          output: fallback,
-          outputType: "text" as const,
-          error: fallback ? null : "No image was generated. Please try again.",
+          output: "",
+          outputType: "image" as const,
+          error: "No image was generated. Please try a more descriptive prompt.",
         };
       }
 
