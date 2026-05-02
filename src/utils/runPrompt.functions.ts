@@ -33,8 +33,24 @@ export const runPrompt = createServerFn({ method: "POST" })
       };
     }
 
-    const targetModel = MODEL_MAP[data.model] ?? "openai/gpt-5-mini";
-    const isImageModel = IMAGE_MODELS.has(data.model);
+    // Detect image-generation intent from prompt text so that even if a
+    // text model (e.g. ChatGPT) is selected, an obvious image prompt still
+    // produces an image instead of a text description.
+    const lower = data.prompt.toLowerCase();
+    const imageIntent =
+      /\b(image|picture|photo|photograph|poster|illustration|wallpaper|render|artwork|logo|icon|sticker|banner|thumbnail|scene|portrait|landscape)\b/.test(
+        lower,
+      ) ||
+      /\b(generate|create|draw|design|make|produce)\b[^.\n]{0,40}\b(image|picture|photo|poster|illustration|art|scene|render|logo|icon|banner|post|graphic|visual)\b/.test(
+        lower,
+      ) ||
+      /\b(midjourney|sdxl|stable diffusion|dall[- ]?e|--ar |--style )\b/.test(lower) ||
+      /\b(social (media )?post|instagram post|product hero|hero shot)\b/.test(lower);
+
+    const isImageModel = IMAGE_MODELS.has(data.model) || imageIntent;
+    const targetModel = isImageModel
+      ? "google/gemini-2.5-flash-image-preview"
+      : MODEL_MAP[data.model] ?? "openai/gpt-5-mini";
 
     const systemPrompt = `You are ${data.model}, a helpful AI assistant. Respond to the user's prompt thoughtfully and concisely. Use clean formatting (markdown headers, lists, code blocks) where appropriate. Do not preface your answer with disclaimers.`;
 
