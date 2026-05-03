@@ -49,8 +49,8 @@ const STEPS = [
   },
   {
     icon: Play,
-    title: "3. Run in the Playground",
-    desc: "Open any prompt in the Playground to run it against your favorite model and see real output instantly.",
+    title: "3. Run in Compare Prompts",
+    desc: "Open any prompt in Compare Prompts to run it against your favorite model and see real output instantly.",
     tips: [
       "Pick the model from the dropdown.",
       "Tweak the prompt text before running.",
