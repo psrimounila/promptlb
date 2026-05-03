@@ -13,7 +13,7 @@ const FAQS = [
   },
   {
     q: "Why should I use PromptLB instead of AI tools directly?",
-    a: "AI tools give answers — PromptLB helps you ask better questions. Better prompts = better results with less trial and error.",
+    a: "AI tools give answers - PromptLB helps you ask better questions. Better prompts = better results with less trial and error.",
   },
   {
     q: "How does the Prompt Enhancer work?",
@@ -21,7 +21,7 @@ const FAQS = [
   },
   {
     q: "Do I need prompt writing skills?",
-    a: "No. PromptLB is built for beginners. Just type your idea — it does the rest.",
+    a: "No. PromptLB is built for beginners. Just type your idea - it does the rest.",
   },
   {
     q: "Which AI tools can I use these prompts with?",
@@ -37,11 +37,11 @@ const FAQS = [
   },
   {
     q: "Will this guarantee better results?",
-    a: "PromptLB improves your input quality, which usually leads to better outputs — but results also depend on the AI tool used.",
+    a: "PromptLB improves your input quality, which usually leads to better outputs - but results also depend on the AI tool used.",
   },
   {
     q: "Who is PromptLB for?",
-    a: "Anyone using AI — creators, students, marketers, designers, and developers.",
+    a: "Anyone using AI - creators, students, marketers, designers, and developers.",
   },
   {
     q: "When should I use PromptLB?",
