@@ -46,7 +46,7 @@ export const Route = createFileRoute("/library")({
   validateSearch: searchSchema,
   head: () => ({
     meta: [
-      { title: "Prompt Library · PromptLB" },
+      { title: "Explore Prompts · PromptLB" },
       {
         name: "description",
         content:
