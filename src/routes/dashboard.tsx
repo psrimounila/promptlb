@@ -184,14 +184,14 @@ function DashboardPage() {
                 <History className="mx-auto h-8 w-8 text-muted-foreground" />
                 <p className="mt-3 font-medium">No runs yet</p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Run your first prompt in the Playground.
+                  Run your first prompt in Compare Prompts.
                 </p>
                 <Button
                   className="mt-4"
                   variant="hero"
                   onClick={() => navigate({ to: "/playground" })}
                 >
-                  Open Playground
+                  Compare Prompts
                 </Button>
               </div>
             ) : (
