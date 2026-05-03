@@ -157,7 +157,7 @@ function DashboardPage() {
             <StatCard label="My prompts" value={prompts.length} icon={Sparkles} />
             <StatCard label="Total upvotes" value={totalUpvotes} icon={TrendingUp} />
             <StatCard label="Runs saved" value={history.length} icon={History} />
-            <StatCard label="Library" value="Browse" icon={BookOpen} />
+            <StatCard label="Explore Prompts" value="Browse" icon={BookOpen} />
           </div>
 
           {/* History */}
