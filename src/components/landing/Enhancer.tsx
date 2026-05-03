@@ -89,6 +89,41 @@ export function Enhancer() {
               <Wand2 className="h-4 w-4 text-accent" />
               <span className="text-sm font-semibold">Your rough idea</span>
             </div>
+
+            {/* Output type selector */}
+            <div className="mt-3">
+              <div className="inline-flex rounded-lg border border-border bg-surface/60 p-1">
+                {([
+                  { v: "text", label: "Text", Icon: Type },
+                  { v: "image", label: "Image", Icon: ImageIcon },
+                  { v: "code", label: "Code", Icon: Code2 },
+                ] as const).map(({ v, label, Icon }) => (
+                  <button
+                    key={v}
+                    type="button"
+                    onClick={() => setOutputType(v)}
+                    className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
+                      outputType === v
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    <Icon className="h-3.5 w-3.5" />
+                    {label}
+                  </button>
+                ))}
+              </div>
+              {outputType === "image" && (
+                <p className="mt-2 text-xs text-accent">
+                  Optimized for Image Generation
+                </p>
+              )}
+              {outputType === "code" && (
+                <p className="mt-2 text-xs text-accent">
+                  Optimized for Code Generation
+                </p>
+              )}
+            </div>
             <Textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
