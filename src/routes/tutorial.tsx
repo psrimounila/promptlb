@@ -134,12 +134,12 @@ function TutorialPage() {
         <div className="mt-12 flex flex-col items-center justify-center gap-3 text-center sm:flex-row">
           <Button variant="hero" size="lg" asChild>
             <Link to="/library">
-              Explore the Library
+              Explore Prompts
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
           <Button variant="glass" size="lg" asChild>
-            <Link to="/playground">Open Playground</Link>
+            <Link to="/playground">Compare Prompts</Link>
           </Button>
         </div>
       </main>
