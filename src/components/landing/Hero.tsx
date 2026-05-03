@@ -213,6 +213,8 @@ export function Hero() {
                 <br />→ Replace a workflow, not a job
                 <br />→ Charge for outcomes, not tokens
                 <br />Which one are you betting on?
+                <br />
+                <br />#AI #Startups #BuildInPublic #ProductStrategy
               </div>
               <div className="mt-3 flex items-center gap-1 text-[11px] text-primary-glow">
                 <span>●</span> Specific · High-engagement structure
