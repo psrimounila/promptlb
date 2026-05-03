@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Sparkles, Copy, Loader2, Wand2, ArrowRight } from "lucide-react";
+import { Sparkles, Copy, Loader2, Wand2, ArrowRight, Type, Image as ImageIcon, Code2 } from "lucide-react";
 import { toast } from "sonner";
 import { enhancePrompt } from "@/utils/enhancePrompt.functions";
+
+type OutputType = "text" | "image" | "code";
 
 const EXAMPLES = [
   "write a tweet about AI",
@@ -18,6 +20,7 @@ export function Enhancer() {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [outputType, setOutputType] = useState<OutputType>("text");
 
   // Listen for prefill events dispatched by the Hero search bar
   useEffect(() => {
@@ -40,7 +43,7 @@ export function Enhancer() {
     setLoading(true);
     setOutput("");
     try {
-      const res = await enhanceFn({ data: { prompt: input } });
+      const res = await enhanceFn({ data: { prompt: input, outputType } });
       if (res.error) {
         toast.error(res.error);
         return;
@@ -85,6 +88,41 @@ export function Enhancer() {
             <div className="flex items-center gap-2">
               <Wand2 className="h-4 w-4 text-accent" />
               <span className="text-sm font-semibold">Your rough idea</span>
+            </div>
+
+            {/* Output type selector */}
+            <div className="mt-3">
+              <div className="inline-flex rounded-lg border border-border bg-surface/60 p-1">
+                {([
+                  { v: "text", label: "Text", Icon: Type },
+                  { v: "image", label: "Image", Icon: ImageIcon },
+                  { v: "code", label: "Code", Icon: Code2 },
+                ] as const).map(({ v, label, Icon }) => (
+                  <button
+                    key={v}
+                    type="button"
+                    onClick={() => setOutputType(v)}
+                    className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
+                      outputType === v
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    <Icon className="h-3.5 w-3.5" />
+                    {label}
+                  </button>
+                ))}
+              </div>
+              {outputType === "image" && (
+                <p className="mt-2 text-xs text-accent">
+                  Optimized for Image Generation
+                </p>
+              )}
+              {outputType === "code" && (
+                <p className="mt-2 text-xs text-accent">
+                  Optimized for Code Generation
+                </p>
+              )}
             </div>
             <Textarea
               value={input}
