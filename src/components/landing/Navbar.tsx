@@ -140,7 +140,7 @@ export function Navbar() {
                       <Play className="h-4 w-4" /> Compare Prompts
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => navigate({ to: "/library" })}>
-                      <Sparkles className="h-4 w-4" /> Browse library
+                      <Sparkles className="h-4 w-4" /> Explore Prompts
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
