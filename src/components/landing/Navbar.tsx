@@ -137,7 +137,7 @@ export function Navbar() {
                       <LayoutDashboard className="h-4 w-4" /> Dashboard
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => navigate({ to: "/playground" })}>
-                      <Play className="h-4 w-4" /> Playground
+                      <Play className="h-4 w-4" /> Compare Prompts
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => navigate({ to: "/library" })}>
                       <Sparkles className="h-4 w-4" /> Browse library
