@@ -10,10 +10,10 @@ export function Footer() {
 
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground sm:gap-x-8">
             <Link to="/library" className="transition-colors hover:text-foreground">
-              Library
+              Explore Prompts
             </Link>
             <Link to="/playground" className="transition-colors hover:text-foreground">
-              Playground
+              Compare Prompts
             </Link>
             <Link to="/tutorial" className="transition-colors hover:text-foreground">
               Tutorial

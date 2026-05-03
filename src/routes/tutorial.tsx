@@ -29,7 +29,7 @@ export const Route = createFileRoute("/tutorial")({
 const STEPS = [
   {
     icon: Search,
-    title: "1. Search the Library",
+    title: "1. Search Explore Prompts",
     desc: "Use the search bar on the home page to find verified prompts. Try a category name like 'Marketing' or a keyword like 'landing page hero'.",
     tips: [
       "Direct category names jump straight to that filter.",
@@ -49,8 +49,8 @@ const STEPS = [
   },
   {
     icon: Play,
-    title: "3. Run in the Playground",
-    desc: "Open any prompt in the Playground to run it against your favorite model and see real output instantly.",
+    title: "3. Run in Compare Prompts",
+    desc: "Open any prompt in Compare Prompts to run it against your favorite model and see real output instantly.",
     tips: [
       "Pick the model from the dropdown.",
       "Tweak the prompt text before running.",
@@ -134,12 +134,12 @@ function TutorialPage() {
         <div className="mt-12 flex flex-col items-center justify-center gap-3 text-center sm:flex-row">
           <Button variant="hero" size="lg" asChild>
             <Link to="/library">
-              Explore the Library
+              Explore Prompts
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
           <Button variant="glass" size="lg" asChild>
-            <Link to="/playground">Open Playground</Link>
+            <Link to="/playground">Compare Prompts</Link>
           </Button>
         </div>
       </main>

@@ -56,14 +56,14 @@ export function Navbar() {
         onClick={() => setMobileOpen(false)}
         className="text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
-        Library
+        Explore Prompts
       </Link>
       <Link
         to="/playground"
         onClick={() => setMobileOpen(false)}
         className="text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
-        Playground
+        Compare Prompts
       </Link>
       {user && (
         <Link
@@ -137,10 +137,10 @@ export function Navbar() {
                       <LayoutDashboard className="h-4 w-4" /> Dashboard
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => navigate({ to: "/playground" })}>
-                      <Play className="h-4 w-4" /> Playground
+                      <Play className="h-4 w-4" /> Compare Prompts
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => navigate({ to: "/library" })}>
-                      <Sparkles className="h-4 w-4" /> Browse library
+                      <Sparkles className="h-4 w-4" /> Explore Prompts
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem

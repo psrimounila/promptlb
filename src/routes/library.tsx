@@ -46,7 +46,7 @@ export const Route = createFileRoute("/library")({
   validateSearch: searchSchema,
   head: () => ({
     meta: [
-      { title: "Prompt Library · PromptLB" },
+      { title: "Explore Prompts · PromptLB" },
       {
         name: "description",
         content:
@@ -166,7 +166,7 @@ function LibraryPage() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <span className="text-xs font-semibold uppercase tracking-widest text-accent">
-                Library
+                Explore Prompts
               </span>
               <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-5xl">
                 Browse <span className="text-gradient-primary">verified prompts</span>
@@ -359,7 +359,7 @@ function LibraryPage() {
                   setViewing(null);
                 }}
               >
-                <Play className="h-4 w-4" /> Run in Playground
+                <Play className="h-4 w-4" /> Compare Prompts
               </Button>
             </DialogFooter>
           </DialogContent>

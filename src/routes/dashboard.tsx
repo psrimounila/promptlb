@@ -148,7 +148,7 @@ function DashboardPage() {
               </p>
             </div>
             <Button variant="hero" onClick={() => navigate({ to: "/playground" })}>
-              <Play className="h-4 w-4" /> Open Playground
+              <Play className="h-4 w-4" /> Compare Prompts
             </Button>
           </div>
 
@@ -157,7 +157,7 @@ function DashboardPage() {
             <StatCard label="My prompts" value={prompts.length} icon={Sparkles} />
             <StatCard label="Total upvotes" value={totalUpvotes} icon={TrendingUp} />
             <StatCard label="Runs saved" value={history.length} icon={History} />
-            <StatCard label="Library" value="Browse" icon={BookOpen} />
+            <StatCard label="Explore Prompts" value="Browse" icon={BookOpen} />
           </div>
 
           {/* History */}
@@ -184,14 +184,14 @@ function DashboardPage() {
                 <History className="mx-auto h-8 w-8 text-muted-foreground" />
                 <p className="mt-3 font-medium">No runs yet</p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Run your first prompt in the Playground.
+                  Run your first prompt in Compare Prompts.
                 </p>
                 <Button
                   className="mt-4"
                   variant="hero"
                   onClick={() => navigate({ to: "/playground" })}
                 >
-                  Open Playground
+                  Compare Prompts
                 </Button>
               </div>
             ) : (
@@ -266,14 +266,14 @@ function DashboardPage() {
                 <Sparkles className="mx-auto h-8 w-8 text-muted-foreground" />
                 <p className="mt-3 font-medium">No prompts yet</p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Submit your first prompt from the Library page.
+                  Submit your first prompt from the Explore Prompts page.
                 </p>
                 <Button
                   className="mt-4"
                   variant="hero"
                   onClick={() => navigate({ to: "/library" })}
                 >
-                  Go to Library
+                  Go to Explore Prompts
                 </Button>
               </div>
             ) : (

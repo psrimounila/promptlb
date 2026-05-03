@@ -38,7 +38,7 @@ export const Route = createFileRoute("/playground")({
   validateSearch: search,
   head: () => ({
     meta: [
-      { title: "Prompt Playground · PromptLB" },
+      { title: "Compare Prompts · PromptLB" },
       {
         name: "description",
         content:
@@ -182,7 +182,7 @@ function PlaygroundPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="text-center sm:text-left">
             <span className="text-xs font-semibold uppercase tracking-widest text-accent">
-              Playground
+              Compare Prompts
             </span>
             <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-5xl">
               Run any prompt.{" "}

@@ -36,7 +36,7 @@ export function CTA() {
               className="w-full sm:w-auto"
               onClick={() => navigate({ to: "/library" })}
             >
-              Browse Library
+              Explore Prompts
             </Button>
           </div>
           <p className="mt-5 text-xs text-muted-foreground">
