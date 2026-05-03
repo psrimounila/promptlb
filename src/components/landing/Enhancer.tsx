@@ -2,11 +2,18 @@ import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Sparkles, Copy, Loader2, Wand2, ArrowRight } from "lucide-react";
+import { Sparkles, Copy, Loader2, Wand2, ArrowRight, Type, Image as ImageIcon, Code2 } from "lucide-react";
 import { toast } from "sonner";
 import { enhancePrompt } from "@/utils/enhancePrompt.functions";
 
+type OutputType = "text" | "image" | "code";
+
 const EXAMPLES = [
+  "write a tweet about AI",
+  "logo for coffee shop",
+  "blog post on remote work",
+  "react component for pricing",
+];
   "write a tweet about AI",
   "logo for coffee shop",
   "blog post on remote work",
