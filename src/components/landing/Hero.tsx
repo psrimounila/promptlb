@@ -129,7 +129,7 @@ export function Hero() {
             className="w-full sm:w-auto"
             onClick={() => navigate({ to: "/library" })}
           >
-            Explore the Library
+            Explore Prompts
           </Button>
         </div>
 
