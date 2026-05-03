@@ -27,6 +27,20 @@ Always output the enhanced prompt in this exact structure:
 
 Do not add any commentary before or after these sections. Use exactly these emoji headers.`;
 
+const IMAGE_GUIDANCE = `
+
+The user wants an IMAGE generation prompt (for tools like Midjourney, DALL-E, Nano Banana). In the **📝 Prompt** section:
+- Start the prompt with "Generate an image of..."
+- Include rich visual details: art style, composition, colors, lighting, mood, camera/lens, aspect ratio
+- Avoid instructions meant for text models`;
+
+const CODE_GUIDANCE = `
+
+The user wants a CODE generation prompt. In the **📝 Prompt** section:
+- Specify the language, framework, and runtime
+- Define inputs, outputs, edge cases, and constraints
+- Ask for clean, idiomatic, well-commented code with brief usage example`;
+
 export const enhancePrompt = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => EnhanceSchema.parse(input))
   .handler(async ({ data }) => {
@@ -34,6 +48,14 @@ export const enhancePrompt = createServerFn({ method: "POST" })
     if (!apiKey) {
       return { enhanced: "", error: "AI service is not configured." };
     }
+
+    const SYSTEM =
+      BASE_SYSTEM +
+      (data.outputType === "image"
+        ? IMAGE_GUIDANCE
+        : data.outputType === "code"
+          ? CODE_GUIDANCE
+          : "");
 
     try {
       const res = await fetch(
