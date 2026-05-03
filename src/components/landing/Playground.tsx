@@ -84,7 +84,7 @@ const SAMPLES: SampleCard[] = [
     },
     enhanced: {
       prompt:
-        "editorial product shot of a sage green leather handbag held by elegant hands with manicured nails, soft cream gradient backdrop, golden hour studio light, gold hardware, magazine quality, 4k",
+        "Generate an image of an editorial product shot of a sage green leather handbag held by elegant hands with manicured nails, soft cream gradient backdrop, golden hour studio light, gold hardware, magazine quality, 4k",
       output: productEnhanced,
       note: "Campaign-ready hero shot",
       sections: [
@@ -92,7 +92,7 @@ const SAMPLES: SampleCard[] = [
         { emoji: "👥", label: "Audience", text: "Premium fashion shoppers browsing editorial campaigns and lookbooks." },
         { emoji: "🎨", label: "Tone & Style", text: "Editorial, refined, magazine-grade. Warm neutrals and gold accents." },
         { emoji: "📋", label: "Format", text: "High-resolution 4k product hero, soft gradient backdrop, single subject." },
-        { emoji: "📝", label: "Prompt", text: "Editorial product shot of a sage green leather handbag held by elegant hands with manicured nails. Soft cream-to-blush gradient backdrop, golden hour studio light, gold hardware catching highlights, subtle shadow, sharp focus on stitching, magazine quality, 4k, photorealistic." },
+        { emoji: "📝", label: "Prompt", text: "Generate an image of an editorial product shot of a sage green leather handbag held by elegant hands with manicured nails. Soft cream-to-blush gradient backdrop, golden hour studio light, gold hardware catching highlights, subtle shadow, sharp focus on stitching, magazine quality, 4k, photorealistic." },
       ],
     },
   },
