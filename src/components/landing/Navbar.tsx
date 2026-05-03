@@ -56,14 +56,14 @@ export function Navbar() {
         onClick={() => setMobileOpen(false)}
         className="text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
-        Library
+        Explore Prompts
       </Link>
       <Link
         to="/playground"
         onClick={() => setMobileOpen(false)}
         className="text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
-        Playground
+        Compare Prompts
       </Link>
       {user && (
         <Link
