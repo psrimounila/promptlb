@@ -87,7 +87,7 @@ function PricingPage() {
                   className="flex-1"
                   onClick={() => navigate({ to: "/library" })}
                 >
-                  Browse Library
+                  Explore Prompts
                 </Button>
               </div>
               <p className="mt-3 text-center text-xs text-muted-foreground">
