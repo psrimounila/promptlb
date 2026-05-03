@@ -148,7 +148,7 @@ function DashboardPage() {
               </p>
             </div>
             <Button variant="hero" onClick={() => navigate({ to: "/playground" })}>
-              <Play className="h-4 w-4" /> Open Playground
+              <Play className="h-4 w-4" /> Compare Prompts
             </Button>
           </div>
 
