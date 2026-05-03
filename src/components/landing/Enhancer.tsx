@@ -43,7 +43,7 @@ export function Enhancer() {
     setLoading(true);
     setOutput("");
     try {
-      const res = await enhanceFn({ data: { prompt: input } });
+      const res = await enhanceFn({ data: { prompt: input, outputType } });
       if (res.error) {
         toast.error(res.error);
         return;
