@@ -266,14 +266,14 @@ function DashboardPage() {
                 <Sparkles className="mx-auto h-8 w-8 text-muted-foreground" />
                 <p className="mt-3 font-medium">No prompts yet</p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Submit your first prompt from the Library page.
+                  Submit your first prompt from the Explore Prompts page.
                 </p>
                 <Button
                   className="mt-4"
                   variant="hero"
                   onClick={() => navigate({ to: "/library" })}
                 >
-                  Go to Library
+                  Go to Explore Prompts
                 </Button>
               </div>
             ) : (
