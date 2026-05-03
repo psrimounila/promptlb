@@ -29,7 +29,7 @@ export const Route = createFileRoute("/tutorial")({
 const STEPS = [
   {
     icon: Search,
-    title: "1. Search the Library",
+    title: "1. Search Explore Prompts",
     desc: "Use the search bar on the home page to find verified prompts. Try a category name like 'Marketing' or a keyword like 'landing page hero'.",
     tips: [
       "Direct category names jump straight to that filter.",
