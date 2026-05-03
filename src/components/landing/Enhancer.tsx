@@ -14,17 +14,13 @@ const EXAMPLES = [
   "blog post on remote work",
   "react component for pricing",
 ];
-  "write a tweet about AI",
-  "logo for coffee shop",
-  "blog post on remote work",
-  "react component for pricing",
-];
 
 export function Enhancer() {
   const enhanceFn = useServerFn(enhancePrompt);
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [outputType, setOutputType] = useState<OutputType>("text");
 
   // Listen for prefill events dispatched by the Hero search bar
   useEffect(() => {
