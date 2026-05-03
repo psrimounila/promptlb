@@ -60,7 +60,7 @@ const SAMPLES: SampleCard[] = [
     },
     enhanced: {
       prompt:
-        "instagram social post for a luxury skincare brand, glass serum bottle on pastel peach background, botanical leaves, golden accents, headline 'GLOW DAILY' in elegant serif, soft studio light, 1:1",
+        "Generate an image of an instagram social post for a luxury skincare brand, glass serum bottle on pastel peach background, botanical leaves, golden accents, headline 'GLOW DAILY' in elegant serif, soft studio light, 1:1",
       output: socialEnhanced,
       note: "Scroll-stopping, on-brand ad creative",
       sections: [
@@ -68,7 +68,7 @@ const SAMPLES: SampleCard[] = [
         { emoji: "👥", label: "Audience", text: "Women 25-40 who follow premium beauty and clean-skincare brands." },
         { emoji: "🎨", label: "Tone & Style", text: "Editorial, soft, luxurious. Pastel peach palette with golden accents." },
         { emoji: "📋", label: "Format", text: "Square 1:1, single hero product, headline in elegant serif, minimal copy." },
-        { emoji: "📝", label: "Prompt", text: "Instagram social post for a luxury skincare brand. Glass serum bottle as hero on a soft pastel peach gradient backdrop, scattered botanical leaves and gold leaf accents, dewy water droplets. Headline 'GLOW DAILY' in elegant serif, small tagline 'Order now' below in light sans. Soft studio light, magazine quality, 1:1 square." },
+        { emoji: "📝", label: "Prompt", text: "Generate an image of an Instagram social post for a luxury skincare brand. Glass serum bottle as hero on a soft pastel peach gradient backdrop, scattered botanical leaves and gold leaf accents, dewy water droplets. Headline 'GLOW DAILY' in elegant serif, small tagline 'Order now' below in light sans. Soft studio light, magazine quality, 1:1 square." },
       ],
     },
   },
