@@ -3,9 +3,10 @@ import { z } from "zod";
 
 const EnhanceSchema = z.object({
   prompt: z.string().min(3).max(2000),
+  outputType: z.enum(["text", "image", "code"]).optional().default("text"),
 });
 
-const SYSTEM = `You are an expert prompt engineer. Take a user's rough idea and rewrite it as a structured, high-quality prompt that will produce excellent results from any large language model.
+const BASE_SYSTEM = `You are an expert prompt engineer. Take a user's rough idea and rewrite it as a structured, high-quality prompt that will produce excellent results from any large language model.
 
 Always output the enhanced prompt in this exact structure:
 
