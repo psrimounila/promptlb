@@ -25,7 +25,7 @@ const features = [
   },
   {
     icon: PlayCircle,
-    title: "Prompt Playground",
+    title: "Compare Prompts",
     desc: "Run any prompt directly inside the site, see real output, and save it to your history.",
   },
   {
