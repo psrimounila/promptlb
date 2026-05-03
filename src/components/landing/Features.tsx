@@ -35,7 +35,7 @@ const features = [
   },
   {
     icon: Globe2,
-    title: "Community Library",
+    title: "Explore Prompts",
     desc: "Submit your own prompts, share use cases, and earn recognition from the community.",
   },
 ];
