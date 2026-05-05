@@ -13,10 +13,10 @@ export function Footer() {
               Explore Prompts
             </Link>
             <Link to="/playground" className="transition-colors hover:text-foreground">
-              Compare Prompts
+              Test Prompts
             </Link>
             <Link to="/tutorial" className="transition-colors hover:text-foreground">
-              Tutorial
+              How It Works
             </Link>
             <Link to="/faq" className="transition-colors hover:text-foreground">
               FAQ
