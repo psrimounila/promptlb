@@ -7,6 +7,7 @@ import {
   Sparkles,
   Image as ImageIcon,
 } from "lucide-react";
+import { Reveal } from "@/components/Reveal";
 
 const categories: Array<{
   icon: typeof Megaphone;
@@ -78,7 +79,7 @@ export function Categories() {
   return (
     <section id="categories" className="relative py-12 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="mx-auto max-w-2xl text-center">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <span className="text-xs font-semibold uppercase tracking-widest text-accent">
             Categories
           </span>
@@ -90,12 +91,12 @@ export function Categories() {
             Six focused categories. 130+ verified prompts. All free, all
             community-ranked.
           </p>
-        </div>
+        </Reveal>
 
         <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">
-          {categories.map((cat) => (
+          {categories.map((cat, i) => (
+            <Reveal key={cat.title} delay={i * 80}>
             <button
-              key={cat.title}
               onClick={() =>
                 navigate({
                   to: "/library",
@@ -132,6 +133,7 @@ export function Categories() {
                 </div>
               </div>
             </button>
+            </Reveal>
           ))}
         </div>
       </div>
