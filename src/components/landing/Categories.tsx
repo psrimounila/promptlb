@@ -95,7 +95,7 @@ export function Categories() {
 
         <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">
           {categories.map((cat, i) => (
-            <Reveal key={cat.title} delay={i * 80}>
+            <Reveal key={cat.title} delay={i * 80} className="h-full">
             <button
               onClick={() =>
                 navigate({
@@ -103,7 +103,7 @@ export function Categories() {
                   search: { category: cat.filter } as never,
                 })
               }
-              className="glass group relative cursor-pointer overflow-hidden rounded-2xl p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 sm:p-6"
+              className="glass group relative flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-2xl p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 sm:p-6"
             >
               <div
                 className={`pointer-events-none absolute -right-20 -top-20 h-40 w-40 rounded-full bg-gradient-to-br ${cat.accent} opacity-40 blur-3xl transition-opacity group-hover:opacity-70`}
