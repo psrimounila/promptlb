@@ -19,9 +19,6 @@ import {
   Play,
   Menu,
   X,
-  ChevronDown,
-  HelpCircle,
-  BookOpen,
 } from "lucide-react";
 
 export function Navbar() {
