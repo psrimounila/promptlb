@@ -60,7 +60,14 @@ export function Navbar() {
         onClick={() => setMobileOpen(false)}
         className="text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
-        Compare Prompts
+        Test Prompts
+      </Link>
+      <Link
+        to="/tutorial"
+        onClick={() => setMobileOpen(false)}
+        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+      >
+        How It Works
       </Link>
       {user && (
         <Link
@@ -85,19 +92,6 @@ export function Navbar() {
 
             <div className="hidden items-center gap-6 md:flex">
               {navLinks}
-              <DropdownMenu>
-                <DropdownMenuTrigger className="inline-flex items-center gap-1 text-sm text-muted-foreground outline-none transition-colors hover:text-foreground">
-                  More <ChevronDown className="h-3.5 w-3.5" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-44">
-                  <DropdownMenuItem onClick={() => navigate({ to: "/tutorial" })}>
-                    <BookOpen className="h-4 w-4" /> Tutorial
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate({ to: "/faq" })}>
-                    <HelpCircle className="h-4 w-4" /> FAQ
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
             </div>
 
             <div className="flex items-center gap-2">
@@ -134,7 +128,7 @@ export function Navbar() {
                       <LayoutDashboard className="h-4 w-4" /> Dashboard
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => navigate({ to: "/playground" })}>
-                      <Play className="h-4 w-4" /> Compare Prompts
+                      <Play className="h-4 w-4" /> Test Prompts
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => navigate({ to: "/library" })}>
                       <Sparkles className="h-4 w-4" /> Explore Prompts
@@ -178,20 +172,7 @@ export function Navbar() {
           {mobileOpen && (
             <div className="mt-3 flex flex-col gap-3 border-t border-border pt-3 md:hidden">
               {navLinks}
-              <Link
-                to="/tutorial"
-                onClick={() => setMobileOpen(false)}
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                Tutorial
-              </Link>
-              <Link
-                to="/faq"
-                onClick={() => setMobileOpen(false)}
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                FAQ
-              </Link>
+              {/* mobile extras handled inline in navLinks */}
               <Button
                 variant="hero"
                 size="sm"
