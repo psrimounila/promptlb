@@ -6,6 +6,7 @@ import {
   FolderHeart,
   Globe2,
 } from "lucide-react";
+import { Reveal } from "@/components/Reveal";
 
 const features = [
   {
@@ -44,7 +45,7 @@ export function Features() {
   return (
     <section id="features" className="relative py-12 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="mx-auto max-w-2xl text-center">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <span className="text-xs font-semibold uppercase tracking-widest text-accent">
             Why PromptLB
           </span>
@@ -55,24 +56,25 @@ export function Features() {
           <p className="mt-3 text-base text-muted-foreground sm:text-lg">
             One library. Every model. Crafted by creators, validated by the community.
           </p>
-        </div>
+        </Reveal>
 
         <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 md:grid-cols-2 lg:grid-cols-3">
-          {features.map((f) => (
-            <div
-              key={f.title}
-              className="glass group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 sm:p-7"
-            >
-              <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-gradient-primary opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-30" />
+          {features.map((f, i) => (
+            <Reveal key={f.title} delay={i * 80}>
+              <div
+                className="glass group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 sm:p-7"
+              >
+                <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-gradient-primary opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-30" />
 
-              <div className="relative">
-                <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-primary shadow-[0_4px_20px_-4px_oklch(0.7_0.22_295/0.5)]">
-                  <f.icon className="h-5 w-5 text-primary-foreground" />
+                <div className="relative">
+                  <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-primary shadow-[0_4px_20px_-4px_oklch(0.7_0.22_295/0.5)]">
+                    <f.icon className="h-5 w-5 text-primary-foreground" />
+                  </div>
+                  <h3 className="text-lg font-semibold">{f.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.desc}</p>
                 </div>
-                <h3 className="text-lg font-semibold">{f.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.desc}</p>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>
