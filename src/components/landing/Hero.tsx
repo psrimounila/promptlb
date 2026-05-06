@@ -50,9 +50,9 @@ export function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden pt-20 pb-10 sm:pt-28 sm:pb-16">
+    <section className="relative isolate overflow-hidden pt-20 pb-10 sm:pt-28 sm:pb-16">
       {/* Animated gradient blobs background */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
         <div className="blob blob-purple absolute -top-32 -left-24 h-[420px] w-[420px] rounded-full" />
         <div className="blob blob-blue absolute top-1/3 -right-32 h-[480px] w-[480px] rounded-full" style={{ animationDelay: "-6s" }} />
         <div className="blob blob-pink absolute bottom-0 left-1/3 h-[380px] w-[380px] rounded-full" style={{ animationDelay: "-12s" }} />
