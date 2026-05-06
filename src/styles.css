@@ -317,3 +317,25 @@
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
+
+@keyframes blob-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.08); }
+  66% { transform: translate(-30px, 40px) scale(0.95); }
+}
+
+.blob {
+  filter: blur(80px);
+  opacity: 0.35;
+  animation: blob-drift 22s ease-in-out infinite;
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+
+.blob-purple { background: radial-gradient(circle, oklch(0.7 0.18 300 / 0.7), transparent 70%); }
+.blob-blue { background: radial-gradient(circle, oklch(0.72 0.16 250 / 0.7), transparent 70%); }
+.blob-pink { background: radial-gradient(circle, oklch(0.78 0.15 350 / 0.7), transparent 70%); }
+
+@media (prefers-reduced-motion: reduce) {
+  .blob { animation: none; }
+}
