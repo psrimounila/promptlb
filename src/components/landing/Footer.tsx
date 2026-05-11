@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Logo } from "@/components/Logo";
+import { SocialDock } from "@/components/SocialDock";
 
 export function Footer() {
   return (
@@ -26,9 +27,12 @@ export function Footer() {
             </Link>
           </div>
 
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} PromptLB. All rights reserved.
-          </p>
+          <div className="flex flex-col items-center gap-3 md:items-end">
+            <SocialDock />
+            <p className="text-xs text-muted-foreground">
+              © {new Date().getFullYear()} PromptLB. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
