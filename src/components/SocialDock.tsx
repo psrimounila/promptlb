@@ -15,7 +15,7 @@ export function SocialDock() {
   ];
 
   return (
-    <div className="fixed bottom-5 right-5 z-40 flex flex-col gap-2">
+    <div className="fixed bottom-5 right-5 z-40 flex flex-row gap-2">
       {links.map(({ href, label, Icon }) => (
         <a
           key={label}
