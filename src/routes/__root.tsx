@@ -77,6 +77,7 @@ function RootComponent() {
   return (
     <AuthProvider>
       <Outlet />
+      <SocialDock />
       <Toaster richColors theme="dark" position="top-right" />
     </AuthProvider>
   );
