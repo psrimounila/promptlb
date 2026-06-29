@@ -272,7 +272,7 @@ function PlaygroundPage() {
                     variant="hero"
                     className="flex-1"
                     onClick={handleRun}
-                    disabled={running || !prompt.trim()}
+                    disabled={running || !prompt.trim() || !desiredType}
                   >
                     {running ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
