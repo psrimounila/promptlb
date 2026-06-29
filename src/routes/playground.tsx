@@ -120,11 +120,17 @@ function PlaygroundPage() {
       toast.error("Type a prompt first");
       return;
     }
+    if (!desiredType) {
+      toast.error("Select an output type (Text, Image, or Code) before running");
+      return;
+    }
     setRunning(true);
     setOutput("");
-    setOutputType("text");
+    setOutputType(desiredType === "image" ? "image" : "text");
     try {
-      const res = await runPromptFn({ data: { prompt, model } });
+      const res = await runPromptFn({
+        data: { prompt, model, outputType: desiredType },
+      });
       if (res.error) {
         toast.error(res.error);
         return;
