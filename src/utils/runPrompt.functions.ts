@@ -34,21 +34,19 @@ export const runPrompt = createServerFn({ method: "POST" })
       };
     }
 
-    // Detect image-generation intent from prompt text so that even if a
-    // text model (e.g. ChatGPT) is selected, an obvious image prompt still
-    // produces an image instead of a text description.
-    const lower = data.prompt.toLowerCase();
-    const imageIntent =
-      /\b(image|picture|photo|photograph|poster|illustration|wallpaper|render|artwork|logo|icon|sticker|banner|thumbnail|scene|portrait|landscape)\b/.test(
-        lower,
-      ) ||
-      /\b(generate|create|draw|design|make|produce)\b[^.\n]{0,40}\b(image|picture|photo|poster|illustration|art|scene|render|logo|icon|banner|post|graphic|visual)\b/.test(
-        lower,
-      ) ||
-      /\b(midjourney|sdxl|stable diffusion|dall[- ]?e|--ar |--style )\b/.test(lower) ||
-      /\b(social (media )?post|instagram post|product hero|hero shot)\b/.test(lower);
-
-    const isImageModel = IMAGE_MODELS.has(data.model) || imageIntent;
+    // If the caller explicitly chose an output type, honor it and skip
+    // heuristic image-intent detection (which mis-fires on enhanced text
+    // prompts that contain words like "design", "create", "post", etc.).
+    let isImageModel: boolean;
+    if (data.outputType) {
+      isImageModel = data.outputType === "image";
+    } else {
+      const lower = data.prompt.toLowerCase();
+      const imageIntent =
+        /\b(midjourney|sdxl|stable diffusion|dall[- ]?e|--ar |--style )\b/.test(lower) ||
+        /\b(generate|create|draw|render)\s+(an?\s+)?(image|picture|photo|photograph|poster|illustration|wallpaper|artwork|logo|icon|sticker|banner|thumbnail|portrait|landscape)\b/.test(lower);
+      isImageModel = IMAGE_MODELS.has(data.model) || imageIntent;
+    }
     const targetModel = isImageModel
       ? "google/gemini-2.5-flash-image-preview"
       : MODEL_MAP[data.model] ?? "openai/gpt-5-mini";
