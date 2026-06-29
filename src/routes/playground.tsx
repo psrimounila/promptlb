@@ -25,6 +25,9 @@ import {
   History,
   Trash2,
   Wand2,
+  FileText,
+  Image as ImageIcon,
+  Code2,
 } from "lucide-react";
 import { z } from "zod";
 
@@ -92,6 +95,7 @@ function PlaygroundPage() {
   const [title, setTitle] = useState(initial.title ?? "");
   const [output, setOutput] = useState("");
   const [outputType, setOutputType] = useState<"text" | "image">("text");
+  const [desiredType, setDesiredType] = useState<"text" | "image" | "code" | null>(null);
   const [running, setRunning] = useState(false);
   const [history, setHistory] = useState<HistoryItem[]>([]);
 
@@ -116,11 +120,17 @@ function PlaygroundPage() {
       toast.error("Type a prompt first");
       return;
     }
+    if (!desiredType) {
+      toast.error("Select an output type (Text, Image, or Code) before running");
+      return;
+    }
     setRunning(true);
     setOutput("");
-    setOutputType("text");
+    setOutputType(desiredType === "image" ? "image" : "text");
     try {
-      const res = await runPromptFn({ data: { prompt, model } });
+      const res = await runPromptFn({
+        data: { prompt, model, outputType: desiredType },
+      });
       if (res.error) {
         toast.error(res.error);
         return;
@@ -223,12 +233,46 @@ function PlaygroundPage() {
                   placeholder="Write a cold email to a SaaS founder offering a 15-min call..."
                   className="mt-3 font-mono text-sm"
                 />
+                <div className="mt-3">
+                  <p className="mb-1.5 text-xs font-semibold text-muted-foreground">
+                    Output type <span className="text-destructive">*</span>
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {([
+                      { id: "text", label: "Text", Icon: FileText },
+                      { id: "image", label: "Image", Icon: ImageIcon },
+                      { id: "code", label: "Code", Icon: Code2 },
+                    ] as const).map(({ id, label, Icon }) => {
+                      const active = desiredType === id;
+                      return (
+                        <button
+                          key={id}
+                          type="button"
+                          onClick={() => setDesiredType(id)}
+                          className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-all ${
+                            active
+                              ? "border-primary bg-primary/15 text-primary-glow"
+                              : "border-border bg-background/60 text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                          }`}
+                        >
+                          <Icon className="h-3.5 w-3.5" />
+                          {label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {!desiredType && (
+                    <p className="mt-1.5 text-[11px] text-muted-foreground">
+                      Pick what you want back before running the prompt.
+                    </p>
+                  )}
+                </div>
                 <div className="mt-3 flex flex-col gap-2 sm:flex-row">
                   <Button
                     variant="hero"
                     className="flex-1"
                     onClick={handleRun}
-                    disabled={running || !prompt.trim()}
+                    disabled={running || !prompt.trim() || !desiredType}
                   >
                     {running ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
