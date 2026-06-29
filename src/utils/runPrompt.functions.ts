@@ -4,6 +4,7 @@ import { z } from "zod";
 const RunPromptSchema = z.object({
   prompt: z.string().min(1).max(8000),
   model: z.string().min(1).max(50).default("ChatGPT"),
+  outputType: z.enum(["text", "image", "code"]).optional(),
 });
 
 // Map UI model names to Lovable AI gateway model ids
