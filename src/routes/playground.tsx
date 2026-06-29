@@ -95,6 +95,7 @@ function PlaygroundPage() {
   const [title, setTitle] = useState(initial.title ?? "");
   const [output, setOutput] = useState("");
   const [outputType, setOutputType] = useState<"text" | "image">("text");
+  const [desiredType, setDesiredType] = useState<"text" | "image" | "code" | null>(null);
   const [running, setRunning] = useState(false);
   const [history, setHistory] = useState<HistoryItem[]>([]);
 
