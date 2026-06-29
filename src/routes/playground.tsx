@@ -25,6 +25,9 @@ import {
   History,
   Trash2,
   Wand2,
+  FileText,
+  Image as ImageIcon,
+  Code2,
 } from "lucide-react";
 import { z } from "zod";
 
