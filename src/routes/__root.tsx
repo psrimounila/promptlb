@@ -1,9 +1,11 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { Toaster } from "@/components/ui/sonner";
-
+import { FloatingEnhancer } from "@/components/FloatingEnhancer";
 
 import appCss from "../styles.css?url";
+
+const NO_FLASH_THEME = `(function(){try{var t=localStorage.getItem('promptlb-theme');if(!t){t='dark';}if(t==='dark'){document.documentElement.classList.add('dark');}}catch(e){document.documentElement.classList.add('dark');}})();`;
 
 function NotFoundComponent() {
   return (
@@ -43,16 +45,22 @@ export const Route = createRootRoute({
       { name: "twitter:card", content: "summary" },
       { property: "og:title", content: "PromptLB: Your AI Prompt Library" },
       { name: "twitter:title", content: "PromptLB: Your AI Prompt Library" },
-      { name: "description", content: "PromptLB is an AI prompt library for discovering, organizing, and sharing verified prompts across models and use cases." },
-      { property: "og:description", content: "PromptLB is an AI prompt library for discovering, organizing, and sharing verified prompts across models and use cases." },
-      { name: "twitter:description", content: "PromptLB is an AI prompt library for discovering, organizing, and sharing verified prompts across models and use cases." },
+      { property: "og:description", content: "PromptLB helps you turn simple ideas into powerful AI prompts, instantly." },
+      { name: "twitter:description", content: "PromptLB helps you turn simple ideas into powerful AI prompts, instantly." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ea92135a-1a16-4c5f-8a48-5dba60779a2b/id-preview-098393e3--dc7b36a3-4b58-4157-8243-3a432988e595.lovable.app-1776836259587.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ea92135a-1a16-4c5f-8a48-5dba60779a2b/id-preview-098393e3--dc7b36a3-4b58-4157-8243-3a432988e595.lovable.app-1776836259587.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap",
+      },
     ],
+    scripts: [{ children: NO_FLASH_THEME }],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -61,7 +69,7 @@ export const Route = createRootRoute({
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <HeadContent />
       </head>
@@ -77,8 +85,8 @@ function RootComponent() {
   return (
     <AuthProvider>
       <Outlet />
-      
-      <Toaster richColors theme="dark" position="top-right" />
+      <FloatingEnhancer />
+      <Toaster richColors position="top-right" />
     </AuthProvider>
   );
 }
