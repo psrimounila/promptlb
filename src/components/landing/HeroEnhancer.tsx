@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useServerFn, useNavigate } from "@tanstack/react-start";
-import { useNavigate as useRouterNavigate } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Copy, Loader2, ArrowRight, Type, Image as ImageIcon, Code2, Wand2, Brain, Check } from "lucide-react";
