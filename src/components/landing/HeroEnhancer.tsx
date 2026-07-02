@@ -12,7 +12,7 @@ type OutputType = "text" | "image" | "code";
 
 export function HeroEnhancer() {
   const enhanceFn = useServerFn(enhancePrompt);
-  const navigate = useRouterNavigate();
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
