@@ -41,7 +41,7 @@ export const Route = createFileRoute("/playground")({
   validateSearch: search,
   head: () => ({
     meta: [
-      { title: "Compare Prompts · PromptLB" },
+      { title: "Test Prompts · PromptLB" },
       {
         name: "description",
         content:

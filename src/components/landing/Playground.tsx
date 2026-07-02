@@ -247,7 +247,7 @@ export function Playground() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-accent">
-            <Play className="h-3.5 w-3.5" /> Prompt Playground
+            <Play className="h-3.5 w-3.5" /> Test Prompts
           </span>
           <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight sm:text-5xl">
             Compare basic vs{" "}
@@ -397,7 +397,7 @@ export function Playground() {
             onClick={() => navigate({ to: "/playground" })}
           >
             <Sparkles className="h-4 w-4" />
-            Open Full Playground
+            Open Full Test Prompts
           </Button>
         </div>
       </div>
