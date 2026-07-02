@@ -148,7 +148,7 @@ export function HowItWorks() {
 
         <div className="mt-10 flex justify-center">
           <Button variant="hero" size="lg" onClick={scrollToEnhancer} className="group">
-            <Sparkles className="h-4 w-4" />
+            <Wand2 className="h-4 w-4" />
             Try Prompt Enhancer
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </Button>

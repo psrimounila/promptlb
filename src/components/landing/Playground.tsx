@@ -396,7 +396,7 @@ export function Playground() {
             size="lg"
             onClick={() => navigate({ to: "/playground" })}
           >
-            <Sparkles className="h-4 w-4" />
+            <Wand2 className="h-4 w-4" />
             Open Full Test Prompts
           </Button>
         </div>
