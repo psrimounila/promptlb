@@ -48,7 +48,7 @@ function Counter({ target, suffix, label }: { target: number; suffix: string; la
 
 export function Metrics() {
   return (
-    <section className="py-14 sm:py-20">
+    <section className="py-10 sm:py-14">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="rounded-3xl border border-border bg-card p-8 shadow-soft sm:p-12">
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">

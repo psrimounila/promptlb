@@ -241,7 +241,7 @@ export function Playground() {
   };
 
   return (
-    <section id="playground" className="relative py-12 sm:py-20">
+    <section id="playground" className="relative py-8 sm:py-14">
       <div className="pointer-events-none absolute inset-x-0 top-1/2 -z-10 h-[400px] -translate-y-1/2 bg-gradient-primary opacity-10 blur-3xl" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
