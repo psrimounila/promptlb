@@ -2,14 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "@/components/landing/Navbar";
 import { Hero } from "@/components/landing/Hero";
 import { HowItWorks } from "@/components/landing/HowItWorks";
-import { PromptExamples } from "@/components/landing/PromptExamples";
 import { WhoItsFor } from "@/components/landing/WhoItsFor";
 import { Categories } from "@/components/landing/Categories";
 import { Features } from "@/components/landing/Features";
 import { Metrics } from "@/components/landing/Metrics";
 import { Playground } from "@/components/landing/Playground";
 import { Testimonials } from "@/components/landing/Testimonials";
-import { Enhancer } from "@/components/landing/Enhancer";
 import { FAQ } from "@/components/landing/FAQ";
 import { CTA } from "@/components/landing/CTA";
 import { Footer } from "@/components/landing/Footer";
@@ -41,14 +39,12 @@ function Index() {
       <main>
         <Hero />
         <HowItWorks />
-        <PromptExamples />
         <WhoItsFor />
         <Categories />
         <Features />
         <Metrics />
         <Playground />
         <Testimonials />
-        <Enhancer />
         <FAQ />
         <CTA />
       </main>
@@ -56,3 +52,4 @@ function Index() {
     </div>
   );
 }
+
