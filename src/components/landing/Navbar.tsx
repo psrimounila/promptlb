@@ -16,7 +16,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   LayoutDashboard,
   LogOut,
-  Sparkles,
+  Wand2, BookOpen,
   Play,
   Menu,
   X,
@@ -35,15 +35,10 @@ export function Navbar() {
   const goToEnhancer = () => {
     setMobileOpen(false);
     if (location.pathname === "/") {
-      const el = document.getElementById("enhancer");
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      navigate({ to: "/", hash: "enhancer" } as never);
-      // After navigation, attempt scroll
-      setTimeout(() => {
-        const el = document.getElementById("enhancer");
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 200);
+      navigate({ to: "/" });
+      setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 200);
     }
   };
 
@@ -102,7 +97,7 @@ export function Navbar() {
                 className="hidden bg-primary text-primary-foreground hover:bg-primary/90 sm:inline-flex"
                 onClick={goToEnhancer}
               >
-                <Sparkles className="h-3.5 w-3.5" />
+                <Wand2 className="h-3.5 w-3.5" />
                 Enhance Prompt
               </Button>
 
@@ -132,7 +127,7 @@ export function Navbar() {
                       <Play className="h-4 w-4" /> Test Prompts
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => navigate({ to: "/library" })}>
-                      <Sparkles className="h-4 w-4" /> Explore Prompts
+                      <BookOpen className="h-4 w-4" /> Explore Prompts
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
@@ -180,7 +175,7 @@ export function Navbar() {
                 className="w-full justify-center"
                 onClick={goToEnhancer}
               >
-                <Sparkles className="h-3.5 w-3.5" />
+                <Wand2 className="h-3.5 w-3.5" />
                 Enhance Prompt
               </Button>
               {!user && (

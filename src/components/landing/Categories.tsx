@@ -77,7 +77,7 @@ const categories: Array<{
 export function Categories() {
   const navigate = useNavigate();
   return (
-    <section id="categories" className="relative py-12 sm:py-20">
+    <section id="categories" className="relative py-8 sm:py-14">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
           <span className="text-xs font-semibold uppercase tracking-widest text-accent">

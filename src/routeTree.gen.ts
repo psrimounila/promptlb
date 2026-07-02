@@ -15,8 +15,10 @@ import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as LibraryRouteImport } from './routes/library'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as BreakdownRouteImport } from './routes/breakdown'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminUsersRouteImport } from './routes/admin.users'
 
 const TutorialRoute = TutorialRouteImport.update({
   id: '/tutorial',
@@ -48,6 +50,11 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BreakdownRoute = BreakdownRouteImport.update({
+  id: '/breakdown',
+  path: '/breakdown',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -58,80 +65,99 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/breakdown': typeof BreakdownRoute
   '/dashboard': typeof DashboardRoute
   '/faq': typeof FaqRoute
   '/library': typeof LibraryRoute
   '/playground': typeof PlaygroundRoute
   '/pricing': typeof PricingRoute
   '/tutorial': typeof TutorialRoute
+  '/admin/users': typeof AdminUsersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/breakdown': typeof BreakdownRoute
   '/dashboard': typeof DashboardRoute
   '/faq': typeof FaqRoute
   '/library': typeof LibraryRoute
   '/playground': typeof PlaygroundRoute
   '/pricing': typeof PricingRoute
   '/tutorial': typeof TutorialRoute
+  '/admin/users': typeof AdminUsersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/breakdown': typeof BreakdownRoute
   '/dashboard': typeof DashboardRoute
   '/faq': typeof FaqRoute
   '/library': typeof LibraryRoute
   '/playground': typeof PlaygroundRoute
   '/pricing': typeof PricingRoute
   '/tutorial': typeof TutorialRoute
+  '/admin/users': typeof AdminUsersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/auth'
+    | '/breakdown'
     | '/dashboard'
     | '/faq'
     | '/library'
     | '/playground'
     | '/pricing'
     | '/tutorial'
+    | '/admin/users'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
+    | '/breakdown'
     | '/dashboard'
     | '/faq'
     | '/library'
     | '/playground'
     | '/pricing'
     | '/tutorial'
+    | '/admin/users'
   id:
     | '__root__'
     | '/'
     | '/auth'
+    | '/breakdown'
     | '/dashboard'
     | '/faq'
     | '/library'
     | '/playground'
     | '/pricing'
     | '/tutorial'
+    | '/admin/users'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  BreakdownRoute: typeof BreakdownRoute
   DashboardRoute: typeof DashboardRoute
   FaqRoute: typeof FaqRoute
   LibraryRoute: typeof LibraryRoute
   PlaygroundRoute: typeof PlaygroundRoute
   PricingRoute: typeof PricingRoute
   TutorialRoute: typeof TutorialRoute
+  AdminUsersRoute: typeof AdminUsersRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -178,6 +204,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/breakdown': {
+      id: '/breakdown'
+      path: '/breakdown'
+      fullPath: '/breakdown'
+      preLoaderRoute: typeof BreakdownRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -192,18 +225,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  BreakdownRoute: BreakdownRoute,
   DashboardRoute: DashboardRoute,
   FaqRoute: FaqRoute,
   LibraryRoute: LibraryRoute,
   PlaygroundRoute: PlaygroundRoute,
   PricingRoute: PricingRoute,
   TutorialRoute: TutorialRoute,
+  AdminUsersRoute: AdminUsersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

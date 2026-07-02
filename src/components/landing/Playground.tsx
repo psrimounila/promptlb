@@ -9,6 +9,7 @@ import {
   Play,
   Copy,
   Sparkles,
+  Wand2,
   Image as ImageIcon,
   FileText,
   Code2,
@@ -241,13 +242,13 @@ export function Playground() {
   };
 
   return (
-    <section id="playground" className="relative py-12 sm:py-20">
+    <section id="playground" className="relative py-8 sm:py-14">
       <div className="pointer-events-none absolute inset-x-0 top-1/2 -z-10 h-[400px] -translate-y-1/2 bg-gradient-primary opacity-10 blur-3xl" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-accent">
-            <Play className="h-3.5 w-3.5" /> Prompt Playground
+            <Play className="h-3.5 w-3.5" /> Test Prompts
           </span>
           <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight sm:text-5xl">
             Compare basic vs{" "}
@@ -396,8 +397,8 @@ export function Playground() {
             size="lg"
             onClick={() => navigate({ to: "/playground" })}
           >
-            <Sparkles className="h-4 w-4" />
-            Open Full Playground
+            <Wand2 className="h-4 w-4" />
+            Open Full Test Prompts
           </Button>
         </div>
       </div>

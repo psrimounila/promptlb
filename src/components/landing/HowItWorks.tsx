@@ -68,12 +68,11 @@ export function HowItWorks() {
   }, [visible]);
 
   const scrollToEnhancer = () => {
-    const el = document.getElementById("enhancer");
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <section id="how-it-works" ref={ref} className="relative py-12 sm:py-20">
+    <section id="how-it-works" ref={ref} className="relative py-8 sm:py-14">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs font-semibold uppercase tracking-widest text-accent">
@@ -149,7 +148,7 @@ export function HowItWorks() {
 
         <div className="mt-10 flex justify-center">
           <Button variant="hero" size="lg" onClick={scrollToEnhancer} className="group">
-            <Sparkles className="h-4 w-4" />
+            <Wand2 className="h-4 w-4" />
             Try Prompt Enhancer
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </Button>

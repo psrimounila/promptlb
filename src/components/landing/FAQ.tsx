@@ -51,7 +51,7 @@ const FAQS = [
 
 export function FAQ() {
   return (
-    <section id="faq" className="relative py-12 sm:py-20">
+    <section id="faq" className="relative py-8 sm:py-14">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-accent">

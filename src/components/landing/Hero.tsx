@@ -1,10 +1,5 @@
 import { Button } from "@/components/ui/button";
-import {
-  ArrowRight,
-  Sparkles,
-  XCircle,
-  CheckCircle2,
-} from "lucide-react";
+import { ArrowRight, XCircle, CheckCircle2, Wand2 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import { HeroEnhancer } from "./HeroEnhancer";
 import {
@@ -35,13 +30,8 @@ const ENHANCED_LINES = [
 export function Hero() {
   const navigate = useNavigate();
 
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
   return (
-    <section className="relative pt-24 pb-12 sm:pt-32 sm:pb-20">
+    <section className="relative pt-20 pb-8 sm:pt-28 sm:pb-14">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         {/* Header block */}
         <div className="mx-auto max-w-3xl text-center">
@@ -53,7 +43,7 @@ export function Hero() {
           </div>
 
           <h1
-            className="animate-fade-up mt-5 text-balance text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl"
+            className="animate-fade-up mt-4 text-balance text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl"
             style={{ animationDelay: "0.05s" }}
           >
             Turn Rough Ideas Into{" "}
@@ -61,7 +51,7 @@ export function Hero() {
           </h1>
 
           <p
-            className="animate-fade-up mx-auto mt-4 max-w-2xl text-balance text-base text-muted-foreground sm:text-lg"
+            className="animate-fade-up mx-auto mt-3 max-w-2xl text-balance text-sm text-muted-foreground sm:text-base"
             style={{ animationDelay: "0.1s" }}
           >
             Get more accurate, relevant, and useful AI results without learning
@@ -69,13 +59,30 @@ export function Hero() {
           </p>
         </div>
 
-        {/* Two-column: Before/After on left, Enhancer tool on right */}
+        {/* Two-column: on mobile, enhancer first then before/after */}
         <div
-          className="animate-fade-up mt-10 grid grid-cols-1 items-stretch gap-6 lg:mt-14 lg:grid-cols-2"
+          className="animate-fade-up mt-8 grid grid-cols-1 items-stretch gap-6 lg:mt-12 lg:grid-cols-2"
           style={{ animationDelay: "0.15s" }}
         >
-          {/* LEFT: Before vs After */}
-          <div className="flex flex-col gap-4">
+          {/* Enhancer tool - order-1 on mobile, order-2 on desktop */}
+          <div className="order-1 lg:order-2 lg:sticky lg:top-24">
+            <HeroEnhancer />
+
+            <div className="mt-4 flex justify-center">
+              <Button
+                variant="outline"
+                size="lg"
+                className="w-full sm:w-auto"
+                onClick={() => navigate({ to: "/library" })}
+              >
+                Explore Prompts
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+
+          {/* Before vs After - order-2 on mobile, order-1 on desktop */}
+          <div className="order-2 flex flex-col gap-4 lg:order-1">
             <div className="rounded-2xl border border-border bg-card p-5 shadow-soft">
               <div className="mb-3 flex items-center justify-between">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-destructive/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-destructive">
@@ -123,36 +130,11 @@ export function Hero() {
               <p className="mt-2 text-[11px] text-primary">● Specific · High-engagement structure</p>
             </div>
           </div>
-
-          {/* RIGHT: Live enhancer tool */}
-          <div className="lg:sticky lg:top-24">
-            <HeroEnhancer />
-
-            <div className="mt-4 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-              <Button
-                size="lg"
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 sm:w-auto"
-                onClick={() => scrollTo("examples")}
-              >
-                <Sparkles className="h-4 w-4" />
-                See Examples
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto"
-                onClick={() => navigate({ to: "/library" })}
-              >
-                Explore Prompts
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
         </div>
 
         {/* AI model logos */}
-        <div className="mt-16 sm:mt-20">
-          <div className="mb-6 text-center text-xs uppercase tracking-[0.2em] text-muted-foreground">
+        <div className="mt-12 sm:mt-16">
+          <div className="mb-5 text-center text-xs uppercase tracking-[0.2em] text-muted-foreground">
             Optimized for
           </div>
           <div className="mx-auto grid max-w-3xl grid-cols-3 gap-x-4 gap-y-6 sm:grid-cols-6 sm:gap-x-6">

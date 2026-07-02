@@ -12,7 +12,7 @@ const AUDIENCES = [
 
 export function WhoItsFor() {
   return (
-    <section id="who-its-for" className="py-14 sm:py-20">
+    <section id="who-its-for" className="py-10 sm:py-14">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
           <span className="text-xs font-semibold uppercase tracking-widest text-primary">
