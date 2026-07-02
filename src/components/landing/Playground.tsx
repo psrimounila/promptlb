@@ -9,6 +9,7 @@ import {
   Play,
   Copy,
   Sparkles,
+  Wand2,
   Image as ImageIcon,
   FileText,
   Code2,
