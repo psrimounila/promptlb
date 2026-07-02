@@ -35,15 +35,10 @@ export function Navbar() {
   const goToEnhancer = () => {
     setMobileOpen(false);
     if (location.pathname === "/") {
-      const el = document.getElementById("enhancer");
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      navigate({ to: "/", hash: "enhancer" } as never);
-      // After navigation, attempt scroll
-      setTimeout(() => {
-        const el = document.getElementById("enhancer");
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 200);
+      navigate({ to: "/" });
+      setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 200);
     }
   };
 
