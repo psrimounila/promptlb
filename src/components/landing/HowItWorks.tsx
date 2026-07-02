@@ -68,8 +68,7 @@ export function HowItWorks() {
   }, [visible]);
 
   const scrollToEnhancer = () => {
-    const el = document.getElementById("enhancer");
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
