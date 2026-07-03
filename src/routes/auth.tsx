@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/Logo";
 import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Loader2, Eye, EyeOff, MailCheck } from "lucide-react";
 
 const search = z.object({
   mode: z.enum(["signin", "signup"]).catch("signin"),
