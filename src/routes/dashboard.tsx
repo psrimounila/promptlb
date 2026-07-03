@@ -157,7 +157,12 @@ function DashboardPage() {
             <StatCard label="My prompts" value={prompts.length} icon={Sparkles} />
             <StatCard label="Total upvotes" value={totalUpvotes} icon={TrendingUp} />
             <StatCard label="Runs saved" value={history.length} icon={History} />
-            <StatCard label="Explore Prompts" value="Browse" icon={BookOpen} />
+            <StatCard
+              label="Explore Prompts"
+              value="Browse"
+              icon={BookOpen}
+              onClick={() => navigate({ to: "/library" })}
+            />
           </div>
 
           {/* History */}
@@ -167,13 +172,14 @@ function DashboardPage() {
                 <History className="h-5 w-5 text-accent" /> Recent runs
               </h2>
               <Button
-                variant="glass"
                 size="sm"
+                className="bg-primary text-primary-foreground shadow-sm hover:bg-primary/90"
                 onClick={() => navigate({ to: "/playground" })}
               >
-                <Play className="h-4 w-4" /> New run
+                <Plus className="h-4 w-4" /> New run
               </Button>
             </div>
+
 
             {loading ? (
               <div className="flex justify-center py-12">
