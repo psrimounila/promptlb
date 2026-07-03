@@ -33,21 +33,57 @@ function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(mode === "signup");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [displayName, setDisplayName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [needsConfirmation, setNeedsConfirmation] = useState(false);
+  const [resending, setResending] = useState(false);
+
+  const getPostAuthDestination = (): "/breakdown" | "/dashboard" => {
+    try {
+      const dest = sessionStorage.getItem("promptlb:post-auth-redirect");
+      if (dest === "/breakdown") return "/breakdown";
+    } catch {}
+    return "/dashboard";
+  };
 
   useEffect(() => setIsSignUp(mode === "signup"), [mode]);
   useEffect(() => {
-    if (user) navigate({ to: "/dashboard" });
+    if (user) {
+      const dest = getPostAuthDestination();
+      try {
+        sessionStorage.removeItem("promptlb:post-auth-redirect");
+      } catch {}
+      navigate({ to: dest });
+    }
   }, [user, navigate]);
+
+  const resendConfirmation = async () => {
+    if (!email) return toast.error("Enter your email first");
+    setResending(true);
+    try {
+      const { error } = await supabase.auth.resend({
+        type: "signup",
+        email,
+        options: { emailRedirectTo: `${window.location.origin}/auth?mode=signin` },
+      });
+      if (error) throw error;
+      toast.success("Confirmation email resent. Check your inbox.");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Could not resend");
+    } finally {
+      setResending(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setNeedsConfirmation(false);
     try {
       if (isSignUp) {
-        const redirectUrl = `${window.location.origin}/dashboard`;
-        const { error } = await supabase.auth.signUp({
+        const redirectUrl = `${window.location.origin}/auth?mode=signin`;
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -56,13 +92,26 @@ function AuthPage() {
           },
         });
         if (error) throw error;
-        toast.success("Welcome to PromptLB!");
-        navigate({ to: "/dashboard" });
+        if (data.session) {
+          toast.success("Welcome to PromptLB!");
+          navigate({ to: getPostAuthDestination() });
+        } else {
+          setNeedsConfirmation(true);
+          toast.success("Check your email to confirm your account.");
+        }
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
+        if (error) {
+          const msg = error.message.toLowerCase();
+          if (msg.includes("email not confirmed") || msg.includes("not confirmed")) {
+            setNeedsConfirmation(true);
+            toast.error("Email not confirmed yet. Click the link in your inbox, then try again.");
+            return;
+          }
+          throw error;
+        }
         toast.success("Welcome back!");
-        navigate({ to: "/dashboard" });
+        navigate({ to: getPostAuthDestination() });
       }
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Something went wrong";
@@ -71,6 +120,7 @@ function AuthPage() {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="relative flex min-h-screen items-center justify-center px-4 py-10 sm:py-12">
