@@ -165,22 +165,54 @@ function AuthPage() {
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                required
-                minLength={6}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="At least 6 characters"
-              />
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  required
+                  minLength={6}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="At least 6 characters"
+                  className="pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((v) => !v)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-muted-foreground hover:text-foreground"
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
             </div>
+
+            {needsConfirmation && (
+              <div className="flex items-start gap-2 rounded-lg border border-primary/30 bg-primary/5 p-3 text-xs">
+                <MailCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <div className="flex-1">
+                  <p className="font-medium text-foreground">Confirm your email to continue.</p>
+                  <p className="mt-0.5 text-muted-foreground">
+                    We sent a confirmation link to <span className="font-medium text-foreground">{email}</span>. After you click it, come back and sign in.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={resendConfirmation}
+                    disabled={resending}
+                    className="mt-1.5 font-medium text-primary underline-offset-4 hover:underline disabled:opacity-60"
+                  >
+                    {resending ? "Resending…" : "Resend confirmation email"}
+                  </button>
+                </div>
+              </div>
+            )}
 
             <Button type="submit" variant="hero" size="lg" className="w-full" disabled={loading}>
               {loading && <Loader2 className="h-4 w-4 animate-spin" />}
               {isSignUp ? "Create account" : "Sign in"}
             </Button>
           </form>
+
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
             {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
