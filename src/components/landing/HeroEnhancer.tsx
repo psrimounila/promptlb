@@ -151,7 +151,7 @@ export function HeroEnhancer() {
                 className="h-9 border-primary/40 text-primary hover:bg-primary/10"
               >
                 <Brain className="h-3.5 w-3.5" />
-                🧠 Learn Why This Prompt Works
+                Learn Why This Prompt Works
               </Button>
             </div>
           </div>
