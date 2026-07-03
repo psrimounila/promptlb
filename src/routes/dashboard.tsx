@@ -357,13 +357,19 @@ function StatCard({
   label,
   value,
   icon: Icon,
+  onClick,
 }: {
   label: string;
   value: string | number;
   icon: typeof Sparkles;
+  onClick?: () => void;
 }) {
+  const Comp = onClick ? "button" : "div";
   return (
-    <div className="glass rounded-xl p-4">
+    <Comp
+      onClick={onClick}
+      className={`glass w-full rounded-xl p-4 text-left ${onClick ? "cursor-pointer transition-all hover:-translate-y-0.5 hover:border-primary/40" : ""}`}
+    >
       <div className="flex items-center justify-between">
         <span className="text-xs uppercase tracking-wider text-muted-foreground">
           {label}
@@ -371,6 +377,7 @@ function StatCard({
         <Icon className="h-4 w-4 text-muted-foreground" />
       </div>
       <div className="mt-2 text-2xl font-bold">{value}</div>
-    </div>
+    </Comp>
   );
 }
+
