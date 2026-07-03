@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, XCircle, CheckCircle2, Wand2, Copy, Play, Plus, Check } from "lucide-react";
+import { ArrowRight, XCircle, CheckCircle2, Copy, Play, Plus, Check } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
