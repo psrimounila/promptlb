@@ -359,7 +359,7 @@ function LibraryPage() {
                   setViewing(null);
                 }}
               >
-                <Play className="h-4 w-4" /> Compare Prompts
+                <Play className="h-4 w-4" /> Test Prompts
               </Button>
             </DialogFooter>
           </DialogContent>

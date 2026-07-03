@@ -148,7 +148,7 @@ function DashboardPage() {
               </p>
             </div>
             <Button variant="hero" onClick={() => navigate({ to: "/playground" })}>
-              <Play className="h-4 w-4" /> Compare Prompts
+              <Play className="h-4 w-4" /> Test Prompts
             </Button>
           </div>
 
@@ -184,14 +184,14 @@ function DashboardPage() {
                 <History className="mx-auto h-8 w-8 text-muted-foreground" />
                 <p className="mt-3 font-medium">No runs yet</p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Run your first prompt in Compare Prompts.
+                  Run your first prompt in Test Prompts.
                 </p>
                 <Button
                   className="mt-4"
                   variant="hero"
                   onClick={() => navigate({ to: "/playground" })}
                 >
-                  Compare Prompts
+                  Test Prompts
                 </Button>
               </div>
             ) : (
