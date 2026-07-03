@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, XCircle, CheckCircle2, Wand2 } from "lucide-react";
+import { ArrowRight, XCircle, CheckCircle2, Copy, Play, Plus, Check } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { toast } from "sonner";
+import { useAuth } from "@/contexts/AuthContext";
 import { HeroEnhancer } from "./HeroEnhancer";
 import {
   ChatGPTLogo,
@@ -29,6 +32,33 @@ const ENHANCED_LINES = [
 
 export function Hero() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
+
+  const BEFORE_TEXT = "Write a LinkedIn post about AI";
+  const AFTER_TEXT = ENHANCED_LINES.join("\n");
+
+  const copy = (text: string, key: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedKey(key);
+    toast.success("Prompt copied");
+    setTimeout(() => setCopiedKey((k) => (k === key ? null : k)), 1500);
+  };
+
+  const runInTestPrompts = (text: string, title: string) => {
+    navigate({
+      to: "/playground",
+      search: { prompt: text, model: "ChatGPT", title },
+    });
+  };
+
+  const openSubmit = () => {
+    if (!user) {
+      navigate({ to: "/auth", search: { mode: "signup" } });
+      return;
+    }
+    navigate({ to: "/library", search: { submit: "1" } });
+  };
 
   return (
     <section className="relative pt-20 pb-8 sm:pt-28 sm:pb-14">
@@ -54,8 +84,7 @@ export function Hero() {
             className="animate-fade-up mx-auto mt-3 max-w-2xl text-balance text-sm text-muted-foreground sm:text-base"
             style={{ animationDelay: "0.1s" }}
           >
-            Get more accurate, relevant, and useful AI results without learning
-            prompt engineering.
+            Generate high-quality prompts and understand the logic behind every improvement.
           </p>
         </div>
 
@@ -68,7 +97,7 @@ export function Hero() {
           <div className="order-1 lg:order-2 lg:sticky lg:top-24">
             <HeroEnhancer />
 
-            <div className="mt-4 flex justify-center">
+            <div className="mt-4 flex flex-col justify-center gap-2 sm:flex-row">
               <Button
                 variant="outline"
                 size="lg"
@@ -77,6 +106,14 @@ export function Hero() {
               >
                 Explore Prompts
                 <ArrowRight className="h-4 w-4" />
+              </Button>
+              <Button
+                size="lg"
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 sm:w-auto"
+                onClick={openSubmit}
+              >
+                <Plus className="h-4 w-4" />
+                Submit Prompt
               </Button>
             </div>
           </div>
@@ -94,14 +131,25 @@ export function Hero() {
               </div>
               <div className="rounded-lg border border-border bg-surface p-3">
                 <p className="font-mono text-xs text-foreground/85 sm:text-sm">
-                  "Write a LinkedIn post about AI"
+                  "{BEFORE_TEXT}"
                 </p>
               </div>
               <div className="mt-3 rounded-lg border border-dashed border-border bg-surface/60 p-3 text-xs text-muted-foreground">
                 AI is changing the world. It's amazing how fast it's growing.
                 Everyone should learn about AI. #AI #tech
               </div>
-              <p className="mt-2 text-[11px] text-destructive">● Generic · Low engagement</p>
+              <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
+                <p className="text-[11px] text-destructive">● Generic · Low engagement</p>
+                <div className="flex gap-2">
+                  <Button size="sm" variant="outline" className="h-8" onClick={() => copy(BEFORE_TEXT, "before")}>
+                    {copiedKey === "before" ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                    Copy
+                  </Button>
+                  <Button size="sm" className="h-8 bg-primary text-primary-foreground hover:bg-primary/90" onClick={() => runInTestPrompts(BEFORE_TEXT, "Basic LinkedIn Prompt")}>
+                    <Play className="h-3.5 w-3.5" /> Run
+                  </Button>
+                </div>
+              </div>
             </div>
 
             <div className="relative rounded-2xl border border-primary/30 bg-card p-5 shadow-elegant">
@@ -127,10 +175,22 @@ export function Hero() {
                 <br />→ Ship weekly, measure retention
                 <br />Which one are you betting on?
               </div>
-              <p className="mt-2 text-[11px] text-primary">● Specific · High-engagement structure</p>
+              <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
+                <p className="text-[11px] text-primary">● Specific · High-engagement structure</p>
+                <div className="flex gap-2">
+                  <Button size="sm" variant="outline" className="h-8 border-primary/40 text-primary hover:bg-primary/10" onClick={() => copy(AFTER_TEXT, "after")}>
+                    {copiedKey === "after" ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                    Copy
+                  </Button>
+                  <Button size="sm" className="h-8 bg-primary text-primary-foreground hover:bg-primary/90" onClick={() => runInTestPrompts(AFTER_TEXT, "Enhanced LinkedIn Prompt")}>
+                    <Play className="h-3.5 w-3.5" /> Run
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
 
         {/* AI model logos */}
         <div className="mt-12 sm:mt-16">

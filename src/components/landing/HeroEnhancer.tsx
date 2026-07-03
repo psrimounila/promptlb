@@ -61,10 +61,11 @@ export function HeroEnhancer() {
         enhanced: output,
         outputType: type,
       }));
+      sessionStorage.setItem("promptlb:post-auth-redirect", "/breakdown");
     } catch {}
     if (!user) {
       toast.info("Sign in to unlock the prompt breakdown");
-      navigate({ to: "/auth", search: { mode: "signup" }, hash: "breakdown" } as never);
+      navigate({ to: "/auth", search: { mode: "signup" } });
       return;
     }
     navigate({ to: "/breakdown" });
@@ -151,7 +152,7 @@ export function HeroEnhancer() {
                 className="h-9 border-primary/40 text-primary hover:bg-primary/10"
               >
                 <Brain className="h-3.5 w-3.5" />
-                🧠 Learn Why This Prompt Works
+                Learn Why This Prompt Works
               </Button>
             </div>
           </div>

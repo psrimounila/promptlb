@@ -43,6 +43,7 @@ function BreakdownPage() {
     try {
       const raw = sessionStorage.getItem("promptlb:breakdown");
       if (raw) setPayload(JSON.parse(raw));
+      sessionStorage.removeItem("promptlb:post-auth-redirect");
     } catch {}
   }, [user, loading, navigate]);
 

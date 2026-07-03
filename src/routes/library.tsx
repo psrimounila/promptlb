@@ -40,6 +40,7 @@ const searchSchema = z.object({
   q: z.string().optional().catch(undefined),
   category: z.string().optional().catch(undefined),
   model: z.string().optional().catch(undefined),
+  submit: z.string().optional().catch(undefined),
 });
 
 export const Route = createFileRoute("/library")({
@@ -111,6 +112,13 @@ function LibraryPage() {
   useEffect(() => {
     loadPrompts();
   }, []);
+
+  useEffect(() => {
+    if (initial.submit === "1" && user) {
+      setCreateOpen(true);
+    }
+  }, [initial.submit, user]);
+
 
   const filtered = prompts.filter((p) => {
     if (category !== "All" && p.category !== category) return false;
@@ -359,7 +367,7 @@ function LibraryPage() {
                   setViewing(null);
                 }}
               >
-                <Play className="h-4 w-4" /> Compare Prompts
+                <Play className="h-4 w-4" /> Test Prompts
               </Button>
             </DialogFooter>
           </DialogContent>

@@ -1,43 +1,43 @@
 import {
-  ShieldCheck,
-  Brain,
-  Layers,
-  PlayCircle,
-  FolderHeart,
-  Globe2,
+  Wand2,
+  Sparkles,
+  GraduationCap,
+  ListChecks,
+  Clock,
+  Cpu,
 } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 
 const features = [
   {
-    icon: ShieldCheck,
-    title: "Verified Prompts",
-    desc: "Every prompt is community-tested and quality-checked for consistent, reliable results.",
+    icon: Wand2,
+    title: "Instant Prompt Enhancement",
+    desc: "Transform rough ideas into structured, AI-ready prompts in seconds.",
   },
   {
-    icon: Brain,
-    title: "Smart Recommendations",
-    desc: "Filter by category, model, and tags to find the right prompt for your goal in seconds.",
+    icon: Sparkles,
+    title: "Better AI Results",
+    desc: "Get more accurate, relevant, and consistent outputs across AI tools.",
   },
   {
-    icon: Layers,
-    title: "Model-Specific",
-    desc: "Prompts optimized for ChatGPT, Claude, Gemini, Midjourney, DALL·E and more.",
+    icon: GraduationCap,
+    title: "Learn Why Prompts Work",
+    desc: "Understand the goal, audience, tone, and structure behind every enhanced prompt.",
   },
   {
-    icon: PlayCircle,
-    title: "Compare Prompts",
-    desc: "Run any prompt directly inside the site, see real output, and save it to your history.",
+    icon: ListChecks,
+    title: "Prompt Breakdown",
+    desc: "See exactly how PromptLB improves your prompt and what changes were made.",
   },
   {
-    icon: FolderHeart,
-    title: "Personal History",
-    desc: "Sign in once and every prompt you run is saved automatically. Reuse your best work anytime.",
+    icon: Clock,
+    title: "Save Time & Reduce Revisions",
+    desc: "Spend less time rewriting prompts and more time creating great results.",
   },
   {
-    icon: Globe2,
-    title: "Explore Prompts",
-    desc: "Submit your own prompts, share use cases, and earn recognition from the community.",
+    icon: Cpu,
+    title: "Optimized for Leading AI Models",
+    desc: "Generate prompts tailored for ChatGPT, Claude, Gemini, and other leading AI tools.",
   },
 ];
 

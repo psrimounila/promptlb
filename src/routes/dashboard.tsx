@@ -148,7 +148,7 @@ function DashboardPage() {
               </p>
             </div>
             <Button variant="hero" onClick={() => navigate({ to: "/playground" })}>
-              <Play className="h-4 w-4" /> Compare Prompts
+              <Play className="h-4 w-4" /> Test Prompts
             </Button>
           </div>
 
@@ -157,7 +157,12 @@ function DashboardPage() {
             <StatCard label="My prompts" value={prompts.length} icon={Sparkles} />
             <StatCard label="Total upvotes" value={totalUpvotes} icon={TrendingUp} />
             <StatCard label="Runs saved" value={history.length} icon={History} />
-            <StatCard label="Explore Prompts" value="Browse" icon={BookOpen} />
+            <StatCard
+              label="Explore Prompts"
+              value="Browse"
+              icon={BookOpen}
+              onClick={() => navigate({ to: "/library" })}
+            />
           </div>
 
           {/* History */}
@@ -167,13 +172,14 @@ function DashboardPage() {
                 <History className="h-5 w-5 text-accent" /> Recent runs
               </h2>
               <Button
-                variant="glass"
                 size="sm"
+                className="bg-primary text-primary-foreground shadow-sm hover:bg-primary/90"
                 onClick={() => navigate({ to: "/playground" })}
               >
-                <Play className="h-4 w-4" /> New run
+                <Plus className="h-4 w-4" /> New run
               </Button>
             </div>
+
 
             {loading ? (
               <div className="flex justify-center py-12">
@@ -184,14 +190,14 @@ function DashboardPage() {
                 <History className="mx-auto h-8 w-8 text-muted-foreground" />
                 <p className="mt-3 font-medium">No runs yet</p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Run your first prompt in Compare Prompts.
+                  Run your first prompt in Test Prompts.
                 </p>
                 <Button
                   className="mt-4"
                   variant="hero"
                   onClick={() => navigate({ to: "/playground" })}
                 >
-                  Compare Prompts
+                  Test Prompts
                 </Button>
               </div>
             ) : (
@@ -351,13 +357,19 @@ function StatCard({
   label,
   value,
   icon: Icon,
+  onClick,
 }: {
   label: string;
   value: string | number;
   icon: typeof Sparkles;
+  onClick?: () => void;
 }) {
+  const Comp = onClick ? "button" : "div";
   return (
-    <div className="glass rounded-xl p-4">
+    <Comp
+      onClick={onClick}
+      className={`glass w-full rounded-xl p-4 text-left ${onClick ? "cursor-pointer transition-all hover:-translate-y-0.5 hover:border-primary/40" : ""}`}
+    >
       <div className="flex items-center justify-between">
         <span className="text-xs uppercase tracking-wider text-muted-foreground">
           {label}
@@ -365,6 +377,7 @@ function StatCard({
         <Icon className="h-4 w-4 text-muted-foreground" />
       </div>
       <div className="mt-2 text-2xl font-bold">{value}</div>
-    </div>
+    </Comp>
   );
 }
+

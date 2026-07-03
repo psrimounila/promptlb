@@ -192,7 +192,7 @@ function PlaygroundPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="text-center sm:text-left">
             <span className="text-xs font-semibold uppercase tracking-widest text-accent">
-              Compare Prompts
+              Test Prompts
             </span>
             <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-5xl">
               Run any prompt.{" "}

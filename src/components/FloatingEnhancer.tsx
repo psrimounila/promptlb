@@ -7,10 +7,20 @@ export function FloatingEnhancer() {
   const [value, setValue] = useState("");
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 700);
+    const onScroll = () => {
+      const scrolled = window.scrollY;
+      const bottomDistance =
+        document.documentElement.scrollHeight - (window.scrollY + window.innerHeight);
+      // Show after user scrolls past hero, but hide near the very bottom (footer area)
+      setVisible(scrolled > 700 && bottomDistance > 220);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   const submit = () => {
