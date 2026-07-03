@@ -40,6 +40,7 @@ const searchSchema = z.object({
   q: z.string().optional().catch(undefined),
   category: z.string().optional().catch(undefined),
   model: z.string().optional().catch(undefined),
+  submit: z.string().optional().catch(undefined),
 });
 
 export const Route = createFileRoute("/library")({
