@@ -57,7 +57,7 @@ export function Hero() {
       navigate({ to: "/auth", search: { mode: "signup" } });
       return;
     }
-    navigate({ to: "/library", search: { submit: "1" } as never });
+    navigate({ to: "/library", search: { submit: "1" } });
   };
 
   return (
