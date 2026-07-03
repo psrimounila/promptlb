@@ -61,10 +61,11 @@ export function HeroEnhancer() {
         enhanced: output,
         outputType: type,
       }));
+      sessionStorage.setItem("promptlb:post-auth-redirect", "/breakdown");
     } catch {}
     if (!user) {
       toast.info("Sign in to unlock the prompt breakdown");
-      navigate({ to: "/auth", search: { mode: "signup" }, hash: "breakdown" } as never);
+      navigate({ to: "/auth", search: { mode: "signup" } });
       return;
     }
     navigate({ to: "/breakdown" });
