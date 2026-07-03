@@ -113,6 +113,13 @@ function LibraryPage() {
     loadPrompts();
   }, []);
 
+  useEffect(() => {
+    if (initial.submit === "1" && user) {
+      setCreateOpen(true);
+    }
+  }, [initial.submit, user]);
+
+
   const filtered = prompts.filter((p) => {
     if (category !== "All" && p.category !== category) return false;
     if (model !== "All" && p.model !== model) return false;
