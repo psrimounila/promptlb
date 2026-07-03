@@ -191,7 +191,6 @@ export function Hero() {
           </div>
         </div>
 
-        </div>
 
         {/* AI model logos */}
         <div className="mt-12 sm:mt-16">
