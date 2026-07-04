@@ -151,6 +151,12 @@ export function Navbar() {
                     <DropdownMenuItem onClick={() => navigate({ to: "/library" })}>
                       <BookOpen className="h-4 w-4" /> Explore Prompts
                     </DropdownMenuItem>
+                    {isAdmin && (
+                      <DropdownMenuItem onClick={() => navigate({ to: "/admin" })}>
+                        <Shield className="h-4 w-4" /> Admin Dashboard
+                      </DropdownMenuItem>
+                    )}
+
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
                       onClick={() => signOut().then(() => navigate({ to: "/" }))}
