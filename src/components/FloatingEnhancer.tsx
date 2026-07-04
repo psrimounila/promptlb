@@ -44,7 +44,7 @@ export function FloatingEnhancer() {
               value={value}
               onChange={(e) => setValue(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && submit()}
-              placeholder="type your rough idea..."
+              placeholder="Type your rough idea..."
               className="min-w-0 flex-1 bg-transparent px-2 text-sm outline-none placeholder:text-muted-foreground"
             />
             <Button
