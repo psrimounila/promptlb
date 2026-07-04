@@ -17,9 +17,11 @@ type AuthContextValue = {
   profile: Profile | null;
   loading: boolean;
   isPro: boolean;
+  isAdmin: boolean;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 };
+
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
