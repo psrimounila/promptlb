@@ -17,9 +17,11 @@ type AuthContextValue = {
   profile: Profile | null;
   loading: boolean;
   isPro: boolean;
+  isAdmin: boolean;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 };
+
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
@@ -27,7 +29,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const fetchIsAdmin = async (uid: string) => {
+    const { data } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", uid)
+      .eq("role", "admin")
+      .maybeSingle();
+    setIsAdmin(Boolean(data));
+  };
+
 
   const fetchProfile = async (uid: string) => {
     const { data } = await supabase
@@ -43,17 +57,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setSession(newSession);
       setUser(newSession?.user ?? null);
       if (newSession?.user) {
-        // defer to avoid deadlock
-        setTimeout(() => fetchProfile(newSession.user.id), 0);
+        const uid = newSession.user.id;
+        setTimeout(() => {
+          fetchProfile(uid);
+          fetchIsAdmin(uid);
+        }, 0);
       } else {
         setProfile(null);
+        setIsAdmin(false);
       }
     });
 
     supabase.auth.getSession().then(({ data: { session: s } }) => {
       setSession(s);
       setUser(s?.user ?? null);
-      if (s?.user) fetchProfile(s.user.id);
+      if (s?.user) {
+        fetchProfile(s.user.id);
+        fetchIsAdmin(s.user.id);
+      }
       setLoading(false);
     });
 
@@ -63,6 +84,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signOut = async () => {
     await supabase.auth.signOut();
     setProfile(null);
+    setIsAdmin(false);
   };
 
   const refreshProfile = async () => {
@@ -77,10 +99,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         profile,
         loading,
         isPro: profile?.plan === "pro",
+        isAdmin,
         signOut,
         refreshProfile,
       }}
     >
+
       {children}
     </AuthContext.Provider>
   );

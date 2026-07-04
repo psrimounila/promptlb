@@ -17,8 +17,8 @@ import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as BreakdownRouteImport } from './routes/breakdown'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminUsersRouteImport } from './routes/admin.users'
 
 const TutorialRoute = TutorialRouteImport.update({
   id: '/tutorial',
@@ -60,19 +60,20 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminUsersRoute = AdminUsersRouteImport.update({
-  id: '/admin/users',
-  path: '/admin/users',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/breakdown': typeof BreakdownRoute
   '/dashboard': typeof DashboardRoute
@@ -81,10 +82,10 @@ export interface FileRoutesByFullPath {
   '/playground': typeof PlaygroundRoute
   '/pricing': typeof PricingRoute
   '/tutorial': typeof TutorialRoute
-  '/admin/users': typeof AdminUsersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/breakdown': typeof BreakdownRoute
   '/dashboard': typeof DashboardRoute
@@ -93,11 +94,11 @@ export interface FileRoutesByTo {
   '/playground': typeof PlaygroundRoute
   '/pricing': typeof PricingRoute
   '/tutorial': typeof TutorialRoute
-  '/admin/users': typeof AdminUsersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/breakdown': typeof BreakdownRoute
   '/dashboard': typeof DashboardRoute
@@ -106,12 +107,12 @@ export interface FileRoutesById {
   '/playground': typeof PlaygroundRoute
   '/pricing': typeof PricingRoute
   '/tutorial': typeof TutorialRoute
-  '/admin/users': typeof AdminUsersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/auth'
     | '/breakdown'
     | '/dashboard'
@@ -120,10 +121,10 @@ export interface FileRouteTypes {
     | '/playground'
     | '/pricing'
     | '/tutorial'
-    | '/admin/users'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/auth'
     | '/breakdown'
     | '/dashboard'
@@ -132,10 +133,10 @@ export interface FileRouteTypes {
     | '/playground'
     | '/pricing'
     | '/tutorial'
-    | '/admin/users'
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/auth'
     | '/breakdown'
     | '/dashboard'
@@ -144,11 +145,11 @@ export interface FileRouteTypes {
     | '/playground'
     | '/pricing'
     | '/tutorial'
-    | '/admin/users'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   AuthRoute: typeof AuthRoute
   BreakdownRoute: typeof BreakdownRoute
   DashboardRoute: typeof DashboardRoute
@@ -157,7 +158,6 @@ export interface RootRouteChildren {
   PlaygroundRoute: typeof PlaygroundRoute
   PricingRoute: typeof PricingRoute
   TutorialRoute: typeof TutorialRoute
-  AdminUsersRoute: typeof AdminUsersRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -218,6 +218,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -225,18 +232,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/users': {
-      id: '/admin/users'
-      path: '/admin/users'
-      fullPath: '/admin/users'
-      preLoaderRoute: typeof AdminUsersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   AuthRoute: AuthRoute,
   BreakdownRoute: BreakdownRoute,
   DashboardRoute: DashboardRoute,
@@ -245,7 +246,6 @@ const rootRouteChildren: RootRouteChildren = {
   PlaygroundRoute: PlaygroundRoute,
   PricingRoute: PricingRoute,
   TutorialRoute: TutorialRoute,
-  AdminUsersRoute: AdminUsersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

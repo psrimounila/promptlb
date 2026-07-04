@@ -20,10 +20,12 @@ import {
   Play,
   Menu,
   X,
+  Shield,
 } from "lucide-react";
 
+
 export function Navbar() {
-  const { user, profile, signOut } = useAuth();
+  const { user, profile, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -84,6 +86,16 @@ export function Navbar() {
           Dashboard
         </Link>
       )}
+      {isAdmin && (
+        <Link
+          to="/admin"
+          onClick={() => setMobileOpen(false)}
+          className="inline-flex items-center gap-1 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+        >
+          <Shield className="h-3.5 w-3.5" /> Admin Dashboard
+        </Link>
+      )}
+
     </>
   );
 
@@ -139,6 +151,12 @@ export function Navbar() {
                     <DropdownMenuItem onClick={() => navigate({ to: "/library" })}>
                       <BookOpen className="h-4 w-4" /> Explore Prompts
                     </DropdownMenuItem>
+                    {isAdmin && (
+                      <DropdownMenuItem onClick={() => navigate({ to: "/admin" })}>
+                        <Shield className="h-4 w-4" /> Admin Dashboard
+                      </DropdownMenuItem>
+                    )}
+
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
                       onClick={() => signOut().then(() => navigate({ to: "/" }))}
