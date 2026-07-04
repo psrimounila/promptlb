@@ -96,6 +96,7 @@ export function HeroEnhancer() {
         onChange={(e) => setInput(e.target.value)}
         placeholder="e.g. write a LinkedIn post about AI"
         rows={3}
+        data-enhancer-input
         className="mt-1.5 resize-none border-border bg-surface text-sm"
       />
 
