@@ -86,6 +86,16 @@ export function Navbar() {
           Dashboard
         </Link>
       )}
+      {isAdmin && (
+        <Link
+          to="/admin"
+          onClick={() => setMobileOpen(false)}
+          className="inline-flex items-center gap-1 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+        >
+          <Shield className="h-3.5 w-3.5" /> Admin Dashboard
+        </Link>
+      )}
+
     </>
   );
 
