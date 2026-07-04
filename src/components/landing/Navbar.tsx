@@ -20,7 +20,9 @@ import {
   Play,
   Menu,
   X,
+  Shield,
 } from "lucide-react";
+
 
 export function Navbar() {
   const { user, profile, isAdmin, signOut } = useAuth();
