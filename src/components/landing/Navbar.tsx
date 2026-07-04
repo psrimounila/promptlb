@@ -32,13 +32,23 @@ export function Navbar() {
     .slice(0, 2)
     .toUpperCase();
 
+  const focusEnhancer = () => {
+    const el = document.querySelector<HTMLTextAreaElement>('[data-enhancer-input]');
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => el.focus(), 400);
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   const goToEnhancer = () => {
     setMobileOpen(false);
     if (location.pathname === "/") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      focusEnhancer();
     } else {
       navigate({ to: "/" });
-      setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 200);
+      setTimeout(focusEnhancer, 300);
     }
   };
 
