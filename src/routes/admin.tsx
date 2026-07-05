@@ -73,8 +73,21 @@ function AdminDashboardPage() {
     (async () => {
       try {
         const res = await fetchOverview({ data: undefined as never });
-        if (res.error) setErr(res.error);
-        else setData(res);
+        if (!res || typeof res !== "object") {
+          setErr("Failed to load admin data");
+        } else {
+          if (res.error) setErr(res.error);
+          setData({
+            error: res.error ?? null,
+            stats: {
+              totalUsers: res.stats?.totalUsers ?? 0,
+              totalEnhancements: res.stats?.totalEnhancements ?? 0,
+              totalSaved: res.stats?.totalSaved ?? 0,
+              totalCommunityPrompts: res.stats?.totalCommunityPrompts ?? 0,
+            },
+            users: res.users ?? [],
+          });
+        }
       } catch (e) {
         setErr(e instanceof Error ? e.message : "Failed to load");
       } finally {
