@@ -44,6 +44,7 @@ The user wants a CODE generation prompt. In the **📝 Prompt** section:
 - Ask for clean, idiomatic, well-commented code with brief usage example`;
 
 export const enhancePrompt = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => EnhanceSchema.parse(input))
   .handler(async ({ data }) => {
     const apiKey = process.env.LOVABLE_API_KEY;
