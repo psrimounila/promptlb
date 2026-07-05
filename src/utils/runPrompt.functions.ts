@@ -25,6 +25,7 @@ const MODEL_MAP: Record<string, string> = {
 const IMAGE_MODELS = new Set(["Midjourney", "DALL·E", "Stable Diffusion"]);
 
 export const runPrompt = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => RunPromptSchema.parse(input))
   .handler(async ({ data }) => {
     const apiKey = process.env.LOVABLE_API_KEY;
