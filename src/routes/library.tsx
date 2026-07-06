@@ -35,6 +35,7 @@ import {
 } from "@/components/ui/card";
 import { toast } from "sonner";
 import { Search, Plus, Copy, Loader2, Sparkles, Play, ArrowUp } from "lucide-react";
+import { PromptThumb } from "@/components/PromptThumb";
 
 const searchSchema = z.object({
   q: z.string().optional().catch(undefined),
