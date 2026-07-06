@@ -142,17 +142,13 @@ function LibraryPage() {
 
   const upvote = async (p: Prompt, e: React.MouseEvent) => {
     e.stopPropagation();
-    const { data, error } = await (
-      supabase.rpc as unknown as (
-        fn: string,
-        args: Record<string, unknown>,
-      ) => Promise<{ data: number | null; error: { message: string } | null }>
-    )("increment_prompt_upvotes", { _prompt_id: p.id });
-    if (error) {
-      toast.error(error.message);
+    const { upvotePrompt } = await import("@/utils/prompts.functions");
+    const res = await upvotePrompt({ data: { promptId: p.id } });
+    if (res.error) {
+      toast.error(res.error);
       return;
     }
-    const next = typeof data === "number" ? data : p.upvotes + 1;
+    const next = typeof res.upvotes === "number" ? res.upvotes : p.upvotes + 1;
     setPrompts((arr) =>
       arr.map((x) => (x.id === p.id ? { ...x, upvotes: next } : x)),
     );
