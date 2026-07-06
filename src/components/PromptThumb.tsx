@@ -169,7 +169,7 @@ function MockDoc() {
   );
 }
 
-const MOCKS: Record<Kind, () => JSX.Element> = {
+const MOCKS: Record<Kind, () => ReactNode> = {
   ad: MockAd,
   article: MockArticle,
   carousel: MockCarousel,
