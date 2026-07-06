@@ -266,7 +266,7 @@ function LibraryPage() {
                   className="glass group relative cursor-pointer overflow-hidden transition-all hover:-translate-y-0.5 hover:border-primary/40"
                   onClick={() => setViewing(p)}
                 >
-                  <PromptThumb category={p.category} model={p.model} />
+                  <PromptThumb category={p.category} model={p.model} title={p.title} />
                   <CardHeader className="pr-24">
                     <div className="flex items-start justify-between gap-2">
                       <Badge variant="secondary" className="text-[10px]">
