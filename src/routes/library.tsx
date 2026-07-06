@@ -262,17 +262,18 @@ function LibraryPage() {
               {filtered.map((p) => (
                 <Card
                   key={p.id}
-                  className="glass group cursor-pointer transition-all hover:-translate-y-0.5 hover:border-primary/40"
+                  className="glass group relative cursor-pointer overflow-hidden transition-all hover:-translate-y-0.5 hover:border-primary/40"
                   onClick={() => setViewing(p)}
                 >
-                  <CardHeader>
+                  <PromptThumb category={p.category} model={p.model} />
+                  <CardHeader className="pr-24">
                     <div className="flex items-start justify-between gap-2">
                       <Badge variant="secondary" className="text-[10px]">
                         {p.model}
                       </Badge>
                       <button
                         onClick={(e) => upvote(p, e)}
-                        className="flex items-center gap-1 rounded-full border border-border bg-surface px-2 py-0.5 text-[11px] font-semibold text-muted-foreground transition-colors hover:border-accent/50 hover:text-accent"
+                        className="relative z-20 flex items-center gap-1 rounded-full border border-border bg-surface px-2 py-0.5 text-[11px] font-semibold text-muted-foreground transition-colors hover:border-accent/50 hover:text-accent"
                       >
                         <ArrowUp className="h-3 w-3" />
                         {p.upvotes}
