@@ -161,7 +161,21 @@ export function Enhancer() {
           </div>
 
           {/* Output */}
-          <div className="glass-strong rounded-2xl p-5 sm:p-6">
+          <div
+  className="
+    glass-strong
+    rounded-2xl
+    border
+    border-[#002BFF]/30
+    p-5
+    sm:p-6
+    shadow-[0_0_35px_rgba(0,43,255,0.20)]
+    transition-all
+    duration-300
+    hover:border-[#002BFF]/60
+    hover:shadow-[0_0_60px_rgba(0,43,255,0.35)]
+  "
+>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Sparkles className="h-4 w-4 text-accent" />
