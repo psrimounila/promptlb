@@ -67,7 +67,11 @@ export function Enhancer() {
     <section id="enhancer" className="relative py-12 sm:py-20">
       <div className="pointer-events-none absolute inset-x-0 top-1/2 -z-10 h-[400px] -translate-y-1/2 bg-gradient-primary opacity-10 blur-3xl" />
 
-      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+      <div className="relative mx-auto max-w-5xl px-4 sm:px-6">
+  {/* Background Glow */}
+  <div className="absolute inset-0 -z-10 flex items-center justify-center">
+    <div className="h-[500px] w-[900px] rounded-full bg-[#002BFF]/15 blur-[120px]" />
+  </div>
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-accent">
             <Sparkles className="h-3.5 w-3.5" /> Prompt Enhancer
