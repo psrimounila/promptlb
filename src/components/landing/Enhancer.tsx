@@ -67,10 +67,25 @@ export function Enhancer() {
     <section id="enhancer" className="relative py-12 sm:py-20">
       <div className="pointer-events-none absolute inset-x-0 top-1/2 -z-10 h-[400px] -translate-y-1/2 bg-gradient-primary opacity-10 blur-3xl" />
 
-      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+      <div className="relative mx-auto max-w-5xl px-4 sm:px-6">
+        <div
+  className="
+    relative
+    glass-strong
+    rounded-2xl
+    p-5
+    sm:p-6
+    border
+    border-[#002BFF]/30
+    shadow-[0_0_40px_rgba(0,43,255,0.20)]
+    transition-all
+    duration-300
+    hover:shadow-[0_0_80px_rgba(0,43,255,0.40)]
+  "
+></div>
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-accent">
-            <Sparkles className="h-3.5 w-3.5" /> Prompt Enhancer
+            <Sparkles className="h-3.5 w-3.5" /> Prompt Enhancer TEST123
           </span>
           <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight sm:text-5xl">
             Turn rough ideas into{" "}
