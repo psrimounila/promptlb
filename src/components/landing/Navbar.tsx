@@ -64,6 +64,13 @@ export function Navbar() {
         Explore Prompts
       </Link>
       <Link
+      to="/community"
+      onClick={() => setMobileOpen(false)}
+      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+     >
+      Community
+</Link>
+      <Link
         to="/playground"
         onClick={() => setMobileOpen(false)}
         className="text-sm text-muted-foreground transition-colors hover:text-foreground"
