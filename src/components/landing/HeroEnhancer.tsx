@@ -72,7 +72,21 @@ export function HeroEnhancer() {
   };
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-elegant sm:p-6">
+    <div
+  className="
+    relative
+    rounded-2xl
+    border
+    border-[#002BFF]/30
+    bg-card
+    p-5
+    sm:p-6
+    shadow-[0_0_40px_rgba(0,43,255,0.25)]
+    transition-all
+    duration-300
+    hover:shadow-[0_0_80px_rgba(0,43,255,0.45)]
+  "
+>
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
