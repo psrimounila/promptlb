@@ -51,46 +51,105 @@ function CommunityPage() {
         </div>
 
         {/* Prompt Cards */}
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {[1, 2, 3, 4, 5, 6].map((card) => (
-            <div
-              key={card}
-              className="rounded-2xl border border-gray-800 bg-[#0B1222] p-6 transition hover:border-[#002BFF]"
-            >
-              <div className="mb-4 flex items-center justify-between">
-                <span className="rounded-full bg-[#002BFF]/20 px-3 py-1 text-xs text-[#8FB2FF]">
-                  ChatGPT
-                </span>
+<div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
 
-                <span className="text-gray-400">▲ 245</span>
-              </div>
+  {[1,2,3,4,5,6].map((card)=>(
+    <div
+      key={card}
+      className="group rounded-2xl border border-gray-800 bg-[#0B1222] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#002BFF] hover:shadow-[0_0_35px_rgba(0,43,255,0.25)]"
+    >
 
-              <h3 className="mb-2 text-xl font-semibold">
-                Instagram Carousel
-              </h3>
+      {/* Header */}
+      <div className="flex items-start justify-between">
 
-              <p className="mb-5 text-gray-400">
-                Generate a 10-slide educational carousel with hooks, teaching
-                points and CTA.
-              </p>
+        <div>
 
-              <div className="mb-6 rounded-lg bg-[#111827] p-4 text-sm text-gray-300">
-                Write a 10-slide Instagram carousel about {"{topic}"}...
-              </div>
+          <h3 className="text-xl font-semibold">
+            AI Landing Page Generator
+          </h3>
 
-              <div className="flex gap-2">
-                <button className="flex-1 rounded-lg bg-[#002BFF] py-3">
-                  Run
-                </button>
+          <p className="mt-2 text-sm text-gray-400">
+            Generate a modern SaaS landing page with hero, features,
+            pricing, FAQs and CTA.
+          </p>
 
-                <button className="rounded-lg border border-gray-700 px-4">
-                  Copy
-                </button>
-              </div>
-            </div>
-          ))}
         </div>
+
+        <button className="text-xl">
+          ❤️
+        </button>
+
       </div>
+
+      {/* Tags */}
+
+      <div className="mt-5 flex flex-wrap gap-2">
+
+        <span className="rounded-full bg-[#002BFF]/20 px-3 py-1 text-xs text-[#8FB2FF]">
+          Marketing
+        </span>
+
+        <span className="rounded-full bg-white/5 px-3 py-1 text-xs">
+          GPT-5
+        </span>
+
+        <span className="rounded-full bg-white/5 px-3 py-1 text-xs">
+          Claude
+        </span>
+
+      </div>
+
+      {/* Prompt Preview */}
+
+      <div className="mt-5 rounded-xl border border-gray-800 bg-[#111827] p-4">
+
+        <p className="line-clamp-4 text-sm text-gray-300">
+          Create a modern SaaS landing page for
+          {" {business_name} "}
+          with compelling copy, conversion-focused sections,
+          testimonials and pricing...
+        </p>
+
+      </div>
+
+      {/* Stats */}
+
+      <div className="mt-5 flex items-center justify-between text-sm text-gray-400">
+
+        <div className="flex gap-4">
+
+          <span>👍 284</span>
+
+          <span>❤️ 812</span>
+
+          <span>👁 4.2K</span>
+
+        </div>
+
+        <span>
+          by <span className="text-white">Srimounila</span>
+        </span>
+
+      </div>
+
+      {/* Buttons */}
+
+      <div className="mt-6 flex gap-2">
+
+        <button className="flex-1 rounded-lg bg-[#002BFF] py-3 font-medium hover:bg-[#0038ff]">
+          Copy Prompt
+        </button>
+
+        <button className="rounded-lg border border-gray-700 px-4 hover:border-[#002BFF]">
+          Share
+        </button>
+
+      </div>
+
+    </div>
+  ))}
+
+</div>
     </main>
   );
 }
