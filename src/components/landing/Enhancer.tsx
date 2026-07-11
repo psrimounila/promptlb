@@ -85,7 +85,7 @@ export function Enhancer() {
 ></div>
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-accent">
-            <Sparkles className="h-3.5 w-3.5" /> Prompt Enhancer
+            <Sparkles className="h-3.5 w-3.5" /> Prompt Enhancer TEST123
           </span>
           <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight sm:text-5xl">
             Turn rough ideas into{" "}
