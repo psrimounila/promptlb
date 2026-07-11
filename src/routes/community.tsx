@@ -150,6 +150,7 @@ function CommunityPage() {
   ))}
 
 </div>
+</div>
     </main>
   );
 }
