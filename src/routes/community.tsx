@@ -1,8 +1,8 @@
-import { createFileRoute } from '@tanstack/react-router'
 import { useState } from "react";
+import { createFileRoute } from "@tanstack/react-router";
+
 import { dummyPrompts } from "@/components/community/dummyPrompts";
 import { PromptCard } from "@/components/community/PromptCard";
-
 export const Route = createFileRoute("/community")({
   component: CommunityPage,
 });
