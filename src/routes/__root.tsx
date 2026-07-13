@@ -2,6 +2,7 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import { AuthProvider } from "@/contexts/AuthContext";
 import { Toaster } from "@/components/ui/sonner";
 import { FloatingEnhancer } from "@/components/FloatingEnhancer";
+import { Navbar } from "@/components/landing/Navbar";
 
 import appCss from "../styles.css?url";
 
@@ -84,7 +85,13 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   return (
     <AuthProvider>
-      <Outlet />
+
+      <Navbar />
+
+      <main className="pt-20">
+        <Outlet />
+      </main>
+
       <FloatingEnhancer />
       <Toaster richColors position="top-right" />
     </AuthProvider>
