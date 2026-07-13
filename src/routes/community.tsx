@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { dummyPrompts } from "@/components/Community/dummyPrompts";
@@ -8,6 +8,23 @@ export const Route = createFileRoute("/community")({
 });
 
 function CommunityPage() {
+  const [search, setSearch] = useState("");
+const [selectedCategory, setSelectedCategory] = useState("All");
+
+const filteredPrompts = useMemo(() => {
+  return dummyPrompts.filter((prompt) => {
+    const matchesSearch =
+      prompt.title.toLowerCase().includes(search.toLowerCase()) ||
+      prompt.description.toLowerCase().includes(search.toLowerCase()) ||
+      prompt.author.toLowerCase().includes(search.toLowerCase());
+
+    const matchesCategory =
+      selectedCategory === "All" ||
+      prompt.category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
+}, [search, selectedCategory]);
   return (
     <main className="min-h-screen bg-[#070D18] text-white">
       <div className="mx-auto max-w-7xl px-6 py-12">
