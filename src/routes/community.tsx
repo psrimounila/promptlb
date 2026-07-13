@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/community")({
@@ -52,9 +53,9 @@ function CommunityPage() {
 
         {/* Prompt Cards */}
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {[1, 2, 3, 4, 5, 6].map((card) => (
+          {[1, 2, 3, 4, 5, 6].map((_, index) => (
             <div
-              key={card}
+              key={index}
               className="rounded-2xl border border-gray-800 bg-[#0B1222] p-6 transition hover:border-[#002BFF]"
             >
               <div className="mb-4 flex items-center justify-between">
