@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Navbar } from "@/components/landing/Navbar";
 import { createFileRoute } from "@tanstack/react-router";
 import { Search, TrendingUp, Users, Sparkles } from "lucide-react";
 
