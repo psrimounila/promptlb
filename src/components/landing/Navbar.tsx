@@ -161,6 +161,12 @@ export function Navbar() {
                     <DropdownMenuItem onClick={() => navigate({ to: "/library" })}>
                       <BookOpen className="h-4 w-4" /> Explore Prompts
                     </DropdownMenuItem>
+                    <DropdownMenuItem
+  onClick={() => navigate({ to: "/community" })}
+>
+  <Users className="h-4 w-4" />
+  Community
+</DropdownMenuItem>
                     {isAdmin && (
                       <DropdownMenuItem onClick={() => navigate({ to: "/admin" })}>
                         <Shield className="h-4 w-4" /> Admin Dashboard
