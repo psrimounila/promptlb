@@ -16,11 +16,13 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   LayoutDashboard,
   LogOut,
-  Wand2, BookOpen,
+  Wand2,
+  BookOpen,
   Play,
   Menu,
   X,
   Shield,
+  Users,
 } from "lucide-react";
 
 
@@ -70,6 +72,14 @@ export function Navbar() {
       >
         Test Prompts
       </Link>
+      <Link
+  to="/community"
+  onClick={() => setMobileOpen(false)}
+  className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
+>
+  <Users className="h-4 w-4" />
+  Community
+</Link>
       <Link
         to="/tutorial"
         onClick={() => setMobileOpen(false)}
