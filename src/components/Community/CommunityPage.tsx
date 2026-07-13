@@ -1,5 +1,6 @@
 import { dummyPrompts } from "./dummyPrompts";
 import { PromptCard } from "./PromptCard";
+import { Navbar } from "@/components/landing/Navbar";
 
 export default function CommunityPage() {
   return (
