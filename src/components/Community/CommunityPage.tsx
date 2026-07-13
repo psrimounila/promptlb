@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { dummyPrompts } from "./dummyPrompts";
 import { PromptCard } from "./PromptCard";
+import { SubmitPromptModal } from "./SubmitPromptModal";
 
 export default function CommunityPage() {
   const [search, setSearch] = useState("");
@@ -38,9 +39,7 @@ const filteredPrompts = dummyPrompts.filter((prompt) => {
           </p>
         </div>
 
-        <button className="rounded-lg bg-blue-600 px-5 py-3 text-white hover:bg-blue-700">
-          Submit Prompt
-        </button>
+        <SubmitPromptModal />
       </div>
 
       {/* Search */}
