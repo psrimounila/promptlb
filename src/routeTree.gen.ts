@@ -15,7 +15,6 @@ import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as LibraryRouteImport } from './routes/library'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as CommunityRouteImport } from './routes/community'
 import { Route as BreakdownRouteImport } from './routes/breakdown'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
@@ -51,11 +50,6 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CommunityRoute = CommunityRouteImport.update({
-  id: '/community',
-  path: '/community',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const BreakdownRoute = BreakdownRouteImport.update({
   id: '/breakdown',
   path: '/breakdown',
@@ -82,7 +76,6 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/breakdown': typeof BreakdownRoute
-  '/community': typeof CommunityRoute
   '/dashboard': typeof DashboardRoute
   '/faq': typeof FaqRoute
   '/library': typeof LibraryRoute
@@ -95,7 +88,6 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/breakdown': typeof BreakdownRoute
-  '/community': typeof CommunityRoute
   '/dashboard': typeof DashboardRoute
   '/faq': typeof FaqRoute
   '/library': typeof LibraryRoute
@@ -109,7 +101,6 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/breakdown': typeof BreakdownRoute
-  '/community': typeof CommunityRoute
   '/dashboard': typeof DashboardRoute
   '/faq': typeof FaqRoute
   '/library': typeof LibraryRoute
@@ -124,7 +115,6 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/breakdown'
-    | '/community'
     | '/dashboard'
     | '/faq'
     | '/library'
@@ -137,7 +127,6 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/breakdown'
-    | '/community'
     | '/dashboard'
     | '/faq'
     | '/library'
@@ -150,7 +139,6 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/breakdown'
-    | '/community'
     | '/dashboard'
     | '/faq'
     | '/library'
@@ -164,7 +152,6 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   AuthRoute: typeof AuthRoute
   BreakdownRoute: typeof BreakdownRoute
-  CommunityRoute: typeof CommunityRoute
   DashboardRoute: typeof DashboardRoute
   FaqRoute: typeof FaqRoute
   LibraryRoute: typeof LibraryRoute
@@ -217,13 +204,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/community': {
-      id: '/community'
-      path: '/community'
-      fullPath: '/community'
-      preLoaderRoute: typeof CommunityRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/breakdown': {
       id: '/breakdown'
       path: '/breakdown'
@@ -260,7 +240,6 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   AuthRoute: AuthRoute,
   BreakdownRoute: BreakdownRoute,
-  CommunityRoute: CommunityRoute,
   DashboardRoute: DashboardRoute,
   FaqRoute: FaqRoute,
   LibraryRoute: LibraryRoute,
