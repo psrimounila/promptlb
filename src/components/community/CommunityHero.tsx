@@ -1,93 +1,132 @@
+import { ArrowRight, Sparkles, Users } from "lucide-react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+
 export function CommunityHero() {
   return (
-    <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#0B1222] via-[#10182B] to-[#070D18] px-8 py-12">
+    <section className="relative overflow-hidden rounded-3xl border bg-gradient-to-br from-background to-muted/40 p-8 lg:p-12">
 
-      {/* Background Glow */}
-      <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#002BFF]/20 blur-3xl" />
-      <div className="absolute -bottom-32 left-0 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl" />
+      <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-[#002BFF]/10 blur-3xl" />
+      <div className="absolute bottom-0 left-0 h-52 w-52 rounded-full bg-blue-400/10 blur-3xl" />
 
-      <div className="relative z-10 flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
+      <div className="relative grid gap-10 lg:grid-cols-2 lg:items-center">
 
         {/* Left */}
-        <div className="max-w-3xl">
 
-          <div className="mb-4 inline-flex items-center rounded-full border border-[#002BFF]/30 bg-[#002BFF]/10 px-4 py-2 text-sm text-[#8FB2FF]">
-            🚀 PromptLB Community
-          </div>
+        <div>
 
-          <h1 className="text-5xl font-bold leading-tight">
-            Discover the Best
-            <span className="text-[#4B7BFF]"> AI Prompts</span>
+          <Badge className="mb-5 rounded-full bg-[#002BFF] px-4 py-1 text-white hover:bg-[#002BFF]">
+            <Sparkles className="mr-2 h-4 w-4" />
+            PromptLB Community
+          </Badge>
+
+          <h1 className="max-w-2xl text-5xl font-bold tracking-tight">
+            Discover,
+            <span className="text-[#002BFF]"> Share </span>
+            &
+            <span className="text-[#002BFF]"> Save </span>
+            the Best AI Prompts
           </h1>
 
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-gray-400">
-            Explore thousands of AI prompts shared by creators, marketers,
-            developers and designers. Copy, save, improve and publish your own
-            prompts in one place.
+          <p className="mt-6 max-w-xl text-lg text-muted-foreground">
+            Explore prompts created by marketers, designers, developers and AI
+            enthusiasts. Copy, improve and publish your own prompts in seconds.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
 
-            <button className="rounded-xl bg-[#002BFF] px-6 py-3 font-semibold transition hover:opacity-90">
-              + Submit Prompt
-            </button>
+            <Button
+              size="lg"
+              className="bg-[#002BFF] hover:bg-[#002BFF]/90"
+            >
+              Submit Prompt
+            </Button>
 
-            <button className="rounded-xl border border-white/10 bg-white/5 px-6 py-3 font-semibold transition hover:border-[#002BFF]">
+            <Button
+              size="lg"
+              variant="outline"
+            >
               Explore Prompts
-            </button>
+
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
 
           </div>
 
         </div>
 
-        {/* Right Stats */}
+        {/* Right */}
 
-        <div className="grid w-full max-w-md grid-cols-2 gap-5">
+        <div className="grid gap-5 sm:grid-cols-2">
 
-          <StatCard
-            number="1,000+"
-            label="AI Prompts"
-          />
+          <Card className="rounded-2xl p-6">
 
-          <StatCard
-            number="250+"
-            label="Creators"
-          />
+            <h3 className="text-4xl font-bold text-[#002BFF]">
+              1,284+
+            </h3>
 
-          <StatCard
-            number="10"
-            label="Categories"
-          />
+            <p className="mt-2 text-muted-foreground">
+              Community Prompts
+            </p>
 
-          <StatCard
-            number="15K+"
-            label="Prompt Copies"
-          />
+          </Card>
+
+          <Card className="rounded-2xl p-6">
+
+            <h3 className="text-4xl font-bold text-[#002BFF]">
+              320+
+            </h3>
+
+            <p className="mt-2 text-muted-foreground">
+              Active Creators
+            </p>
+
+          </Card>
+
+          <Card className="rounded-2xl p-6">
+
+            <h3 className="text-4xl font-bold text-[#002BFF]">
+              10
+            </h3>
+
+            <p className="mt-2 text-muted-foreground">
+              Categories
+            </p>
+
+          </Card>
+
+          <Card className="rounded-2xl p-6">
+
+            <div className="flex items-center gap-3">
+
+              <div className="rounded-xl bg-[#002BFF]/10 p-3">
+
+                <Users className="h-6 w-6 text-[#002BFF]" />
+
+              </div>
+
+              <div>
+
+                <h3 className="text-3xl font-bold">
+                  15K+
+                </h3>
+
+                <p className="text-muted-foreground">
+                  Prompt Copies
+                </p>
+
+              </div>
+
+            </div>
+
+          </Card>
 
         </div>
 
       </div>
+
     </section>
-  );
-}
-
-type StatProps = {
-  number: string;
-  label: string;
-};
-
-function StatCard({ number, label }: StatProps) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-
-      <h2 className="text-3xl font-bold text-[#4B7BFF]">
-        {number}
-      </h2>
-
-      <p className="mt-2 text-sm text-gray-400">
-        {label}
-      </p>
-
-    </div>
   );
 }
