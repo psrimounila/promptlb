@@ -1,29 +1,130 @@
-import { Search, Sparkles } from "lucide-react";
+import { Search } from "lucide-react";
+
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export function SearchBar() {
   return (
-    <div className="relative">
+    <section className="space-y-5">
 
-      <div className="flex items-center rounded-2xl border border-gray-200 bg-white shadow-sm transition focus-within:border-[#002BFF]">
+      {/* Search Row */}
 
-        <Search
-          size={20}
-          className="ml-5 text-gray-400"
-        />
+      <div className="flex flex-col gap-4 lg:flex-row">
 
-        <input
-          type="text"
-          placeholder="Search prompts, creators, categories..."
-          className="h-14 w-full bg-transparent px-4 text-gray-800 placeholder:text-gray-400 focus:outline-none"
-        />
+        {/* Search */}
 
-        <button className="mr-3 flex items-center gap-2 rounded-xl bg-[#002BFF] px-5 py-2 text-sm font-medium text-white transition hover:opacity-90">
-          <Sparkles size={16} />
+        <div className="relative flex-1">
+
+          <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+
+          <Input
+            placeholder="Search prompts, creators or categories..."
+            className="h-12 pl-12"
+          />
+
+        </div>
+
+        {/* AI Model */}
+
+        <Select>
+
+          <SelectTrigger className="w-full lg:w-52">
+            <SelectValue placeholder="AI Model" />
+          </SelectTrigger>
+
+          <SelectContent>
+
+            <SelectItem value="chatgpt">
+              ChatGPT
+            </SelectItem>
+
+            <SelectItem value="claude">
+              Claude
+            </SelectItem>
+
+            <SelectItem value="gemini">
+              Gemini
+            </SelectItem>
+
+            <SelectItem value="grok">
+              Grok
+            </SelectItem>
+
+          </SelectContent>
+
+        </Select>
+
+        {/* Sort */}
+
+        <Select>
+
+          <SelectTrigger className="w-full lg:w-52">
+            <SelectValue placeholder="Sort" />
+          </SelectTrigger>
+
+          <SelectContent>
+
+            <SelectItem value="latest">
+              Latest
+            </SelectItem>
+
+            <SelectItem value="popular">
+              Most Popular
+            </SelectItem>
+
+            <SelectItem value="likes">
+              Most Liked
+            </SelectItem>
+
+            <SelectItem value="copies">
+              Most Copied
+            </SelectItem>
+
+          </SelectContent>
+
+        </Select>
+
+        <Button className="bg-[#002BFF] hover:bg-[#002BFF]/90">
           Search
-        </button>
+        </Button>
 
       </div>
 
-    </div>
+      {/* Popular Searches */}
+
+      <div className="flex flex-wrap items-center gap-3">
+
+        <span className="text-sm text-muted-foreground">
+          Popular:
+        </span>
+
+        {[
+          "LinkedIn",
+          "Marketing",
+          "ChatGPT",
+          "UI Design",
+          "Coding",
+          "Image Generation",
+        ].map((item) => (
+          <Button
+            key={item}
+            variant="outline"
+            size="sm"
+            className="rounded-full"
+          >
+            #{item}
+          </Button>
+        ))}
+
+      </div>
+
+    </section>
   );
 }
