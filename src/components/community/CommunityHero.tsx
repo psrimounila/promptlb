@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 
 export function CommunityHero() {
   return (
-    <section className="relative overflow-hidden rounded-3xl border bg-gradient-to-br from-background to-muted/40 p-8 lg:p-12">
+    <section className="relative overflow-hidden rounded-3xl border bg-white p-8 lg:p-12">
 
       <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-[#002BFF]/10 blur-3xl" />
       <div className="absolute bottom-0 left-0 h-52 w-52 rounded-full bg-blue-400/10 blur-3xl" />
