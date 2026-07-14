@@ -1,9 +1,10 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
+import { CommunityPage } from "@/components/community/CommunityPage";
 
-export const Route = createFileRoute('/community')({
-  component: RouteComponent,
-})
+export const Route = createFileRoute("/community")({
+  component: CommunityRoute,
+});
 
-function RouteComponent() {
-  return <div>Hello "/community"!</div>
+function CommunityRoute() {
+  return <CommunityPage />;
 }
