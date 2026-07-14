@@ -2,7 +2,7 @@ import { CommunityHero } from "./CommunityHero";
 import { SearchBar } from "./SearchBar";
 import { FilterBar } from "./FilterBar";
 import { TrendingSection } from "./TrendingSection";
-import { PromptGrid } from "./PromptGrid";
+// import { PromptGrid } from "./PromptGrid";
 
 export function CommunityPage() {
   return (
@@ -28,9 +28,9 @@ export function CommunityPage() {
         </div>
 
         {/* Prompt Grid */}
-        <div className="mt-12">
-          <PromptGrid />
-        </div>
+// <div className="mt-12">
+//   <PromptGrid />
+// </div>
 
       </div>
     </main>
