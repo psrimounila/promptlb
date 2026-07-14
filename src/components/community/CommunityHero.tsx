@@ -29,7 +29,7 @@ export function CommunityHero() {
             PromptLB Community
           </Badge>
 
-          <h1 className="max-w-2xl text-5xl font-bold leading-tight text-white lg:text-6xl">
+          <h1 className="max-w-2xl text-2xl font-bold leading-tight text-white lg:text-3xl">
             Discover,
             <span className="text-[#2D6BFF]"> Share</span>
             {" "}&
