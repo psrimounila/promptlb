@@ -46,9 +46,7 @@ The user wants a CODE generation prompt. In the **📝 Prompt** section:
 export const enhancePrompt = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => EnhanceSchema.parse(input))
   .handler(async ({ data }) => {
-    const apiKey =
-  process.env.GEMINI_API_KEY ||
-  process.env.VITE_GEMINI_API_KEY;
+    const apiKey = process.env.Gemini_API_Key;
     if (!apiKey) {
   return {
     enhanced: "",
