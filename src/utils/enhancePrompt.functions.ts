@@ -93,25 +93,15 @@ Enhance it.`,
       );
 
       if (!res.ok) {
-        if (res.status === 429) {
-          return {
-            enhanced: "",
-            error: "Rate limit reached. Please try again in a moment.",
-          };
-        }
-        if (res.status === 402) {
-          return {
-            enhanced: "",
-            error: "AI credits exhausted. Please add credits to continue.",
-          };
-        }
-        const text = await res.text();
-        console.error("enhance-prompt gateway error", res.status, text);
-        return {
-          enhanced: "",
-          error: "AI service is currently unavailable.",
-        };
-      }
+  const error = await res.text();
+  console.error("Gemini Error:", res.status, error);
+
+  return {
+    enhanced: "",
+    error,
+  };
+}
+      
 
       const json = await res.json();
 
