@@ -44,10 +44,9 @@ The user wants a CODE generation prompt. In the **📝 Prompt** section:
 - Ask for clean, idiomatic, well-commented code with brief usage example`;
 
 export const enhancePrompt = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => EnhanceSchema.parse(input))
   .handler(async ({ data }) => {
-    const apiKey = process.env.LOVABLE_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return { enhanced: "", error: "AI service is not configured." };
     }
@@ -62,7 +61,7 @@ export const enhancePrompt = createServerFn({ method: "POST" })
 
     try {
       const res = await fetch(
-        "https://ai.gateway.lovable.dev/v1/chat/completions",
+  `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
         {
           method: "POST",
           headers: {
@@ -70,15 +69,22 @@ export const enhancePrompt = createServerFn({ method: "POST" })
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            model: "google/gemini-2.5-flash",
-            messages: [
-              { role: "system", content: SYSTEM },
-              {
-                role: "user",
-                content: `Rough idea: "${data.prompt}"\n\nEnhance it.`,
-              },
-            ],
-          }),
+  contents: [
+    {
+      parts: [
+        {
+          text: `${SYSTEM}
+
+Rough idea:
+
+${data.prompt}
+
+Enhance it.`,
+        },
+      ],
+    },
+  ],
+}),
         },
       );
 
@@ -104,8 +110,9 @@ export const enhancePrompt = createServerFn({ method: "POST" })
       }
 
       const json = await res.json();
-      const enhanced: string =
-        json.choices?.[0]?.message?.content?.trim() ?? "";
+
+const enhanced =
+  json.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ?? "";
       return { enhanced, error: null as string | null };
     } catch (err) {
       console.error("enhancePrompt failed", err);
