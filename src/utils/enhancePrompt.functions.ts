@@ -48,8 +48,12 @@ export const enhancePrompt = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return { enhanced: "", error: "AI service is not configured." };
-    }
+  return {
+    enhanced: "",
+    error: `GEMINI_API_KEY missing`,
+  };
+}
+console.log("ENV KEYS:", Object.keys(process.env).filter(k => k.includes("GEMINI")));
 
     const SYSTEM =
       BASE_SYSTEM +
